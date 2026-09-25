@@ -26,13 +26,18 @@ npm test
 
 ## Stack
 
-React 19, TypeScript, and plain CSS. Vinext provides Next.js-compatible routing on Vite and a Cloudflare-compatible production bundle. There is no database, paid animation service, or UI component framework. The sculpture is a custom Canvas 2D rendering of a 3D torus knot, with pointer response, offscreen rendering suspension, reduced-motion support, and a pause control.
+React 19, TypeScript, and plain CSS. Vinext provides Next.js-compatible routing on Vite and a Cloudflare-compatible production bundle. There is no database, paid animation service, or UI component framework. The sculpture uses native WebGL with a precomputed mesh and one GPU draw call per frame. Its animation loop stops when paused, offscreen, or in a hidden tab. Pixel density is capped at 1.5, and a static CSS sculpture is shown if WebGL is unavailable. Reduced-motion preferences and the pause control disable both the animation and parallax.
+
+Scroll parallax adds depth to the hero, project previews, about artwork, and contact decoration. It uses passive scroll events and one scheduled transform update, with cached layout measurements, smaller offsets on touch devices, and no continuous idle loop or scroll hijacking.
 
 ## Personalize
 
 - `app/page.tsx`: contact email, introduction, about text, project data, project previews, filtering, and dialogs.
 - `app/globals.css`: palette, typography, layouts, breakpoints, and motion.
 - `app/sculpture.tsx`: the interactive hero sculpture.
+- `app/lib/sculpture-renderer.ts`: static mesh and GPU shaders.
+- `app/lib/frame-loop.ts`: demand-driven animation scheduling.
+- `app/use-parallax.ts`: lightweight scroll transforms.
 - `app/layout.tsx`: search and social metadata.
 - `public/icon.png`: site icon.
 
