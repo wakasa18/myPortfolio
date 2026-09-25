@@ -19,7 +19,7 @@ export function createHorizonScene(canvas: HTMLCanvasElement, viewport: HTMLElem
   const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 2400);
   camera.position.set(0, 30, 300);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.65;
+  renderer.toneMappingExposure = 0.55;
   renderer.setClearColor(0x050611, 0);
   const geometries: THREE.BufferGeometry[] = [];
   const materials: THREE.Material[] = [];
@@ -81,8 +81,8 @@ export function createHorizonScene(canvas: HTMLCanvasElement, viewport: HTMLElem
   const nebulaGeometry = new THREE.PlaneGeometry(3500, 1900, compact ? 24 : 48, 24);
   const nebulaMaterial = new THREE.ShaderMaterial({
     uniforms: {
-      time: { value: 0 }, color1: { value: new THREE.Color(0x123bff) },
-      color2: { value: new THREE.Color(0xb40065) }, opacity: { value: 0.25 },
+      time: { value: 0 }, color1: { value: new THREE.Color(0x244ac7) },
+      color2: { value: new THREE.Color(0x6655a4) }, opacity: { value: 0.18 },
     },
     vertexShader: `
       varying vec2 vUv;
@@ -146,8 +146,8 @@ export function createHorizonScene(canvas: HTMLCanvasElement, viewport: HTMLElem
     }`,
     fragmentShader: `varying vec3 vNormal; uniform float time; void main() {
       float intensity = pow(max(0.0, 0.7 - dot(vNormal, vec3(0.0, 0.0, 1.0))), 2.0);
-      vec3 color = vec3(0.12, 0.25, 0.6) * intensity * (sin(time * 0.4) * 0.05 + 0.9);
-      gl_FragColor = vec4(color, intensity * 0.12);
+      vec3 color = vec3(0.08, 0.14, 0.32) * intensity * (sin(time * 0.4) * 0.05 + 0.9);
+      gl_FragColor = vec4(color, intensity * 0.08);
     }`,
     side: THREE.BackSide, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false,
   });

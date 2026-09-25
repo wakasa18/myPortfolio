@@ -1,5 +1,5 @@
-.horizon-hero{position:relative;isolation:isolate;background:#050611;color:#f5f6ff;width:100%;--horizon-height:100svh}
-.horizon-viewport{position:sticky;top:0;height:var(--horizon-height);min-height:520px;margin-bottom:calc(-1 * max(var(--horizon-height),520px));overflow:hidden}
+.horizon-hero{display:grid;grid-template-columns:minmax(0,1fr);overflow:clip;position:relative;isolation:isolate;background:#050611;color:#f5f6ff;width:100%;--horizon-height:100svh}
+.horizon-viewport{grid-area:1 / 1;align-self:start;position:sticky;top:0;height:var(--horizon-height);min-height:520px;margin-bottom:0;overflow:hidden}
 .horizon-canvas,.horizon-fallback,.horizon-vignette{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .horizon-canvas{display:block;opacity:0;transition:opacity 1s}
 .horizon-hero[data-scene=ready] .horizon-canvas{opacity:1}
@@ -26,7 +26,7 @@
 .horizon-scene-menu a:hover{background:#ffffff0d}
 .horizon-scene-menu a span:first-child{font-size:8px;color:#7c8eaf}
 .horizon-scene-menu a span:last-child{margin-left:auto}
-.horizon-panels{position:relative;z-index:2;pointer-events:none}
+.horizon-panels{grid-area:1 / 1;min-width:0;position:relative;z-index:2;pointer-events:none}
 .horizon-panel{position:relative;height:var(--horizon-height);min-height:520px;display:flex;align-items:center;justify-content:center;scroll-margin-top:0;text-align:center;padding:90px 100px 115px}
 .horizon-panel-content{width:100%;max-width:1400px}
 .horizon-eyebrow{font:500 9px/1.6 var(--body,Arial,sans-serif);letter-spacing:3px;color:#aebad7;margin:0 0 30px}
@@ -52,5 +52,31 @@
 .horizon-hero :focus-visible{outline-color:#c6c9ff}
 @media(min-width:1800px){.horizon-title{font-size:240px}}
 @media(max-width:800px){.horizon-panel{padding-inline:65px}.horizon-title{font-size:13.5vw}.horizon-meta{left:25px;right:25px;font-size:7px;letter-spacing:1.3px}.horizon-side-menu{left:22px}.horizon-bottom{left:25px;right:25px}.horizon-scene-note{right:25px}.horizon-subtitle{font-size:12px}.horizon-scroll-progress{gap:12px}.horizon-progress-track{width:90px}}
-@media(max-width:600px){.horizon-viewport,.horizon-panel{min-height:560px}.horizon-viewport{margin-bottom:calc(-1 * max(var(--horizon-height),560px))}.horizon-meta{top:24px;left:22px;right:22px}.horizon-meta span:last-child{display:none}.horizon-side-menu{top:65px;left:20px;gap:20px}.horizon-menu-button{width:40px;height:40px;padding:11px 9px}.horizon-vertical-text{display:none}.horizon-scene-menu{left:52px;width:210px}.horizon-panel{padding:95px 22px 120px}.horizon-eyebrow{font-size:7px;letter-spacing:2px;max-width:280px;margin:0 auto 24px}.horizon-title{font-size:13.4vw;letter-spacing:.015em}.horizon-subtitle{font-size:11px;line-height:1.9;margin-top:21px;letter-spacing:.1px}.horizon-cta{margin-top:29px;font-size:10px;padding:12px 15px;gap:25px}.horizon-bottom{left:22px;right:22px;bottom:20px;gap:10px}.horizon-scroll-progress{gap:10px;flex-wrap:wrap;max-width:170px}.horizon-scroll-label{font-size:7px;letter-spacing:1.2px;width:100%}.horizon-progress-track{width:90px}.horizon-section-counter{font-size:9px}.horizon-motion-button{font-size:9px;gap:7px}.horizon-scene-note{bottom:98px;right:22px;font-size:7px}.horizon-menu-button,.horizon-cta{min-height:44px}}
+@media(max-width:600px){.horizon-viewport,.horizon-panel{min-height:560px}.horizon-viewport{margin-bottom:0}.horizon-meta{top:24px;left:22px;right:22px}.horizon-meta span:last-child{display:none}.horizon-side-menu{top:65px;left:20px;gap:20px}.horizon-menu-button{width:40px;height:40px;padding:11px 9px}.horizon-vertical-text{display:none}.horizon-scene-menu{left:52px;width:210px}.horizon-panel{padding:95px 22px 120px}.horizon-eyebrow{font-size:7px;letter-spacing:2px;max-width:280px;margin:0 auto 24px}.horizon-title{font-size:13.4vw;letter-spacing:.015em}.horizon-subtitle{font-size:11px;line-height:1.9;margin-top:21px;letter-spacing:.1px}.horizon-cta{margin-top:29px;font-size:10px;padding:12px 15px;gap:25px}.horizon-bottom{left:22px;right:22px;bottom:20px;gap:10px}.horizon-scroll-progress{gap:10px;flex-wrap:wrap;max-width:170px}.horizon-scroll-label{font-size:7px;letter-spacing:1.2px;width:100%}.horizon-progress-track{width:90px}.horizon-section-counter{font-size:9px}.horizon-motion-button{font-size:9px;gap:7px}.horizon-scene-note{bottom:98px;right:22px;font-size:7px}.horizon-menu-button,.horizon-cta{min-height:44px}}
 @media(prefers-reduced-motion:reduce){.horizon-hero *{animation:none!important;transition:none!important}.horizon-title-char,.horizon-subtitle-line{transform:none!important;opacity:1!important}}
+
+/* Supporting type stays readable without enlarging the already oversized titles. */
+.horizon-meta { font-size: 10px; color: #c0cbe2; }
+.horizon-eyebrow { font-size: 11px; color: #c5d0e8; }
+.horizon-subtitle { font-size: 17px; color: #c1cde5; }
+.horizon-cta { font-size: 14px; padding: 15px 21px; background: #14203bba; border-color: #8295c2; }
+.horizon-scene-menu a { font-size: 13px; }
+.horizon-scene-menu a span:first-child { font-size: 10px; color: #aabbdc; }
+.horizon-vertical-text { font-size: 11px; }
+.horizon-scroll-label, .horizon-scene-note { font-size: 10px; color: #bdcce5; }
+.horizon-section-counter, .horizon-motion-button { font-size: 12px; }
+.horizon-section-counter > span:last-child { color: #b2c2de; }
+.horizon-motion-button { color: #c6d1e8; }
+@media(max-width:800px) {
+  .horizon-subtitle { font-size: 16px; }
+  .horizon-meta { font-size: 9px; }
+  .horizon-scroll-label { letter-spacing: 1px; }
+}
+@media(max-width:600px) {
+  .horizon-eyebrow { font-size: 9px; letter-spacing: 1.5px; }
+  .horizon-subtitle { font-size: 14px; }
+  .horizon-cta { font-size: 13px; padding: 14px 18px; }
+  .horizon-meta, .horizon-scroll-label, .horizon-scene-note { font-size: 9px; }
+  .horizon-scroll-progress { max-width: 185px; }
+  .horizon-motion-button { font-size: 11px; }
+}

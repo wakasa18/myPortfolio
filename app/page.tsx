@@ -81,6 +81,7 @@ export default function Home() {
       <button type="button" className="menu-toggle" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? "Close −" : "Menu +"}</button>
     </header>
     <HorizonHero eyebrow="SEAN VILLANUEVA / WEB DEVELOPER" paused={stopMotion || Boolean(selected)} onPausedChange={setPaused} />
+    <div className="portfolio-content">
     <div className="intro-strip wrap"><p>Thoughtful design. Clean code. <span>A little unexpected.</span></p><span className="intro-mark" aria-hidden="true">✳</span></div>
 
     <section id="work" className="work-section wrap section-space">
@@ -98,6 +99,7 @@ export default function Home() {
     <section id="contact" className="contact-section wrap section-space"><div className="contact-panel reveal"><span className="contact-spark" data-parallax="0.12" aria-hidden="true">✳</span><div className="eyebrow"><span className="status-dot" /> OPEN TO CONVERSATIONS</div><h2>Have something<br />in <span className="serif-word">mind?</span></h2><p>Let’s turn that “what if” into something real.</p><a href={`mailto:${email}`} className="button button-dark">Let’s make it happen <Arrow /></a><div className="email-row"><a href={`mailto:${email}`}>{email}</a><button onClick={copyEmail} type="button" aria-label="Copy email address" title="Copy email address">{copied ? "✓" : "⧉"}</button></div><span className="copy-feedback" role="status">{copied ? "Email copied. Talk soon!" : copyError ? "Please select and copy the email address above." : ""}</span></div></section>
     <footer className="site-footer wrap"><a href="#top" className="wordmark" aria-label="Back to top">sean<span className="wordmark-star">✳</span></a><p>© {new Date().getFullYear()} Sean Villanueva <span>Built with intention.</span></p><a href="#top" className="back-top">BACK TO TOP <span aria-hidden="true">↑</span></a></footer>
 
+    </div>
     {selected && <dialog ref={dialogRef} className={`project-dialog ${selected.theme}`} aria-labelledby="project-title" onCancel={() => setSelected(null)} onClick={event => { if (event.target === event.currentTarget) setSelected(null); }}><button type="button" className="dialog-close" onClick={() => setSelected(null)} aria-label="Close project details" autoFocus>×</button><ProjectArt theme={selected.theme} /><div className="dialog-content"><div className="eyebrow">SAMPLE CONCEPT / {selected.category.toUpperCase()}</div><h2 id="project-title">{selected.name}<span>↗</span></h2><p className="dialog-intro">{selected.description}</p><div className="dialog-details"><div><h3>The idea</h3><p>{selected.challenge}</p></div><div><h3>The approach</h3><p>{selected.approach}</p></div></div><div className="project-tags">{selected.tags.map(tag => <span key={tag}>{tag}</span>)}</div><p className="dialog-note">This is a sample visual concept, not a live client product.</p><a className="text-link" href={`mailto:${email}?subject=${encodeURIComponent(`Let’s build something like ${selected.name}`)}`}>Have a similar idea? Let’s talk <Arrow /></a></div></dialog>}
   </main>;
 }
