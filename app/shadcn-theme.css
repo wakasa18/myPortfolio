@@ -1,0 +1,71 @@
+/* Shared shadcn tokens. Existing portfolio rules keep their own palette names. */
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--body);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #f6f5f2;
+  --foreground: #182033;
+  --card: #ffffff;
+  --card-foreground: #182033;
+  --popover: #ffffff;
+  --popover-foreground: #182033;
+  --primary: #182033;
+  --primary-foreground: #ffffff;
+  --secondary: #e7e8f4;
+  --secondary-foreground: #182033;
+  --muted: #edede9;
+  --muted-foreground: #73767e;
+  --accent: #c6c9ff;
+  --accent-foreground: #182033;
+  --destructive: #b93838;
+  --border: #dededb;
+  --input: #dededb;
+  --ring: #8288ef;
+}
+
+.dark {
+  --background: #101829;
+  --foreground: #f5f6ff;
+  --card: #182033;
+  --card-foreground: #f5f6ff;
+  --popover: #182033;
+  --popover-foreground: #f5f6ff;
+  --primary: #c6c9ff;
+  --primary-foreground: #101829;
+  --secondary: #26314a;
+  --secondary-foreground: #f5f6ff;
+  --muted: #26314a;
+  --muted-foreground: #aab2c4;
+  --accent: #343d60;
+  --accent-foreground: #f5f6ff;
+  --destructive: #f28a8a;
+  --border: #ffffff26;
+  --input: #ffffff26;
+  --ring: #c6c9ff;
+}

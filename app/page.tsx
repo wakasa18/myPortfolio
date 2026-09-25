@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Sculpture from "./sculpture";
+import { Component as HorizonHero } from "@/components/ui/horizon-hero-section";
 import useParallax from "./use-parallax";
 
 const email = "villanuevasean0918@gmail.com";
@@ -80,12 +80,7 @@ export default function Home() {
       <a href={`mailto:${email}`} className="header-contact">Let’s talk <Arrow /></a>
       <button type="button" className="menu-toggle" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? "Close −" : "Menu +"}</button>
     </header>
-    <section className="hero wrap" aria-labelledby="hero-heading"><div className="hero-surface">
-      <div className="hero-grid" data-parallax="0.1" data-parallax-origin="top" />
-      <div className="hero-copy" data-parallax="0.08" data-parallax-origin="top"><div className="eyebrow hero-eyebrow"><span className="status-dot" /> HELLO, I’M SEAN VILLANUEVA</div><h1 id="hero-heading">A little logic.<br />A lot of<br /><span>possibility.</span></h1><p>I’m a web developer turning thoughtful ideas<br className="desktop-break" /> into digital experiences that feel just right.</p><a href="#work" className="button button-light">Explore my work <span aria-hidden="true">↓</span></a></div>
-      <div className="hero-visual" data-parallax="0.2" data-parallax-origin="top"><Sculpture paused={stopMotion || Boolean(selected)} /><div className="visual-caption"><span className="caption-line" /> CODE MEETS CURIOSITY</div></div>
-      <div className="hero-bottom"><span>WEB DEVELOPER <i /> CREATIVE THINKER</span><button className="motion-control" type="button" onClick={() => setPaused(!paused)} disabled={reducedMotion} aria-pressed={stopMotion} aria-label={reducedMotion ? "Animation disabled by your reduced motion preference" : paused ? "Play animation" : "Pause animation"}><span aria-hidden="true">{stopMotion ? "▷" : "Ⅱ"}</span> {stopMotion ? "Motion paused" : "Pause motion"}</button><a href="#work">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a></div>
-    </div></section>
+    <HorizonHero eyebrow="SEAN VILLANUEVA / WEB DEVELOPER" paused={stopMotion || Boolean(selected)} onPausedChange={setPaused} />
     <div className="intro-strip wrap"><p>Thoughtful design. Clean code. <span>A little unexpected.</span></p><span className="intro-mark" aria-hidden="true">✳</span></div>
 
     <section id="work" className="work-section wrap section-space">

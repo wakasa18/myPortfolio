@@ -1,0 +1,56 @@
+.horizon-hero{position:relative;isolation:isolate;background:#050611;color:#f5f6ff;width:100%;--horizon-height:100svh}
+.horizon-viewport{position:sticky;top:0;height:var(--horizon-height);min-height:520px;margin-bottom:calc(-1 * max(var(--horizon-height),520px));overflow:hidden}
+.horizon-canvas,.horizon-fallback,.horizon-vignette{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.horizon-canvas{display:block;opacity:0;transition:opacity 1s}
+.horizon-hero[data-scene=ready] .horizon-canvas{opacity:1}
+.horizon-fallback{background:radial-gradient(ellipse at 70% 32%,#2b14503d,transparent 55%),radial-gradient(ellipse at 25% 60%,#143d693d,transparent 60%),#050611}
+.horizon-fallback:before{content:'';position:absolute;inset:0;background-image:radial-gradient(1px 1px at 21px 37px,#e0e6ff 99%,transparent),radial-gradient(1px 1px at 117px 93px,#cad4ff99 99%,transparent),radial-gradient(1.5px 1.5px at 63px 146px,#bfccff 99%,transparent);background-size:179px 173px,233px 211px,311px 317px;opacity:.5}
+.horizon-fallback i{position:absolute;bottom:-1px;left:-2%;width:104%;height:35%;background:#0d203b;clip-path:polygon(0 48%,10% 22%,18% 47%,29% 7%,38% 52%,50% 18%,61% 40%,72% 2%,81% 49%,92% 21%,100% 54%,100% 100%,0 100%);opacity:.8}
+.horizon-fallback i:nth-child(2){height:26%;background:#10182c;transform:scaleX(-1)}
+.horizon-fallback i:nth-child(3){height:16%;background:#080d1c}
+.horizon-hero[data-scene=ready] .horizon-fallback{opacity:0}
+.horizon-vignette{background:linear-gradient(180deg,#05061122 0,transparent 28%,#05061100 55%,#05061188 100%);z-index:1}
+.horizon-meta{position:absolute;top:34px;left:45px;right:45px;display:flex;justify-content:space-between;gap:20px;z-index:4;font-size:8px;letter-spacing:2px;color:#a4afc7}
+.horizon-side-menu{position:absolute;left:42px;top:43%;z-index:5;display:flex;align-items:center;flex-direction:column;gap:31px}
+.horizon-menu-button{background:transparent;border:1px solid #c1cbf22b;border-radius:50%;width:44px;height:44px;padding:13px 11px;display:flex;flex-direction:column;justify-content:center;gap:5px;transition:background .2s}
+.horizon-menu-button:hover{background:#e0e4ff1a}
+.horizon-menu-button span{display:block;width:19px;height:1px;background:#d5ddf1;transition:transform .2s}
+.horizon-menu-button span:nth-child(2){width:13px}
+.horizon-menu-button[aria-expanded=true] span:first-child{transform:translateY(6px) rotate(45deg)}
+.horizon-menu-button[aria-expanded=true] span:nth-child(2){opacity:0}
+.horizon-menu-button[aria-expanded=true] span:last-child{transform:translateY(-6px) rotate(-45deg)}
+.horizon-vertical-text{writing-mode:vertical-rl;transform:rotate(180deg);font-size:9px;letter-spacing:8px;color:#aab5ce}
+.horizon-scene-menu{position:absolute;left:61px;top:0;width:220px;padding:12px;background:#0b1122f5;border:1px solid #8595c83d;border-radius:8px;box-shadow:0 12px 35px #0004}
+.horizon-scene-menu[hidden]{display:none}
+.horizon-scene-menu a{display:flex;align-items:center;gap:13px;padding:14px 10px;font-size:11px;letter-spacing:1.2px;border-radius:4px}
+.horizon-scene-menu a:hover{background:#ffffff0d}
+.horizon-scene-menu a span:first-child{font-size:8px;color:#7c8eaf}
+.horizon-scene-menu a span:last-child{margin-left:auto}
+.horizon-panels{position:relative;z-index:2;pointer-events:none}
+.horizon-panel{position:relative;height:var(--horizon-height);min-height:520px;display:flex;align-items:center;justify-content:center;scroll-margin-top:0;text-align:center;padding:90px 100px 115px}
+.horizon-panel-content{width:100%;max-width:1400px}
+.horizon-eyebrow{font:500 9px/1.6 var(--body,Arial,sans-serif);letter-spacing:3px;color:#aebad7;margin:0 0 30px}
+.horizon-title-mask{overflow:hidden;padding-block:12px}
+.horizon-title{font:500 clamp(70px,14vw,230px)/1.08 var(--display,Arial,sans-serif);letter-spacing:.035em;margin:0;text-indent:.035em;color:#f0f3ff;white-space:nowrap}
+.horizon-title-char{display:inline-block}
+.horizon-subtitle{margin-top:27px;color:#a9b5d0;font-size:14px;line-height:1.8;letter-spacing:.35px}
+.horizon-subtitle p{margin:0}
+.horizon-cta{display:inline-flex;align-items:center;justify-content:space-between;gap:36px;margin-top:32px;padding:13px 18px;border:1px solid #afbcdf50;border-radius:3px;background:#131c2f55;font-size:11px;letter-spacing:.3px;pointer-events:auto;transition:background .2s,border-color .2s}
+.horizon-cta:hover{background:#c6c9ff22;border-color:#c6c9ff}
+.horizon-cta span{font-size:19px}
+.horizon-scene-note{position:absolute;bottom:105px;right:46px;color:#7c89a4;font-size:8px;letter-spacing:1.6px}
+.horizon-bottom{position:absolute;z-index:5;left:46px;right:46px;bottom:34px;display:flex;justify-content:space-between;gap:25px;align-items:center}
+.horizon-scroll-progress{display:flex;align-items:center;gap:20px}
+.horizon-scroll-label{font-size:8px;letter-spacing:2px;color:#bcc8e4}
+.horizon-progress-track{width:130px;height:1px;background:#ffffff26;overflow:hidden}
+.horizon-progress-fill{height:100%;width:100%;background:#bccaff;transform:scaleX(0);transform-origin:left;will-change:transform}
+.horizon-section-counter{font-family:monospace;font-size:10px;letter-spacing:1px;color:#e5eaff}
+.horizon-section-counter>span:last-child{color:#7886a0}
+.horizon-motion-button{display:flex;align-items:center;gap:9px;border:0;background:transparent;color:#b4bfd5;font-size:10px;padding:10px 0;min-height:40px}
+.horizon-motion-button:hover{color:#fff}
+.horizon-motion-button>span{font-size:13px}
+.horizon-hero :focus-visible{outline-color:#c6c9ff}
+@media(min-width:1800px){.horizon-title{font-size:240px}}
+@media(max-width:800px){.horizon-panel{padding-inline:65px}.horizon-title{font-size:13.5vw}.horizon-meta{left:25px;right:25px;font-size:7px;letter-spacing:1.3px}.horizon-side-menu{left:22px}.horizon-bottom{left:25px;right:25px}.horizon-scene-note{right:25px}.horizon-subtitle{font-size:12px}.horizon-scroll-progress{gap:12px}.horizon-progress-track{width:90px}}
+@media(max-width:600px){.horizon-viewport,.horizon-panel{min-height:560px}.horizon-viewport{margin-bottom:calc(-1 * max(var(--horizon-height),560px))}.horizon-meta{top:24px;left:22px;right:22px}.horizon-meta span:last-child{display:none}.horizon-side-menu{top:65px;left:20px;gap:20px}.horizon-menu-button{width:40px;height:40px;padding:11px 9px}.horizon-vertical-text{display:none}.horizon-scene-menu{left:52px;width:210px}.horizon-panel{padding:95px 22px 120px}.horizon-eyebrow{font-size:7px;letter-spacing:2px;max-width:280px;margin:0 auto 24px}.horizon-title{font-size:13.4vw;letter-spacing:.015em}.horizon-subtitle{font-size:11px;line-height:1.9;margin-top:21px;letter-spacing:.1px}.horizon-cta{margin-top:29px;font-size:10px;padding:12px 15px;gap:25px}.horizon-bottom{left:22px;right:22px;bottom:20px;gap:10px}.horizon-scroll-progress{gap:10px;flex-wrap:wrap;max-width:170px}.horizon-scroll-label{font-size:7px;letter-spacing:1.2px;width:100%}.horizon-progress-track{width:90px}.horizon-section-counter{font-size:9px}.horizon-motion-button{font-size:9px;gap:7px}.horizon-scene-note{bottom:98px;right:22px;font-size:7px}.horizon-menu-button,.horizon-cta{min-height:44px}}
+@media(prefers-reduced-motion:reduce){.horizon-hero *{animation:none!important;transition:none!important}.horizon-title-char,.horizon-subtitle-line{transform:none!important;opacity:1!important}}
