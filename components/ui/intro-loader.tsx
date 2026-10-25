@@ -17,8 +17,6 @@ const MAX_WAIT_MS = 4500; // never hold visitors longer than this on a slow conn
 
 type Phase = "init" | "playing" | "leaving" | "done";
 
-const [roleLast = "", ...roleFirst] = profile.role.split(" ").reverse();
-const roleLead = roleFirst.reverse().join(" ");
 const place = profile.location.split(",").slice(-2).map(part => part.trim()).join(", ");
 const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
@@ -106,12 +104,11 @@ export function IntroLoader() {
       <div className="intro-top" aria-hidden="true"><span>Portfolio 2026</span><span>{place}</span></div>
       <div className="intro-center">
         <div className="intro-lockup" aria-hidden="true">
-          <span className="intro-word">{"sean".split("").map((letter, index) => <span className="intro-clip" key={index}><span className="intro-char" style={{ "--i": index } as CSSProperties}>{letter}</span></span>)}</span>
+          <span className="intro-word">{"Hello".split("").map((letter, index) => <span className="intro-clip" key={index}><span className="intro-char" style={{ "--i": index } as CSSProperties}>{letter}</span></span>)}</span>
           <svg className="intro-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" focusable="false">
             {["M12 2v20", "M2 12h20", "M4.93 4.93l14.14 14.14", "M19.07 4.93L4.93 19.07"].map((d, index) => <path key={d} d={d} pathLength={1} style={{ "--k": index } as CSSProperties} />)}
           </svg>
         </div>
-        <p className="intro-role" aria-hidden="true">{roleLead} <em>{roleLast}.</em></p>
       </div>
       <div className="intro-bottom">
         <span className="intro-bar" aria-hidden="true"><i /></span>

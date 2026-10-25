@@ -1,5 +1,5 @@
 /* Intro sequence. Colours, fonts and easing come from the rest of the site:
-   night navy, lavender accent, Manrope wordmark, serif-italic accent word, and the asterisk from the logo. */
+   night navy, lavender accent, Manrope greeting, and the asterisk from the logo. */
 
 html.is-intro, html.is-intro body { overflow: hidden; }
 
@@ -57,7 +57,7 @@ html.is-intro, html.is-intro body { overflow: hidden; }
 .intro:not([data-state="init"]) .intro-top { animation: intro-fade .8s ease .15s both; }
 .intro-top { opacity: 0; }
 
-.intro-center { place-self: center; display: grid; justify-items: center; gap: clamp(14px, 2.6vw, 28px); text-align: center; }
+.intro-center { place-self: center; display: grid; justify-items: center; text-align: center; }
 
 /* --- Wordmark ---------------------------------------------------------------- */
 .intro-lockup { display: inline-flex; align-items: center; font: 800 clamp(78px, 22vw, 200px)/1 var(--display, Arial, sans-serif); letter-spacing: -.065em; color: #fff; }
@@ -71,10 +71,6 @@ html.is-intro, html.is-intro body { overflow: hidden; }
 .intro-star path { stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; }
 .intro:not([data-state="init"]) .intro-star path { animation: intro-draw 750ms var(--ease) calc(520ms + var(--k) * 110ms) both; }
 .intro:not([data-state="init"]) .intro-star { animation: intro-turn 1.9s cubic-bezier(.25, .7, .2, 1) .5s both; }
-
-.intro-role { margin: 0; font-size: clamp(15px, 2.4vw, 21px); line-height: 1.4; color: #b2bed6; opacity: 0; }
-.intro:not([data-state="init"]) .intro-role { animation: intro-lift .9s var(--ease) 1s both; }
-.intro-role em { font-family: var(--serif, Georgia, serif); font-style: italic; font-size: 1.16em; color: var(--lavender, #bec8ff); }
 
 /* --- Counter, progress, skip ------------------------------------------------------- */
 .intro-bottom { display: grid; gap: 14px; }
@@ -106,7 +102,6 @@ html.is-intro, html.is-intro body { overflow: hidden; }
 @keyframes intro-draw { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 1; } }
 @keyframes intro-turn { from { rotate: -135deg; } to { rotate: 0deg; } }
 @keyframes intro-fade { from { opacity: 0; } to { opacity: 1; } }
-@keyframes intro-lift { from { opacity: 0; translate: 0 14px; } to { opacity: 1; translate: 0 0; } }
 @keyframes intro-twinkle { from { opacity: .22; } to { opacity: .7; } }
 
 /* Reduced motion: no intro at all (the component also skips its timers). */
