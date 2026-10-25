@@ -106,7 +106,6 @@ export default function Home() {
             <div className="edu-progress">
               <div className="edu-progress-meta">
                 <strong>Year {profile.yearOfStudy} of {profile.programYears}</strong>
-                <span className="edu-progress-end"><span>Graduating</span> {profile.graduation}</span>
               </div>
               <div className="edu-years" aria-hidden="true" style={{ "--years": profile.programYears } as CSSProperties}>
                 {Array.from({ length: profile.programYears }, (_, index) => <span key={index} className={index < profile.yearOfStudy - 1 ? "is-done" : index === profile.yearOfStudy - 1 ? "is-current" : undefined} style={{ "--i": index } as CSSProperties} />)}

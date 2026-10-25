@@ -40,7 +40,6 @@ test("only the real pharmacy project is shown with its live link and confirmed p
   assert.equal((html.match(/<article\b/g) || []).length, 1);
   assert.match(html, /href="https:\/\/silver-fly-191014\.hostingersite\.com\/" target="_blank" rel="noopener noreferrer"/);
   assert.match(html, /The live system opens to the staff sign-in page/);
-  assert.match(html, /May 2027/);
   assert.match(html, /BSIS 4-1/);
   assert.match(html, /tel:\+639472401814/);
   assert.match(html, /aria-controls="main-navigation"/);

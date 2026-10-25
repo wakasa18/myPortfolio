@@ -8,7 +8,6 @@ export const profile = {
   school: "Immaculate Conception I-College of Arts and Technology",
   degree: "Bachelor of Science in Information Systems",
   section: "BSIS 4-1",
-  graduation: "May 2027",
   yearOfStudy: 4,
   programYears: 4,
   // Short topics shown as chips on the education card. Replace with your actual coursework if you prefer.

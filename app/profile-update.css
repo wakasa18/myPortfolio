@@ -72,8 +72,6 @@
 .edu-progress { margin-top: auto; padding-top: 24px; border-top: 1px solid #344564; }
 .edu-progress-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 14px; font-size: 14px; color: #c6d1ea; }
 .edu-progress-meta strong { color: #e4eaff; font-weight: 600; }
-.edu-progress-end { color: #e4eaff; font-weight: 600; white-space: nowrap; }
-.edu-progress-end > span { color: #a4b4d0; font-weight: 400; }
 /* One segment per year of the degree: finished years filled, the current year outlined. */
 .edu-years { display: grid; grid-template-columns: repeat(var(--years, 4), 1fr); gap: 6px; }
 .edu-years > span { position: relative; height: 8px; border-radius: 999px; background: #22314f; }

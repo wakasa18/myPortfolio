@@ -39,7 +39,7 @@ The real project, section headings, education, and about content use one-time sc
 ## Personalize
 
 - `app/page.tsx`: personal introduction, actual project, education, about text, and contact sections.
-- `app/lib/portfolio-profile.ts`: confirmed contact details, education, graduation, document links, and the Pharxmaco team project's 2025–2026 timeline from the latest supplied documents.
+- `app/lib/portfolio-profile.ts`: confirmed contact details, education, document links, and the Pharxmaco team project's 2025–2026 timeline from the latest supplied documents.
 - `components/ui/pharmacy-project.tsx`: featured Pharxmaco project, contribution overview, technologies, and project-brief download.
 - `app/profile-update.css`: responsive styles for the featured project, profile details, and contact additions.
 - `public/downloads/`: the latest user-supplied resume and project portfolio, linked as editable Word downloads.
@@ -53,9 +53,9 @@ The real project, section headings, education, and about content use one-time sc
 - `app/layout.tsx`: search and social metadata.
 - `public/icon.png`: site icon.
 
-Pharxmaco is Sean's ongoing **team project**, with front-end and back-end contributions described in the supplied resume and portfolio. Its project title includes sales forecasting; the site limits Sean's personal contribution to the features he confirmed. The featured visual is a labeled project map, not a screenshot or a live application. The latest supplied documents date the project **2025–2026**; expected graduation remains **May 2027** as confirmed in the conversation.
+Pharxmaco is Sean's ongoing **team project**, with front-end and back-end contributions described in the supplied resume and portfolio. Its project title includes sales forecasting; the site limits Sean's personal contribution to the features he confirmed. The featured visual is a labeled project map, not a screenshot or a live application. The latest supplied documents date the project **2025–2026**.
 
-The site contains only Sean's confirmed information and real project. The fictional project collection, category filters, project dialogs, code illustration, and component demo pages have been removed. The education panel contains his actual program, school, section, and expected graduation.
+The site contains only Sean's confirmed information and real project. The fictional project collection, category filters, project dialogs, code illustration, and component demo pages have been removed. The education panel contains his actual program, school, section, and current year of study.
 
 The project links to https://silver-fly-191014.hostingersite.com/, the Pharxmaco staff sign-in page supplied by Sean. This is the pharmacy project's live URL, separate from the personal portfolio's address. Email actions open the visitor's email client, the phone link opens a dialer, and document links download the supplied Word files. Publication remains on hold at Sean's request.
 
