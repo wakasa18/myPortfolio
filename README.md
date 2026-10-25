@@ -1,6 +1,6 @@
 # Sean Villanueva — Portfolio
 
-A responsive, animated portfolio for Sean Villanueva, Junior Web Developer and fourth-year Information Systems student in Bulacan, Philippines.
+A responsive, animated portfolio for Sean Villanueva, Junior Web Developer and fourth-year Information Systems student in Santa Maria, Bulacan, Philippines.
 
 ## Run locally
 

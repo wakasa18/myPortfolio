@@ -3,7 +3,7 @@ export const profile = {
   email: "villanuevasean0918@gmail.com",
   phone: "09472401814",
   phoneHref: "tel:+639472401814",
-  location: "Bulacan, Philippines",
+  location: "Santa Maria, Bulacan, Philippines",
   role: "Junior Web Developer",
   school: "Immaculate Conception I-College of Arts and Technology",
   degree: "Bachelor of Science in Information Systems",

@@ -126,7 +126,7 @@ export default function Home() {
         <Toolkit />
       </section>
 
-      <CinematicFooter email={profile.email} phone={profile.phone} phoneHref={profile.phoneHref} location={profile.location} resumeHref={profile.resumeHref} description="Based in Bulacan, Philippines. Open to junior web development opportunities." paused={paused} onPausedChange={setPaused} />
+      <CinematicFooter email={profile.email} phone={profile.phone} phoneHref={profile.phoneHref} location={profile.location} resumeHref={profile.resumeHref} description={`Based in ${profile.location}. Open to junior web development opportunities.`} paused={paused} onPausedChange={setPaused} />
     </div>
   </main>;
 }
