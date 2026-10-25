@@ -1,5 +1,6 @@
 export const profile = {
   name: "Sean Villanueva",
+  fullName: "Sean Warren M. Villanueva",
   email: "villanuevasean0918@gmail.com",
   phone: "09472401814",
   phoneHref: "tel:+639472401814",
@@ -7,6 +8,7 @@ export const profile = {
   role: "Junior Web Developer",
   school: "Immaculate Conception I-College of Arts and Technology",
   degree: "Bachelor of Science in Information Systems",
+  educationPeriod: "2023–Present",
   section: "BSIS 4-1",
   yearOfStudy: 4,
   programYears: 4,

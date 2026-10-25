@@ -55,6 +55,8 @@ The real project, section headings, education, and about content use one-time sc
 
 Pharxmaco is Sean's ongoing **team project**, with front-end and back-end contributions described in the supplied resume and portfolio. Its project title includes sales forecasting; the site limits Sean's personal contribution to the features he confirmed. The featured visual is a labeled project map, not a screenshot or a live application. The latest supplied documents date the project **2025–2026**.
 
+The current document sources are the three `TNR_12.docx` files supplied from Downloads on October 26, 2026. The website's resume and project-brief downloads are exact copies of those versions. All three documents, including the application letter, are also kept in `outputs/en3b-prefinals/`; see its `START_HERE.md` for the source filenames. The About section uses Sean Warren M. Villanueva's full name and the resume's 2023–present education dates, SQL/CRUD experience, teamwork, and willingness to learn.
+
 The site contains only Sean's confirmed information and real project. The fictional project collection, category filters, project dialogs, code illustration, and component demo pages have been removed. The education panel contains his actual program, school, section, and current year of study.
 
 The project links to https://silver-fly-191014.hostingersite.com/, the Pharxmaco staff sign-in page supplied by Sean. This is the pharmacy project's live URL, separate from the personal portfolio's address. Email actions open the visitor's email client, the phone link opens a dialer, and document links download the supplied Word files. Publication remains on hold at Sean's request.

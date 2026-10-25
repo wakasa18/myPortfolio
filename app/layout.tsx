@@ -4,6 +4,7 @@ import "./profile-update.css";
 import "./premium-polish.css";
 import "./mobile-polish.css";
 import "./header-cta.css";
+import { IntroLoader } from "@/components/ui/intro-loader";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sean-villanueva-portfolio.capstones2026.chatgpt.site"),
@@ -17,5 +18,5 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: "#0b1120", colorScheme: "dark" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><head><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /></head><body>{children}</body></html>;
+  return <html lang="en"><head><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /></head><body><noscript><style>{".intro{display:none!important}"}</style></noscript><IntroLoader />{children}</body></html>;
 }

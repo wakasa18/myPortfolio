@@ -106,6 +106,7 @@ export default function Home() {
             <div className="edu-progress">
               <div className="edu-progress-meta">
                 <strong>Year {profile.yearOfStudy} of {profile.programYears}</strong>
+                <span>{profile.educationPeriod}</span>
               </div>
               <div className="edu-years" aria-hidden="true" style={{ "--years": profile.programYears } as CSSProperties}>
                 {Array.from({ length: profile.programYears }, (_, index) => <span key={index} className={index < profile.yearOfStudy - 1 ? "is-done" : index === profile.yearOfStudy - 1 ? "is-current" : undefined} style={{ "--i": index } as CSSProperties} />)}
@@ -119,9 +120,9 @@ export default function Home() {
               <span className="reveal-line"><span className="reveal-line-inner"><span className="serif-word serif-sweep">Web developer.</span></span></span>
             </h2>
             <span className="availability-pill" data-reveal-detail><i aria-hidden="true" />{profile.availability}</span>
-            <ScrollFillText revealDetail active={!stopMotion} text={`I’m a fourth-year Information Systems student based in ${profile.location}, working toward a career as a junior web developer.`} />
-            <p data-reveal-detail>For our Pharxmaco Drugstore project, I work on both the front end and back end using PHP, CodeIgniter 4, MySQL, and browser technologies. I contribute to <mark className="hl">sales</mark> and <mark className="hl">inventory</mark> features, <mark className="hl">user access</mark>, database integration, <mark className="hl">debugging</mark>, and interface improvements.</p>
-            <p className="profile-skills" data-reveal-detail>Debugging helps me work through technical problems. Working with stock updates, transaction history, and refunds has also taught me to pay close attention to details.</p>
+            <ScrollFillText revealDetail active={!stopMotion} text={`I’m ${profile.fullName}, a fourth-year Information Systems student based in ${profile.location}, working toward a career as a junior web developer.`} />
+            <p data-reveal-detail>For our Pharxmaco Drugstore project, I work on both the front end and back end using PHP, CodeIgniter 4, MySQL, and browser technologies. I contribute to <mark className="hl">sales</mark> and <mark className="hl">inventory</mark> features, <mark className="hl">user access</mark>, database integration, <mark className="hl">debugging</mark>, and interface improvements. My technical work includes SQL queries and CRUD operations.</p>
+            <p className="profile-skills" data-reveal-detail>Debugging helps me work through technical problems. Working with stock updates, transaction history, and refunds has also taught me to pay close attention to details. I collaborate with my project team and am willing to learn new technologies and improve my skills.</p>
             <a className="resume-cta" href={profile.resumeHref} download data-reveal-detail><span>Download résumé</span><span className="resume-format">{resumeFormat}</span><ArrowDownToLine size={18} aria-hidden="true" /></a>
           </div>
         </div>

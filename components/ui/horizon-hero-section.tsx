@@ -69,9 +69,10 @@ export function HorizonHeroSection({
       const { ScrollTrigger } = triggerModule;
       gsap.registerPlugin(ScrollTrigger);
       const scene = sceneModule.createHorizonScene(canvas, viewport, root);
-      const resources: { trigger?: ReturnType<typeof ScrollTrigger.create>; observer?: ResizeObserver } = {};
+      const resources: { trigger?: ReturnType<typeof ScrollTrigger.create>; observer?: ResizeObserver; cancelIntro?: () => void } = {};
       dispose = () => {
         resources.observer?.disconnect();
+        resources.cancelIntro?.();
         resources.trigger?.kill();
         entranceContext.current?.revert(); entranceContext.current = null;
         controller.current = null;
@@ -99,7 +100,8 @@ export function HorizonHeroSection({
       resources.trigger = trigger;
       updateProgress(trigger.progress);
 
-      if (enabledRef.current && !readMotion()) {
+      const startEntrance = () => {
+        if (cancelled || entranceContext.current || !enabledRef.current || readMotion()) return;
         entranceContext.current = gsap.context(() => {
           root.querySelectorAll<HTMLElement>(".horizon-panel").forEach(panel => {
             const timeline = gsap.timeline({ scrollTrigger: { trigger: panel, start: "top 65%", once: true } });
@@ -107,7 +109,12 @@ export function HorizonHeroSection({
             timeline.from(panel.querySelectorAll(".horizon-subtitle-line"), { y: 24, opacity: 0, duration: 0.8, stagger: 0.13, ease: "power3.out" }, "-=0.75");
           });
         }, root);
-      }
+      };
+      // While the intro curtain is up, hold the title entrance and start it as the curtain begins to lift.
+      if (document.documentElement.classList.contains("is-intro")) {
+        window.addEventListener("intro:reveal", startEntrance, { once: true });
+        resources.cancelIntro = () => window.removeEventListener("intro:reveal", startEntrance);
+      } else startEntrance();
       const onResize = () => trigger?.refresh();
       const resizeObserver = new ResizeObserver(onResize);
       resources.observer = resizeObserver;

@@ -96,14 +96,14 @@ export function PharmacyProject() {
       <h3 id="pharmacy-title">{pharmacyProject.name}<span>Online point of sale & inventory system.</span></h3>
       <p className="pharmacy-project-title">{pharmacyProject.title}</p>
       <dl className="pharmacy-facts"><div><dt>My role</dt><dd>Front-end & back-end web developer</dd></div><div><dt>Development</dt><dd>{pharmacyProject.period} · Ongoing</dd></div></dl>
-      <p className="pharmacy-description">I built the point of sale, inventory, user access, and transaction history modules of our pharmacy system, from the interface to the database. My work also includes debugging and improving the interface.</p>
+      <p className="pharmacy-description">I contributed to the point of sale, inventory, user access, and transaction history features of our team’s pharmacy system, working on the front end and back end. My work also includes database integration, debugging, and improving the interface.</p>
       <div className="pharmacy-actions"><a className="text-link" href={pharmacyProject.liveHref} target="_blank" rel="noopener noreferrer" aria-describedby="pharmacy-live-note">Open live project <ArrowUpRight size={17} aria-hidden="true" /><span className="sr-only"> (opens in a new tab)</span></a><a className="text-link" href={profile.portfolioHref} download>Download project brief <ArrowDownToLine size={17} aria-hidden="true" /></a></div>
-      <p id="pharmacy-live-note" className="pharmacy-live-note">The live system opens to the staff sign-in page.</p>
+      <p id="pharmacy-live-note" className="pharmacy-live-note">The live system opens to the staff sign-in page.<br />Cashier login — Username: <code>cashier</code> · Password: <code>cashier123</code></p>
     </div>
 
     <div className="pharmacy-system" ref={systemRef} aria-label="Pharmacy system map">
       <div className="system-map-heading"><span className="pharmacy-cross" aria-hidden="true" /><div><strong>Pharxmaco</strong><span>POINT OF SALE & INVENTORY</span></div><span className="system-map-label">SYSTEM MAP</span></div>
-      <p className="system-map-intro">Modules I built. Select one for details.</p>
+      <p className="system-map-intro">Modules I contributed to. Select one for details.</p>
 
       <div className="pmap-board">
         {modules.map(({ id, step, side, row, title, detail, Icon, preview }) => {
@@ -139,7 +139,7 @@ export function PharmacyProject() {
     </figure>}
 
     <div className="pharmacy-details">
-      <div><span className="eyebrow">MY CONTRIBUTION</span><p>I built all four modules: POS and sales transactions, inventory and automatic stock updates, authentication and role-based access, and transaction history with return and refund processing.</p><p className="pharmacy-scope">Sales forecasting is part of the wider project scope.</p></div>
+      <div><span className="eyebrow">MY CONTRIBUTION</span><p>I contributed to POS and sales transactions, inventory and automatic stock updates, authentication and role-based access, and transaction history with return and refund processing.</p><p className="pharmacy-scope">Sales forecasting is part of the wider project scope.</p></div>
       <div><span className="eyebrow">TECHNOLOGIES USED</span><div className="project-tags">{pharmacyProject.technologies.map(tool => <span key={tool}>{tool}</span>)}</div></div>
     </div>
   </article>;
