@@ -11,7 +11,7 @@
 [data-ui-motion=playing] .project-card {
   transition: border-color var(--motion-medium), background-color var(--motion-medium), translate var(--motion-medium) var(--motion-ease), scale var(--motion-fast) var(--motion-ease);
 }
-[data-ui-motion=playing] :is(.navigation a, .header-contact, .text-link) {
+[data-ui-motion=playing] :is(.navigation a, .text-link) {
   transition: color var(--motion-fast), translate var(--motion-medium) var(--motion-ease);
 }
 [data-ui-motion=playing] :is(.navigation a, .text-link)::after {

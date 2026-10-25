@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { ArrowDownToLine } from "lucide-react";
+import { ArrowDownToLine, ArrowUpRight } from "lucide-react";
 import { Component as HorizonHero } from "@/components/ui/horizon-hero-section";
 import { CinematicFooter } from "@/components/ui/motion-footer";
 import { PharmacyProject } from "@/components/ui/pharmacy-project";
@@ -16,8 +16,6 @@ import useParallax from "./use-parallax";
 import useScrollMotion from "./use-scroll-motion";
 
 const resumeFormat = profile.resumeHref.split(".").pop()?.toUpperCase() ?? "FILE";
-
-function Arrow() { return <span aria-hidden="true" className="arrow">↗</span>; }
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -66,7 +64,10 @@ export default function Home() {
         <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
         <a href={profile.resumeHref} download onClick={() => setMenuOpen(false)}>Résumé</a>
       </nav>
-      <a href={`mailto:${profile.email}`} className="header-contact">Let’s talk <Arrow /></a>
+      <a href={`mailto:${profile.email}`} className="header-contact">
+        <span>Email me</span>
+        <span className="header-contact-icon" aria-hidden="true"><ArrowUpRight size={16} strokeWidth={1.8} /></span>
+      </a>
       <button type="button" className="menu-toggle" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? "Close −" : "Menu +"}</button>
       <span className="topbar-progress" aria-hidden="true" />
     </header>
