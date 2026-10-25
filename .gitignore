@@ -42,3 +42,7 @@ next-env.d.ts
 /work/
 *.tsbuildinfo
 /outputs-home.html
+
+# Local source archive copies
+/app.zip
+/components.zip

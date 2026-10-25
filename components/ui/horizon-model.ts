@@ -1,7 +1,7 @@
 export const horizonSections = [
-  { title: "HORIZON", lines: ["Where vision meets reality,", "we shape the future of tomorrow"] },
-  { title: "COSMOS", lines: ["Beyond the boundaries of imagination,", "lies the universe of possibilities"] },
-  { title: "INFINITY", lines: ["In the space between thought and creation,", "we find the essence of true innovation"] },
+  { title: "SEAN", eyebrow: "SEAN VILLANUEVA / WEB DEVELOPER", note: "ABOUT SEAN", lines: ["Junior Web Developer", "Bulacan, Philippines"] },
+  { title: "CODE", eyebrow: "FRONT END & BACK END", note: "DEVELOPMENT", lines: ["PHP, CodeIgniter 3 & MySQL", "HTML, CSS, Bootstrap, JavaScript & jQuery/AJAX"] },
+  { title: "WORK", eyebrow: "ONGOING TEAM PROJECT / 2025–2026", note: "PHARXMACO", lines: ["Pharxmaco Drugstore", "Online point of sale & inventory system"] },
 ] as const;
 
 const positions = [

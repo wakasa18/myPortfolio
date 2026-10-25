@@ -3,8 +3,8 @@ import test from "node:test";
 import { readFile } from "node:fs/promises";
 import { getCameraPosition, getHorizonSection, getHorizonQuality, horizonSections } from "../components/ui/horizon-model.ts";
 
-test("the Horizon journey has three reachable scenes and no counter overflow", () => {
-  assert.deepEqual(horizonSections.map(section => section.title), ["HORIZON", "COSMOS", "INFINITY"]);
+test("the portfolio journey has three reachable scenes and no counter overflow", () => {
+  assert.deepEqual(horizonSections.map(section => section.title), ["SEAN", "CODE", "WORK"]);
   assert.equal(getHorizonSection(0), 0);
   assert.equal(getHorizonSection(0.5), 1);
   assert.equal(getHorizonSection(1), 2);
@@ -12,7 +12,7 @@ test("the Horizon journey has three reachable scenes and no counter overflow", (
   assert.equal(getHorizonSection(-1), 0);
 });
 
-test("camera interpolation stays continuous through Cosmos and ends at Infinity", () => {
+test("camera interpolation stays continuous through all portfolio scenes", () => {
   assert.deepEqual(getCameraPosition(0), { x: 0, y: 30, z: 300 });
   assert.deepEqual(getCameraPosition(0.5), { x: 0, y: 40, z: -50 });
   assert.deepEqual(getCameraPosition(1), { x: 0, y: 50, z: -700 });

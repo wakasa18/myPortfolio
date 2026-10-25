@@ -1,105 +1,132 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { ArrowDownToLine } from "lucide-react";
 import { Component as HorizonHero } from "@/components/ui/horizon-hero-section";
+import { CinematicFooter } from "@/components/ui/motion-footer";
+import { PharmacyProject } from "@/components/ui/pharmacy-project";
+import { ScrollFillText } from "@/components/ui/scroll-fill-text";
+import { Starfield } from "@/components/ui/starfield";
+import { Toolkit } from "@/components/ui/toolkit";
+import { dismissWhenOutside } from "./lib/ui-accessibility";
+import { profile } from "./lib/portfolio-profile";
+import { startScrollSpy } from "./lib/scroll-spy";
+import { startSpotlight } from "./lib/spotlight";
 import useParallax from "./use-parallax";
+import useScrollMotion from "./use-scroll-motion";
 
-const email = "villanuevasean0918@gmail.com";
-const projects = [
-  { name: "Relay", category: "Development", type: "A calmer space to get things done", theme: "relay", tags: ["React", "Dashboard", "UI development"], description: "A concept for a focused project workspace. Clear priorities, a simple overview, and just enough detail to help a team keep moving.", challenge: "Turn a busy project dashboard into a quiet, useful starting point for the day.", approach: "A compact sidebar gives the content room to breathe. Color connects project status across the overview, and a consistent spacing system keeps the interface easy to scan." },
-  { name: "Forma", category: "Design", type: "An architectural point of view", theme: "forma", tags: ["Web design", "Art direction", "Responsive"], description: "An editorial website concept for an independent architecture studio. Generous space and strong typography let the work tell the story.", challenge: "Create a digital identity that feels as considered as the spaces it presents.", approach: "An earthy palette, oversized type, and architectural compositions establish a clear visual rhythm. The layout adapts from an expansive desktop canvas to a focused mobile experience." },
-  { name: "Orbit", category: "Development", type: "Find your next favorite sound", theme: "orbit", tags: ["React", "Interaction", "Music discovery"], description: "A music discovery interface concept built around the feeling of finding something new. Album artwork leads, with simple controls close at hand.", challenge: "Make browsing music feel exploratory without making the interface harder to use.", approach: "A dark listening room, bold album colors, and a persistent player make a cohesive visual system. Large interaction targets work equally well with a pointer or touch." },
-  { name: "Grove", category: "Design", type: "Good things, thoughtfully made", theme: "grove", tags: ["E-commerce", "Web design", "Visual identity"], description: "A storefront concept for everyday objects with a lighter footprint. A fresh identity pairs approachable product cards with a simple shopping journey.", challenge: "Give a small collection a distinct identity while keeping product discovery effortless.", approach: "Soft green, natural forms, and concise product information make the collection inviting. A restrained grid keeps the focus on the objects themselves." },
-];
-type Project = (typeof projects)[number];
+const resumeFormat = profile.resumeHref.split(".").pop()?.toUpperCase() ?? "FILE";
+
 function Arrow() { return <span aria-hidden="true" className="arrow">↗</span>; }
 
-function ProjectArt({ theme }: { theme: string }) {
-  if (theme === "relay") return <div className="art relay-art" aria-hidden="true">
-    <div className="relay-window"><aside><strong><i />relay</strong><span className="mock-active">▦ &nbsp; Overview</span><span>◫ &nbsp; My projects</span><span>▤ &nbsp; Tasks</span><span>◷ &nbsp; Calendar</span><small>WORKSPACE</small><span>● &nbsp; Studio team</span><span>＋ &nbsp; New workspace</span><div className="mock-avatar">S<span>Sean’s workspace<br /><small>Personal account</small></span></div></aside>
-      <div className="relay-content"><div className="mock-top">Workspace / Overview <span>⌕ &nbsp; ◉</span></div><div className="mock-greeting"><div><small>MONDAY, SEPTEMBER 21</small><h4>Make room for good work.</h4><p>Here’s what’s happening with your projects.</p></div><b>＋ New project</b></div><div className="mock-stats"><div><small>Active projects</small><strong>12 <em>↗ 2 this month</em></strong></div><div><small>Tasks completed</small><strong>28 <em>↗ 8 this week</em></strong></div><div><small>In progress</small><strong>08 <em>Right on track</em></strong></div></div><div className="mock-project-heading">Your projects <span>View all ↗</span></div><div className="mock-projects"><div><i className="mock-icon lavender">F</i><h5>Website refresh</h5><p>A new chapter for Forma</p><div className="mock-progress"><i /></div><small>8 of 12 tasks <span>67%</span></small></div><div><i className="mock-icon peach">O</i><h5>Orbit design system</h5><p>Building a common language</p><div className="mock-progress second"><i /></div><small>5 of 14 tasks <span>36%</span></small></div></div></div></div>
-  </div>;
-  if (theme === "forma") return <div className="art forma-art" aria-hidden="true"><div className="forma-window"><div className="forma-nav"><strong>forma<span>®</span></strong><span>Studio &nbsp; Projects &nbsp; Contact ↗</span></div><div className="forma-title">Spaces for<br /><em>being.</em><small>ARCHITECTURE FOR THE EVERYDAY.</small></div><div className="architecture"><div className="building-back" /><div className="building-front"><i /><i /><i /></div><div className="building-wall" /><div className="building-shadow" /><div className="arch-tree" /></div><div className="forma-caption">Considered spaces. Lasting impressions.<span>EST. 2024</span></div></div></div>;
-  if (theme === "orbit") return <div className="art orbit-art" aria-hidden="true"><div className="orbit-window"><div className="orbit-nav"><strong>◎ orbit</strong><span>Discover &nbsp; Your library &nbsp; ⌕</span><i>S</i></div><small className="orbit-eyebrow">A LITTLE OUTSIDE YOUR ORBIT</small><h4>Less scrolling.<br />More <em>feeling.</em></h4><div className="albums"><div className="album album-one"><span>AFTER<br />HOURS</span><i /></div><div className="album album-two"><i /><span>slow<br />mornings.</span></div><div className="album album-three"><span>OTHER<br />WORLDS</span><i /></div></div><div className="orbit-player"><span>♫ &nbsp; A place between <small>Night swimming</small></span><b>ⅠⅠ</b><div /><span>2:34</span></div></div></div>;
-  return <div className="art grove-art" aria-hidden="true"><div className="grove-window"><div className="grove-nav"><strong>grove.</strong><span>The collection &nbsp; Our story</span><span>Bag (0)</span></div><div className="grove-body"><small>LESS, BUT LOVELIER.</small><h4>Everyday objects.<br /><em>A little more soul.</em></h4><div className="grove-products"><div><div className="vase vase-one"><i /></div><span>The Sunday vase <b>₱ 890</b></span></div><div><div className="lamp"><i /><b /></div><span>The little glow <b>₱ 1,490</b></span></div><div><div className="vase vase-two"><i /></div><span>The everyday cup <b>₱ 490</b></span></div></div></div><div className="grove-bottom">Made with care. Kept for longer. <span>Explore the collection ↗</span></div></div></div>;
-}
-
 export default function Home() {
-  const [filter, setFilter] = useState("All projects");
-  const [selected, setSelected] = useState<Project | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [copyError, setCopyError] = useState(false);
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const mainRef = useRef<HTMLElement>(null);
-  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setReducedMotion(media.matches);
     update();
     media.addEventListener("change", update);
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("is-visible"); observer.unobserve(entry.target); } });
-    }, { threshold: 0.08 });
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-    return () => { observer.disconnect(); media.removeEventListener("change", update); if (toastTimer.current) clearTimeout(toastTimer.current); };
+    return () => media.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
-    if (!selected) return;
-    const dialog = dialogRef.current;
-    dialog?.showModal();
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => { dialog?.close(); document.body.style.overflow = previous; };
-  }, [selected]);
-
-  async function copyEmail() {
-    try {
-      await navigator.clipboard.writeText(email);
-      setCopied(true); setCopyError(false);
-      if (toastTimer.current) clearTimeout(toastTimer.current);
-      toastTimer.current = setTimeout(() => setCopied(false), 3000);
-    } catch { setCopyError(true); }
-  }
+    if (!menuOpen || !headerRef.current) return;
+    const mobile = window.matchMedia("(max-width: 600px)");
+    const onResize = () => { if (!mobile.matches) setMenuOpen(false); };
+    const cleanup = dismissWhenOutside(headerRef.current, () => setMenuOpen(false));
+    mobile.addEventListener("change", onResize);
+    return () => { cleanup(); mobile.removeEventListener("change", onResize); };
+  }, [menuOpen]);
 
   const stopMotion = paused || reducedMotion;
-  useParallax(mainRef, stopMotion || Boolean(selected), filter);
-  const visibleProjects = projects.filter(project => filter === "All projects" || project.category === filter);
+  useEffect(() => (navRef.current ? startScrollSpy(navRef.current) : undefined), []);
+  useEffect(() => (!stopMotion && mainRef.current ? startSpotlight(mainRef.current) : undefined), [stopMotion]);
 
-  return <main ref={mainRef} id="top" data-motion={stopMotion || selected ? "paused" : "playing"}>
+  useParallax(mainRef, stopMotion, "profile");
+  useScrollMotion(mainRef, headerRef, stopMotion, menuOpen, "profile");
+
+  return <main ref={mainRef} id="top" tabIndex={-1} data-ui-motion={stopMotion ? "paused" : "playing"} data-motion={stopMotion ? "paused" : "playing"}>
     <a className="skip-link" href="#work">Skip to work</a>
-    <header className="site-header wrap">
+    <header ref={headerRef} className="site-header wrap" data-menu-open={menuOpen} onKeyDown={event => {
+      if (event.key === "Escape" && menuOpen) {
+        setMenuOpen(false);
+        headerRef.current?.querySelector<HTMLButtonElement>(".menu-toggle")?.focus();
+      }
+    }}>
       <a href="#top" className="wordmark" aria-label="Sean Villanueva, home">sean<span className="wordmark-star">✳</span></a>
-      <nav className={menuOpen ? "navigation is-open" : "navigation"} aria-label="Main navigation" id="main-navigation">
-        <a href="#work" onClick={() => setMenuOpen(false)}>Work</a><a href="#about" onClick={() => setMenuOpen(false)}>About</a><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+      <nav ref={navRef} className={menuOpen ? "navigation is-open" : "navigation"} aria-label="Main navigation" id="main-navigation">
+        <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
+        <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+        <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+        <a href={profile.resumeHref} download onClick={() => setMenuOpen(false)}>Résumé</a>
       </nav>
-      <a href={`mailto:${email}`} className="header-contact">Let’s talk <Arrow /></a>
+      <a href={`mailto:${profile.email}`} className="header-contact">Let’s talk <Arrow /></a>
       <button type="button" className="menu-toggle" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? "Close −" : "Menu +"}</button>
+      <span className="topbar-progress" aria-hidden="true" />
     </header>
-    <HorizonHero eyebrow="SEAN VILLANUEVA / WEB DEVELOPER" paused={stopMotion || Boolean(selected)} onPausedChange={setPaused} />
+
+    <HorizonHero paused={stopMotion} onPausedChange={setPaused} />
     <div className="portfolio-content">
-    <div className="intro-strip wrap"><p>Thoughtful design. Clean code. <span>A little unexpected.</span></p><span className="intro-mark" aria-hidden="true">✳</span></div>
+      <Starfield paused={stopMotion} />
+      <div className="intro-strip wrap" data-scroll-reveal>
+        <p>PHP, CodeIgniter 3 & MySQL. <span>Front-end and back-end web development.</span></p>
+        <span className="intro-mark" aria-hidden="true">✳</span>
+      </div>
 
-    <section id="work" className="work-section wrap section-space">
-      <div className="section-heading reveal"><div><span className="eyebrow section-eyebrow">THE PROJECT FILES</span><h2>Ideas into <span className="serif-word">interfaces.</span></h2></div><p>A few explorations in design and development.<br />Built around the details that make a difference.</p></div>
-      <div className="work-toolbar"><div className="filters" role="group" aria-label="Filter projects">{["All projects", "Development", "Design"].map(item => <button key={item} type="button" aria-pressed={filter === item} onClick={() => setFilter(item)}>{item}{item === "All projects" && <sup>04</sup>}</button>)}</div><span className="concept-note">CONCEPT COLLECTION / 2026</span></div>
-      <div className="project-grid" aria-live="polite">{visibleProjects.map(project => <button type="button" key={project.name} className={`project-card ${project.theme}`} onClick={() => setSelected(project)} aria-label={`View ${project.name} concept project`}><div className="project-image"><div className="project-parallax" data-parallax="-0.055"><ProjectArt theme={project.theme} /></div><span className="project-open">Explore concept <Arrow /></span></div><div className="project-info"><div><h3>{project.name} <span>CONCEPT</span></h3><p>{project.type}</p></div><span className="project-arrow"><Arrow /></span></div><div className="project-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div></button>)}</div>
-      <p className="work-note">Sample interface concepts for this portfolio. Replace these with your own projects.</p>
-    </section>
+      <section id="work" className="work-section wrap section-space">
+        <div className="section-heading">
+          <div data-scroll-reveal><span className="eyebrow section-eyebrow">MY PROJECT</span><h2>Pharxmaco <span className="serif-word">Drugstore.</span></h2></div>
+          <p data-scroll-reveal data-reveal-delay="90">My front-end and back-end contributions<br />to our ongoing pharmacy system.</p>
+        </div>
+        <PharmacyProject />
+      </section>
 
-    <section id="about" className="about-section wrap section-space">
-      <div className="about-panel reveal"><div className="about-visual" aria-hidden="true"><span className="about-small-label">A LITTLE ABOUT ME</span><div className="code-card" data-parallax="-0.08"><div className="code-dots"><i /><i /><i /><span>sean.ts</span></div><div className="code-lines"><p><b>const</b> sean = &#123;</p><p>&nbsp; role: <em>&quot;web developer&quot;</em>,</p><p>&nbsp; approach: [</p><p>&nbsp; &nbsp; <em>&quot;stay curious&quot;</em>,</p><p>&nbsp; &nbsp; <em>&quot;make it thoughtful&quot;</em>,</p><p>&nbsp; &nbsp; <em>&quot;keep building&quot;</em></p><p>&nbsp; ],</p><p>&nbsp; possibilities: <b>Infinity</b></p><p>&#125;;</p></div><div className="code-footer"><span>● Always a work in progress</span><span>TypeScript</span></div></div><div className="about-sticker" data-parallax="0.11">made with<br /><strong>curiosity.</strong><span>↗</span></div><div className="about-orbit" /></div><div className="about-copy"><span className="eyebrow section-eyebrow">THE PERSON BEHIND THE PIXELS</span><h2>Hi, I’m Sean.<br />I build for <span className="serif-word">people.</span></h2><p>I’m a web developer who cares about how things work—and how they feel. I enjoy bringing structure to an idea, finding its personality, and turning it into something you can click, explore, and use.</p><p>My sweet spot? Where clean, practical code meets a thoughtful visual experience. Always learning. Always making room for a better idea.</p><a className="text-link" href={`mailto:${email}`}>A good project starts with a conversation <Arrow /></a></div></div>
-      <div className="toolkit reveal"><span className="eyebrow">THIS SITE’S BUILDING BLOCKS</span><div><span><b>⚛</b> React</span><span><b className="ts-icon">TS</b> TypeScript</span><span><b>◈</b> HTML & CSS</span><span><b>⌘</b> Responsive design</span><span><b>↝</b> Web animation</span></div></div>
-    </section>
+      <section id="about" className="about-section wrap section-space">
+        <div className="about-panel">
+          <div className="about-visual education-panel" data-scroll-reveal data-spotlight data-tilt>
+            <div className="edu-head">
+              {profile.photoSrc && <span className="edu-avatar"><img src={profile.photoSrc} alt={`Portrait of ${profile.name}`} width={72} height={72} /></span>}
+              <span className="eyebrow">EDUCATION</span>
+            </div>
+            <h3>{profile.degree}</h3>
+            <p className="edu-school">{profile.school}</p>
+            <div className="project-tags edu-tags" aria-label="Section and focus">
+              <span>{profile.section}</span>
+              {profile.studyFocus.map(topic => <span key={topic}>{topic}</span>)}
+            </div>
+            <div className="edu-progress">
+              <div className="edu-progress-meta">
+                <strong>Year {profile.yearOfStudy} of {profile.programYears}</strong>
+                <span className="edu-progress-end"><span>Graduating</span> {profile.graduation}</span>
+              </div>
+              <div className="edu-years" aria-hidden="true" style={{ "--years": profile.programYears } as CSSProperties}>
+                {Array.from({ length: profile.programYears }, (_, index) => <span key={index} className={index < profile.yearOfStudy - 1 ? "is-done" : index === profile.yearOfStudy - 1 ? "is-current" : undefined} style={{ "--i": index } as CSSProperties} />)}
+              </div>
+            </div>
+          </div>
+          <div className="about-copy" data-scroll-reveal data-reveal-stagger data-reveal-delay="100">
+            <span className="eyebrow section-eyebrow" data-reveal-detail>ABOUT ME</span>
+            <h2 data-reveal-detail="lines">
+              <span className="reveal-line"><span className="reveal-line-inner">Hi, I’m Sean.{" "}</span></span>
+              <span className="reveal-line"><span className="reveal-line-inner"><span className="serif-word serif-sweep">Web developer.</span></span></span>
+            </h2>
+            <span className="availability-pill" data-reveal-detail><i aria-hidden="true" />{profile.availability}</span>
+            <ScrollFillText revealDetail active={!stopMotion} text={`I’m a fourth-year Information Systems student based in ${profile.location}, working toward a career as a junior web developer.`} />
+            <p data-reveal-detail>For our Pharxmaco Drugstore project, I work on both the front end and back end using PHP, CodeIgniter 3, MySQL, and browser technologies. I contribute to <mark className="hl">sales</mark> and <mark className="hl">inventory</mark> features, <mark className="hl">user access</mark>, database integration, <mark className="hl">debugging</mark>, and interface improvements.</p>
+            <p className="profile-skills" data-reveal-detail>Debugging helps me work through technical problems. Working with stock updates, transaction history, and refunds has also taught me to pay close attention to details.</p>
+            <a className="resume-cta" href={profile.resumeHref} download data-reveal-detail><span>Download résumé</span><span className="resume-format">{resumeFormat}</span><ArrowDownToLine size={18} aria-hidden="true" /></a>
+          </div>
+        </div>
+        <Toolkit />
+      </section>
 
-    <section id="contact" className="contact-section wrap section-space"><div className="contact-panel reveal"><span className="contact-spark" data-parallax="0.12" aria-hidden="true">✳</span><div className="eyebrow"><span className="status-dot" /> OPEN TO CONVERSATIONS</div><h2>Have something<br />in <span className="serif-word">mind?</span></h2><p>Let’s turn that “what if” into something real.</p><a href={`mailto:${email}`} className="button button-dark">Let’s make it happen <Arrow /></a><div className="email-row"><a href={`mailto:${email}`}>{email}</a><button onClick={copyEmail} type="button" aria-label="Copy email address" title="Copy email address">{copied ? "✓" : "⧉"}</button></div><span className="copy-feedback" role="status">{copied ? "Email copied. Talk soon!" : copyError ? "Please select and copy the email address above." : ""}</span></div></section>
-    <footer className="site-footer wrap"><a href="#top" className="wordmark" aria-label="Back to top">sean<span className="wordmark-star">✳</span></a><p>© {new Date().getFullYear()} Sean Villanueva <span>Built with intention.</span></p><a href="#top" className="back-top">BACK TO TOP <span aria-hidden="true">↑</span></a></footer>
-
+      <CinematicFooter email={profile.email} phone={profile.phone} phoneHref={profile.phoneHref} location={profile.location} resumeHref={profile.resumeHref} description="Based in Bulacan, Philippines. Open to junior web development opportunities." paused={paused} onPausedChange={setPaused} />
     </div>
-    {selected && <dialog ref={dialogRef} className={`project-dialog ${selected.theme}`} aria-labelledby="project-title" onCancel={() => setSelected(null)} onClick={event => { if (event.target === event.currentTarget) setSelected(null); }}><button type="button" className="dialog-close" onClick={() => setSelected(null)} aria-label="Close project details" autoFocus>×</button><ProjectArt theme={selected.theme} /><div className="dialog-content"><div className="eyebrow">SAMPLE CONCEPT / {selected.category.toUpperCase()}</div><h2 id="project-title">{selected.name}<span>↗</span></h2><p className="dialog-intro">{selected.description}</p><div className="dialog-details"><div><h3>The idea</h3><p>{selected.challenge}</p></div><div><h3>The approach</h3><p>{selected.approach}</p></div></div><div className="project-tags">{selected.tags.map(tag => <span key={tag}>{tag}</span>)}</div><p className="dialog-note">This is a sample visual concept, not a live client product.</p><a className="text-link" href={`mailto:${email}?subject=${encodeURIComponent(`Let’s build something like ${selected.name}`)}`}>Have a similar idea? Let’s talk <Arrow /></a></div></dialog>}
   </main>;
 }

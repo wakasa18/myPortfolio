@@ -1,0 +1,299 @@
+/* Night-sky polish layer. Uses the existing navy/lavender palette; loaded after profile-update.css. */
+
+/* 1. Moonlight that follows the cursor across the project card and the education card.
+   --mx/--my come from spotlight.ts. A soft inner glow sits under a brighter ring that traces the border. */
+[data-spotlight] { position: relative; }
+[data-spotlight]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(460px circle at var(--mx, 50%) var(--my, 50%), #bec8ff14, #bec8ff08 42%, transparent 72%);
+  transition: opacity .45s ease;
+}
+[data-spotlight]::before {
+  content: "";
+  position: absolute;
+  inset: -1px; /* sits on top of the card's 1px border */
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), #e6eaffd9, #bec8ff80 36%, transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  transition: opacity .45s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-ui-motion=playing] [data-spotlight]:hover::after,
+  [data-ui-motion=playing] [data-spotlight]:hover::before { opacity: 1; }
+  /* Education card leans up to 3.5deg toward the pointer (--rx/--ry are set in spotlight.ts). */
+  [data-ui-motion=playing] .education-panel[data-tilt] { transition: transform .6s var(--motion-ease); }
+  [data-ui-motion=playing] .education-panel[data-tilt]:hover { transition: transform .2s ease-out; transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+}
+
+/* 2. Scroll-spy: the link for the section being read stays lit. */
+.navigation a[aria-current=location] { color: var(--lavender); }
+[data-ui-motion] .navigation a[aria-current=location]::after { width: 100%; transform: scaleX(1); transform-origin: left; }
+
+/* 3. Lead paragraph lights up word by word, like stars appearing as you scroll. Fully lit without JS or with motion off. */
+.about-copy > .scroll-fill { color: #e4eaff; }
+.scroll-fill { --fill: 1; }
+.scroll-fill[data-fill=live] .scroll-fill-word {
+  opacity: calc(.4 + .6 * clamp(0, var(--fill) * (var(--words) + 3) - var(--i), 1));
+}
+[data-ui-motion=playing] .scroll-fill-word { transition: opacity .2s linear; }
+
+/* ==========================================================================
+   Round 2: layout bug fixes, then design and animation polish.
+   ========================================================================== */
+
+/* --- Bug fixes ------------------------------------------------------------ */
+
+/* The sticky header used to sit above the hero in normal flow. That pushed the hero down by the
+   header height, so its bottom controls started off-screen and its content sat off-centre.
+   The header now overlays the hero instead. */
+:root { --header-h: 104px; }
+@media (max-width: 800px) { :root { --header-h: 84px; } }
+@media (max-width: 600px) { :root { --header-h: 79px; } }
+.site-header { height: var(--header-h); margin-bottom: calc(var(--header-h) * -1); }
+.horizon-meta { top: calc(var(--header-h) + 8px); }
+@media (max-width: 600px) {
+  .horizon-meta { top: calc(var(--header-h) + 6px); }
+  .horizon-side-menu { top: calc(var(--header-h) + 52px); }
+}
+
+/* The header bar was only as wide as the content column, with 28px shadow tabs faking the sides.
+   It is now a full-width glass bar. */
+html, body { overflow-x: clip; }
+html { background: var(--paper); scrollbar-color: #3a4c70 var(--paper); }
+.site-header, .site-header[data-scrolled=true] { background: transparent; box-shadow: none; border-bottom-color: transparent; }
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw);
+  z-index: -1;
+  pointer-events: none;
+  background: #0b1120cc;
+  border-bottom: 1px solid #ffffff14;
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.site-header[data-scrolled=true]::before, .site-header[data-menu-open=true]::before { opacity: 1; }
+[data-ui-motion=paused] .site-header::before { transition: none; }
+
+/* The hero ended on a hard edge against the lighter navy page. Fade it into the page colour. */
+.horizon-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 24svh;
+  z-index: 6;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, #0c162b);
+}
+
+/* Text that was too small to read (7 to 10px) in the project map. */
+.system-map-heading div > span, .system-map-label { font-size: 11px; letter-spacing: .08em; }
+.system-map-intro { font-size: 13px; }
+.system-area h4 { font-size: 14px; }
+.system-area p { font-size: 12px; }
+.system-foundation { font-size: 13px; }
+.system-map-caption { font-size: 12px; }
+@media (max-width: 600px) {
+  .system-map-heading div > span { font-size: 10px; letter-spacing: .04em; }
+  .system-area h4 { font-size: 13px; }
+  .system-area p { font-size: 12px; }
+  .system-foundation { font-size: 12px; }
+}
+
+/* One spacing scale for every section, instead of a different value per breakpoint. */
+.section-space { padding-top: clamp(72px, 9vw, 120px); }
+
+/* --- Typography ------------------------------------------------------------ */
+h1, h2, h3, .horizon-subtitle { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+/* --- Header ------------------------------------------------------------------ */
+.header-contact {
+  gap: 14px;
+  padding: 10px 10px 10px 20px;
+  border: 1px solid #3a4c70;
+  border-radius: 999px;
+  background: #ffffff05;
+  transition: background-color .25s, border-color .25s;
+}
+.header-contact .arrow { font-size: 18px; }
+@media (hover: hover) and (pointer: fine) {
+  .header-contact:hover { background: #bec8ff1a; border-color: #7a8ec8; }
+}
+
+/* --- Hero ---------------------------------------------------------------------- */
+.horizon-title-char {
+  background: linear-gradient(180deg, #ffffff 25%, #b4c0ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+:is(.horizon-cta, .resume-cta) { position: relative; overflow: hidden; isolation: isolate; }
+:is(.horizon-cta, .resume-cta)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--lavender);
+  translate: -101% 0;
+  transition: translate .45s cubic-bezier(.2, .7, .2, 1);
+}
+:is(.horizon-cta, .resume-cta):is(:hover, :focus-visible) { color: #101829; border-color: var(--lavender); }
+:is(.horizon-cta, .resume-cta):is(:hover, :focus-visible)::before { translate: 0 0; }
+
+/* Each scene fades and lifts as it scrolls away (scroll-driven, runs on the compositor). */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .horizon-panel { view-timeline: --scene block; }
+    .horizon-panel-content { animation: horizon-scene-exit linear both; animation-timeline: --scene; animation-range: exit 0% exit 65%; }
+  }
+}
+@keyframes horizon-scene-exit { to { opacity: 0; transform: translateY(-56px) scale(.97); } }
+
+/* --- Project card ------------------------------------------------------------ */
+.pharmacy-project {
+  background: radial-gradient(900px 420px at 100% 0, #34428a33, transparent 62%), linear-gradient(120deg, #192741, #101a2c 64%);
+  box-shadow: inset 0 1px 0 #ffffff0d, 0 40px 90px -45px #000b;
+}
+:is(.project-status, .availability-pill) i { box-shadow: 0 0 0 0 #b9d8c455; }
+[data-ui-motion=playing] :is(.project-status, .availability-pill) i { animation: status-pulse 2.4s ease-out infinite; }
+@keyframes status-pulse { 0% { box-shadow: 0 0 0 0 #b9d8c466; } 70%, 100% { box-shadow: 0 0 0 9px #b9d8c400; } }
+.system-area svg { box-sizing: border-box; width: 40px; height: 40px; padding: 9px; border-radius: 10px; background: #223357; border: 1px solid #3a4f7c; margin-bottom: 16px; }
+.project-tags > span { border-radius: 999px; }
+[data-ui-motion=playing] .system-area { transition: translate var(--motion-medium) var(--motion-ease), border-color var(--motion-medium), background-color var(--motion-medium); }
+@media (hover: hover) and (pointer: fine) {
+  [data-ui-motion=playing] .system-area:hover { translate: 0 -4px; border-color: #6b7fb8; background: #182845; }
+}
+
+/* --- Page load: the header settles in once. `translate` is separate from the hide/show `transform`. --- */
+[data-ui-motion=playing] .site-header { animation: header-in .8s var(--motion-ease) .15s backwards; }
+@keyframes header-in { from { opacity: 0; translate: 0 -14px; } }
+
+/* ==========================================================================
+   Round 3: outlined titles, page-wide starfield, footer portal.
+   ========================================================================== */
+
+/* 1. Hero titles: the first half of each word is solid, the second half is outlined. */
+.horizon-title-char.is-outline {
+  background: none;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: clamp(1px, .14vw, 2.5px) #c5cfff;
+  color: transparent;
+}
+
+/* 2. Starfield behind the page content. The fixed canvas is clipped to the content area, so it never draws over the hero. */
+.starfield-layer { position: absolute; inset: 0; z-index: -1; pointer-events: none; clip-path: inset(0); }
+.starfield-layer canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* 3. Footer portal: a ring of light behind the headline, with contact icons in orbit.
+   Hover or focus the main button and the portal brightens. */
+.footer-headline { position: relative; display: flex; flex-direction: column; align-items: center; }
+.footer-portal { --s: min(980px, 150vw); position: absolute; left: 50%; top: 50%; width: var(--s); height: var(--s); translate: -50% -50%; z-index: -1; pointer-events: none; }
+.footer-portal > span { position: absolute; border-radius: 50%; }
+.portal-halo { inset: 12%; opacity: .75; background: radial-gradient(circle closest-side, transparent 58%, #7f8fff2e 72%, #bec8ff12 84%, transparent 100%); }
+.portal-ring {
+  inset: 17%;
+  background: conic-gradient(from 20deg, #bec8ff00 0deg, #bec8ff99 70deg, #dfe4ffcc 110deg, #9fb0ff66 170deg, #bec8ff00 230deg, #bec8ff33 300deg, #bec8ff00 360deg);
+  -webkit-mask: radial-gradient(circle closest-side, transparent 90%, #000 94%, #000 97%, transparent 100%);
+  mask: radial-gradient(circle closest-side, transparent 90%, #000 94%, #000 97%, transparent 100%);
+  animation: portal-spin 48s linear infinite;
+}
+.portal-core { inset: 27%; background: radial-gradient(circle closest-side, #02040bd9 60%, #02040b00 100%); }
+.portal-orbit { inset: 6%; border: 1px solid #bec8ff1f; animation: portal-spin 90s linear infinite; }
+.portal-chip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  transform: rotate(var(--a)) translateY(calc(var(--s) * -.44)) rotate(calc(var(--a) * -1));
+}
+.portal-chip > span {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  color: var(--lavender);
+  background: #111b2dd9;
+  border: 1px solid #bec8ff33;
+  box-shadow: 0 0 24px #8da0ff22;
+  animation: portal-spin 90s linear infinite reverse; /* cancels the orbit's spin so icons stay upright */
+}
+@keyframes portal-spin { to { rotate: 360deg; } }
+
+/* Spin only while the footer is on screen and motion is on (same rule the footer's other animations follow). */
+.footer-portal :is(.portal-ring, .portal-orbit, .portal-chip > span) { animation-play-state: paused; }
+.cinematic-footer-wrapper[data-active=true][data-motion=playing] .footer-portal :is(.portal-ring, .portal-orbit, .portal-chip > span) { animation-play-state: running; }
+
+.cinematic-footer-wrapper[data-motion=playing] .portal-halo { transition: opacity .6s; }
+.cinematic-footer-wrapper[data-motion=playing] .portal-ring { transition: scale .7s var(--motion-ease); }
+.cinematic-footer-wrapper[data-motion=playing] .footer-center:has(.footer-primary:is(:hover, :focus-visible)) .portal-halo { opacity: 1; }
+.cinematic-footer-wrapper[data-motion=playing] .footer-center:has(.footer-primary:is(:hover, :focus-visible)) .portal-ring { scale: 1.05; }
+
+@media (max-width: 600px) {
+  .footer-portal { --s: min(760px, 190vw); }
+  .portal-orbit { display: none; }
+}
+
+/* Fix: the portal's lower arc ran behind the email and buttons and made them hard to read.
+   Only the upper half of the portal is drawn now, fading out just below the headline. */
+.footer-portal {
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 54%, transparent 66%);
+  mask-image: linear-gradient(180deg, #000 0, #000 54%, transparent 66%);
+}
+/* Brighter contact text so it stays readable over the grid and glow. */
+.footer-email-row, .footer-email-row a { color: #e4eaff; }
+.footer-email-row a { font-size: 15px; font-weight: 500; }
+.footer-contact-details, .footer-contact-details > a, .footer-contact-details > span { color: #cfd9f2; }
+.footer-description { color: #c6d1ea; }
+
+/* ==========================================================================
+   Round 4: About section. Scroll-reveal staggering lives in scroll-motion.ts; these are the one-shot
+   states it triggers through [data-revealed]. Everything is gated on playing motion, so paused or
+   reduced-motion visitors see the finished state immediately.
+   ========================================================================== */
+
+/* Body copy: a touch brighter than the shared muted tone; the lead paragraph keeps its own colour. */
+.about-copy > p:not(.scroll-fill) { color: #c3cde3; }
+
+/* Degree progress: finished years fill in order, the current year fades in, then the graduation date. */
+[data-ui-motion=playing] .education-panel .edu-years > .is-done::before { transition: transform .9s var(--motion-ease) calc(.45s + var(--i, 0) * .2s); }
+[data-ui-motion=playing] .education-panel .edu-years > .is-current { transition: opacity .6s var(--motion-ease) 1.15s; animation: edu-current 2.6s ease-out 1.8s infinite; }
+[data-ui-motion=playing] .education-panel .edu-progress-end { transition: opacity .6s var(--motion-ease) 1.2s, translate .6s var(--motion-ease) 1.2s; }
+/* Start hidden only when scripts run, so the card is complete without JS (and in browsers lacking this query). */
+@media (scripting: enabled) {
+  [data-ui-motion=playing] .education-panel:not([data-revealed=true]) .edu-years > .is-done::before { transform: scaleX(0); }
+  [data-ui-motion=playing] .education-panel:not([data-revealed=true]) .edu-years > .is-current { opacity: 0; }
+  [data-ui-motion=playing] .education-panel:not([data-revealed=true]) .edu-progress-end { opacity: 0; translate: 0 6px; }
+}
+@keyframes edu-current { 0% { box-shadow: inset 0 0 0 1px #bec8ffb3, 0 0 0 0 #bec8ff55; } 70%, 100% { box-shadow: inset 0 0 0 1px #bec8ffb3, 0 0 0 7px #bec8ff00; } }
+
+/* Avatar ring: a slow conic shimmer (only exists when a photo is set). */
+[data-ui-motion=playing] .edu-avatar::before { animation: edu-ring 10s linear infinite; }
+@keyframes edu-ring { to { rotate: 360deg; } }
+
+/* "Web developer." gets a single soft light sweep once the copy has revealed. */
+[data-ui-motion=playing] .about-copy .serif-sweep {
+  background: linear-gradient(100deg, #c6ceff 38%, #ffffff 50%, #c6ceff 62%) 100% 0 / 300% 100% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+[data-ui-motion=playing] .about-copy[data-revealed=true] .serif-sweep { animation: serif-sweep 1.8s var(--motion-ease) .9s both; }
+@keyframes serif-sweep { to { background-position: 0 0; } }

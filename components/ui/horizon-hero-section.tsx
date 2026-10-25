@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
+import { dismissWhenOutside } from "@/app/lib/ui-accessibility";
 import { getHorizonSection, horizonSections } from "./horizon-model";
 import "./horizon-hero-section.css";
 
@@ -18,16 +19,18 @@ export interface HorizonHeroSectionProps {
   eyebrow?: string;
   ctaHref?: string;
   ctaLabel?: string;
+  introLines?: readonly string[];
   paused?: boolean;
   onPausedChange?: (paused: boolean) => void;
 }
 
 export function HorizonHeroSection({
-  className, eyebrow = "A JOURNEY BEYOND THE ORDINARY",
-  ctaHref = "#work", ctaLabel = "Explore my work", paused, onPausedChange,
+  className, eyebrow = "SEAN VILLANUEVA / WEB DEVELOPER",
+  ctaHref = "#work", ctaLabel = "Explore my project", introLines, paused, onPausedChange,
 }: HorizonHeroSectionProps = {}) {
   const instanceId = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const containerRef = useRef<HTMLElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -40,6 +43,11 @@ export function HorizonHeroSection({
   const [menuOpen, setMenuOpen] = useState(false);
   const reducedMotion = useSyncExternalStore(subscribeMotion, readMotion, serverMotion);
   const stopMotion = (paused ?? localPaused) || reducedMotion;
+
+  useEffect(() => {
+    if (!menuOpen || !menuRef.current) return;
+    return dismissWhenOutside(menuRef.current, () => setMenuOpen(false));
+  }, [menuOpen]);
 
   useEffect(() => {
     enabledRef.current = !stopMotion;
@@ -116,16 +124,21 @@ export function HorizonHeroSection({
     if (onPausedChange) onPausedChange(next); else setLocalPaused(next);
   }
 
-  return <section ref={containerRef} className={cn("horizon-hero relative isolate", className)} data-scene="fallback" data-motion={stopMotion ? "paused" : "playing"} aria-label="Horizon: a journey through space">
+  return <section ref={containerRef} className={cn("horizon-hero relative isolate", className)} data-scene="fallback" data-motion={stopMotion ? "paused" : "playing"} aria-label="Sean Villanueva portfolio introduction">
     <div ref={viewportRef} className="horizon-viewport">
       <div className="horizon-fallback" aria-hidden="true"><i /><i /><i /></div>
       <canvas ref={canvasRef} className="horizon-canvas" aria-hidden="true" />
       <div className="horizon-vignette" aria-hidden="true" />
-      <div className="horizon-meta"><span>CREATIVE DEVELOPMENT</span><span>AN EXPLORATION IN POSSIBILITY ↗</span></div>
-      <div className="horizon-side-menu">
+      <div className="horizon-meta"><span>WEB DEVELOPMENT</span><span>BULACAN, PHILIPPINES</span></div>
+      <div ref={menuRef} className="horizon-side-menu" onKeyDown={event => {
+        if (event.key === "Escape" && menuOpen) {
+          setMenuOpen(false);
+          menuRef.current?.querySelector<HTMLButtonElement>("button")?.focus();
+        }
+      }}>
         <button type="button" className="horizon-menu-button" aria-label={menuOpen ? "Close scene navigation" : "Open scene navigation"} aria-expanded={menuOpen} aria-controls={`${instanceId}-menu`} onClick={() => setMenuOpen(!menuOpen)}><span /><span /><span /></button>
-        <span className="horizon-vertical-text" aria-hidden="true">SPACE</span>
-        <nav id={`${instanceId}-menu`} className="horizon-scene-menu" aria-label="Space scenes" hidden={!menuOpen} onKeyDown={event => { if (event.key === "Escape") { setMenuOpen(false); event.currentTarget.parentElement?.querySelector("button")?.focus(); } }}>
+        <span className="horizon-vertical-text" aria-hidden="true">PORTFOLIO</span>
+        <nav id={`${instanceId}-menu`} className="horizon-scene-menu" aria-label="Portfolio sections" hidden={!menuOpen}>
           {horizonSections.map((section, index) => <a key={section.title} href={`#${instanceId}-scene-${index}`} onClick={() => setMenuOpen(false)}><span>0{index + 1}</span>{section.title}<span aria-hidden="true">↗</span></a>)}
         </nav>
       </div>
@@ -139,18 +152,18 @@ export function HorizonHeroSection({
         const Heading = index === 0 ? "h1" : "h2";
         return <section key={section.title} id={`${instanceId}-scene-${index}`} className="horizon-panel" aria-labelledby={`${instanceId}-title-${index}`}>
           <div className="horizon-panel-content">
-            <p className="horizon-eyebrow">{index === 0 ? eyebrow : index === 1 ? "BEYOND THE EXPECTED" : "THE NEXT CHAPTER IS YOURS"}</p>
-            <div className="horizon-title-mask"><Heading id={`${instanceId}-title-${index}`} className="horizon-title" aria-label={section.title}>{section.title.split("").map((char, i) => <span className="horizon-title-char" key={i} aria-hidden="true">{char}</span>)}</Heading></div>
-            <div className="horizon-subtitle">{section.lines.map(line => <p className="horizon-subtitle-line" key={line}>{line}</p>)}</div>
+            <p className="horizon-eyebrow">{index === 0 ? eyebrow : section.eyebrow}</p>
+            <div className="horizon-title-mask"><Heading id={`${instanceId}-title-${index}`} className="horizon-title" aria-label={section.title}>{section.title.split("").map((char, i, all) => <span className={i >= Math.ceil(all.length / 2) ? "horizon-title-char is-outline" : "horizon-title-char"} key={i} aria-hidden="true">{char}</span>)}</Heading></div>
+            <div className="horizon-subtitle">{(index === 0 && introLines ? introLines : section.lines).map(line => <p className="horizon-subtitle-line" key={line}>{line}</p>)}</div>
             {index === 0 && <a className="horizon-cta" href={ctaHref}>{ctaLabel}<span aria-hidden="true">↗</span></a>}
-            {index === 2 && <a className="horizon-cta" href={ctaHref}>Discover what I’m building<span aria-hidden="true">↓</span></a>}
+            {index === 2 && <a className="horizon-cta" href={ctaHref}>View Pharxmaco project<span aria-hidden="true">↓</span></a>}
           </div>
-          <span className="horizon-scene-note" aria-hidden="true">0{index + 1} — {index === 0 ? "THE BEGINNING" : index === 1 ? "THE EXPLORATION" : "THE POSSIBILITIES"}</span>
+          <span className="horizon-scene-note" aria-hidden="true">0{index + 1} — {section.note}</span>
         </section>;
       })}
     </div>
   </section>;
 }
 
-// Keeps the import in the supplied demo working unchanged.
+// Retains the existing shared component import.
 export const Component = HorizonHeroSection;

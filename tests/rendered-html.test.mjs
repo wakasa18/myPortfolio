@@ -24,24 +24,30 @@ test("production worker renders Sean's portfolio, navigation, and contact links"
   assert.match(html, /href="mailto:villanuevasean0918@gmail.com"/);
   assert.match(html, /aria-label="Copy email address"/);
   assert.match(html, /aria-label="Pause animation"/);
-  assert.match(html, /aria-label="HORIZON"/);
-  assert.match(html, /aria-label="COSMOS"/);
-  assert.match(html, /aria-label="INFINITY"/);
+  assert.match(html, /aria-label="SEAN"/);
+  assert.match(html, /aria-label="CODE"/);
+  assert.match(html, /aria-label="WORK"/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
   assert.match(html, /aria-label="Journey scroll progress"/);
   assert.match(html, /SEAN VILLANUEVA \/ WEB DEVELOPER/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/);
 });
 
-test("concepts are clearly labeled and have accessible project controls", async () => {
+test("only the real pharmacy project is shown with its live link and confirmed profile", async () => {
   const html = await (await render()).text();
-  for (const name of ["Relay", "Forma", "Orbit", "Grove"]) {
-    assert.match(html, new RegExp(`aria-label="View ${name} concept project"`));
-  }
-  assert.match(html, /Sample interface concepts for this portfolio/);
-  assert.match(html, /aria-label="Filter projects"/);
-  assert.match(html, /aria-pressed="true">All projects/);
+  assert.doesNotMatch(html, /Relay|Forma|Orbit|Grove|Interface explorations|SAMPLE CONCEPT|Filter projects|sean\.php/);
+  assert.match(html, /id="pharmacy-title"/);
+  assert.equal((html.match(/<article\b/g) || []).length, 1);
+  assert.match(html, /href="https:\/\/silver-fly-191014\.hostingersite\.com\/" target="_blank" rel="noopener noreferrer"/);
+  assert.match(html, /The live system opens to the staff sign-in page/);
+  assert.match(html, /May 2027/);
+  assert.match(html, /BSIS 4-1/);
+  assert.match(html, /tel:\+639472401814/);
   assert.match(html, /aria-controls="main-navigation"/);
+  for (const file of ["Sean_Villanueva_Resume.docx", "Sean_Villanueva_Portfolio.docx"]) {
+    assert.ok(html.includes(`/downloads/${file}`));
+    await access(new URL(`../dist/client/downloads/${file}`, import.meta.url));
+  }
 });
 
 test("unknown routes return 404 and the production icon exists", async () => {
@@ -49,11 +55,18 @@ test("unknown routes return 404 and the production icon exists", async () => {
   await access(new URL("../dist/client/icon.png", import.meta.url));
 });
 
-test("standalone Horizon demo renders with a working end-of-journey anchor", async () => {
-  const response = await render("/horizon-demo");
-  assert.equal(response.status, 200);
-  const html = await response.text();
-  assert.match(html, /<title>Horizon — Component Demo<\/title>/);
-  assert.match(html, /href="#horizon-demo-end"/);
-  assert.match(html, /id="horizon-demo-end"/);
+test("removed demo routes no longer expose example pages", async () => {
+  assert.equal((await render("/horizon-demo")).status, 404);
+  assert.equal((await render("/footer-demo")).status, 404);
+});
+
+test("cinematic footer replaces the contact section with working portfolio actions", async () => {
+  const html = await (await render()).text();
+  assert.equal((html.match(/id="contact"/g) || []).length, 1);
+  assert.equal((html.match(/<footer\b/g) || []).length, 1);
+  assert.match(html, /class="cinematic-footer"/);
+  assert.match(html, /aria-label="Footer navigation"/);
+  assert.match(html, /aria-label="Pause site motion"/);
+  assert.match(html, /aria-label="Back to top"/);
+  assert.doesNotMatch(html, /SOBERS|Volvox|Download iOS|Download Android|href="#"/);
 });

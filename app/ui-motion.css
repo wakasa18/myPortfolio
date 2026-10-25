@@ -1,0 +1,93 @@
+/* Interaction motion matches the scroll reveal curve; all effects are finite. */
+:root {
+  --motion-ease: cubic-bezier(.2, .7, .2, 1);
+  --motion-fast: 180ms;
+  --motion-medium: 320ms;
+}
+
+[data-ui-motion=playing] :is(.filters button, .menu-toggle, .dialog-close, .horizon-menu-button, .horizon-cta, .resume-cta) {
+  transition: background-color var(--motion-fast), border-color var(--motion-fast), color var(--motion-fast), translate var(--motion-medium) var(--motion-ease), scale var(--motion-fast) var(--motion-ease);
+}
+[data-ui-motion=playing] .project-card {
+  transition: border-color var(--motion-medium), background-color var(--motion-medium), translate var(--motion-medium) var(--motion-ease), scale var(--motion-fast) var(--motion-ease);
+}
+[data-ui-motion=playing] :is(.navigation a, .header-contact, .text-link) {
+  transition: color var(--motion-fast), translate var(--motion-medium) var(--motion-ease);
+}
+[data-ui-motion=playing] :is(.navigation a, .text-link)::after {
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--motion-medium) var(--motion-ease);
+}
+[data-ui-motion=playing] :is(.navigation a, .text-link):is(:hover, :focus-visible)::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+[data-ui-motion=playing] .wordmark-star { transition: rotate 550ms var(--motion-ease); }
+[data-ui-motion=playing] .project-tags > span {
+  transition: translate var(--motion-medium) var(--motion-ease), border-color var(--motion-medium);
+}
+[data-ui-motion=playing] .project-tags > span:nth-child(2) { transition-delay: 35ms; }
+[data-ui-motion=playing] .project-tags > span:nth-child(3) { transition-delay: 70ms; }
+[data-ui-motion=playing] .filters button[aria-pressed=true] { animation: ui-select 300ms var(--motion-ease); }
+
+/* Pointer affordances stay restrained; scroll and hover use separate transform properties. */
+@media(hover:hover) and (pointer:fine) {
+  [data-ui-motion=playing] .project-card:hover { translate: 0 -5px; background-color: #142039; }
+  [data-ui-motion=playing] .project-card:hover .project-tags > span { translate: 0 -2px; border-color: #6273a1; }
+  [data-ui-motion=playing] .wordmark:hover .wordmark-star { rotate: 90deg; }
+  [data-ui-motion=playing] :is(.filters button, .horizon-cta, .resume-cta, .menu-toggle):hover { translate: 0 -2px; }
+  [data-ui-motion=playing] .dialog-close:hover { rotate: 90deg; background: #253658; }
+  [data-ui-motion=playing] .header-contact:hover { translate: 0 -2px; }
+  [data-ui-motion=playing] .horizon-cta:hover > span { translate: 3px -3px; }
+  [data-ui-motion=playing] .toolkit-list li:hover { translate: 0 -3px; border-color: #6b7fb8; background-color: #182845; }
+  [data-ui-motion=playing] .toolkit-list li:hover > svg { rotate: -8deg; scale: 1.1; }
+  [data-ui-motion=playing] .resume-cta:hover > svg { translate: 0 2px; }
+}
+[data-ui-motion=playing] :is(.filters button, .menu-toggle, .horizon-menu-button, .horizon-cta, .resume-cta, .dialog-close):active { scale: .96; translate: 0 0; }
+[data-ui-motion=playing] .project-card:active { scale: .99; translate: 0 0; }
+[data-ui-motion=playing] .dialog-close { transition: rotate var(--motion-medium) var(--motion-ease), background-color var(--motion-fast), scale var(--motion-fast); }
+[data-ui-motion=playing] .horizon-cta > span { transition: translate var(--motion-medium) var(--motion-ease); }
+[data-ui-motion=playing] .toolkit-list li { transition: translate var(--motion-medium) var(--motion-ease), border-color var(--motion-medium), background-color var(--motion-medium); }
+[data-ui-motion=playing] .toolkit-list li > svg, [data-ui-motion=playing] .resume-cta > svg { transition: translate var(--motion-medium) var(--motion-ease), rotate var(--motion-medium) var(--motion-ease), scale var(--motion-medium) var(--motion-ease); }
+
+/* Menus and dialogs enter with the same small upward movement as the cards. */
+[data-ui-motion=playing] .horizon-scene-menu:not([hidden]) { animation: ui-panel-in 260ms var(--motion-ease) both; }
+[data-ui-motion=playing] .project-dialog[open] { animation: ui-dialog-in 340ms var(--motion-ease) both; }
+[data-ui-motion=playing] .project-dialog[open]::backdrop { animation: ui-fade-in 260ms ease both; }
+[data-ui-motion=playing] .project-dialog[open] .dialog-content > :is(.eyebrow, h2, .dialog-intro, .dialog-details, .project-tags, .dialog-note, .text-link) {
+  animation: ui-panel-in 420ms var(--motion-ease) both;
+  animation-delay: 70ms;
+}
+[data-ui-motion=playing] .project-dialog[open] .dialog-content > :is(.dialog-details, .project-tags) { animation-delay: 120ms; }
+[data-ui-motion=playing] .project-dialog[open] .dialog-content > :is(.dialog-note, .text-link) { animation-delay: 160ms; }
+@media(max-width:600px) {
+  [data-ui-motion=playing] .navigation.is-open { animation: ui-panel-in 260ms var(--motion-ease) both; }
+  [data-ui-motion=playing] .navigation.is-open a { animation: ui-panel-in 300ms var(--motion-ease) both; }
+  [data-ui-motion=playing] .navigation.is-open a:nth-child(2) { animation-delay: 40ms; }
+  [data-ui-motion=playing] .navigation.is-open a:nth-child(3) { animation-delay: 80ms; }
+}
+
+/* Magnetic GSAP transforms are untouched; press feedback uses independent scale. */
+.cinematic-footer-wrapper[data-motion=playing] .footer-glass-pill {
+  transition: background-color var(--motion-fast), border-color var(--motion-fast), color var(--motion-fast), scale var(--motion-fast) var(--motion-ease);
+}
+.cinematic-footer-wrapper[data-motion=playing] .footer-glass-pill:active { scale: .96; }
+.cinematic-footer-wrapper[data-motion=playing] :is(.footer-primary-links, .footer-back-top) svg { transition: translate var(--motion-medium) var(--motion-ease); }
+.cinematic-footer-wrapper[data-motion=playing] .footer-primary-links a:hover svg { translate: 2px -2px; }
+.cinematic-footer-wrapper[data-motion=playing] .footer-back-top:hover svg { translate: 0 -3px; }
+.cinematic-footer-wrapper[data-motion=playing] .footer-copy-status:not(:empty) { animation: ui-panel-in 240ms var(--motion-ease) both; }
+.cinematic-footer-wrapper[data-motion=playing] .footer-email-row button:active { scale: .9; }
+
+@keyframes ui-panel-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes ui-dialog-in { from { opacity: 0; transform: translateY(20px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes ui-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ui-select { 0% { scale: .97; } 65% { scale: 1.025; } 100% { scale: 1; } }
+
+[data-ui-motion=paused] *, [data-ui-motion=paused] *::before, [data-ui-motion=paused] *::after,
+.cinematic-footer-wrapper[data-motion=paused] .footer-glass-pill,
+.cinematic-footer-wrapper[data-motion=paused] .footer-copy-status { animation: none!important; transition: none!important; }
+@media(prefers-reduced-motion:reduce) {
+  [data-ui-motion] *, [data-ui-motion] *::before, [data-ui-motion] *::after { animation: none!important; transition: none!important; }
+}

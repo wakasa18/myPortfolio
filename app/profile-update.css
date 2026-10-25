@@ -1,0 +1,161 @@
+/* Verified profile and project content, using the existing navy/lavender palette. */
+.pharmacy-project {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 46px;
+  padding: clamp(25px, 3.5vw, 50px);
+  border: 1px solid #455778;
+  border-radius: 16px;
+  background: linear-gradient(120deg, #192741, #101a2c 64%);
+  margin-bottom: 0;
+}
+.pharmacy-summary, .pharmacy-system, .pharmacy-details > div { min-width: 0; }
+.pharmacy-kicker { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; }
+.pharmacy-kicker > .eyebrow, .pharmacy-details .eyebrow { font-size: 10px; letter-spacing: 1.3px; color: var(--lavender); }
+.project-status { display: inline-flex; gap: 7px; align-items: center; font-size: 11px; color: #c5dece; line-height: 1.6; }
+.project-status i { width: 5px; height: 5px; flex-shrink: 0; border-radius: 50%; background: #b9d8c4; }
+.pharmacy-summary h3 { font: 600 clamp(36px, 4vw, 58px)/1.12 var(--display); letter-spacing: -2px; margin: 25px 0 20px; }
+.pharmacy-summary h3 > span { display: block; font: 400 16px/1.6 var(--body); letter-spacing: 0; color: #ccd4e8; margin-top: 12px; }
+.pharmacy-project-title { color: var(--ink); font-size: 15px; line-height: 1.8; margin: 0 0 24px; }
+.pharmacy-facts { display: flex; flex-wrap: wrap; gap: 20px 28px; margin: 0 0 22px; }
+.pharmacy-facts dt { color: #9daeca; font-size: 11px; margin-bottom: 7px; }
+.pharmacy-facts dd { margin: 0; color: #e4eaff; font-size: 13px; line-height: 1.6; }
+.pharmacy-description { color: var(--portfolio-muted); font-size: 14px; line-height: 1.85; margin: 0 0 12px; }
+.pharmacy-summary .text-link { display: inline-flex; gap: 14px; align-items: center; }
+.pharmacy-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 13px 25px; }
+.pharmacy-live-note { font-size: 11px; line-height: 1.7; color: #a4b4d0; margin: 13px 0 0; }
+.pharmacy-system { align-self: center; background: #0b1425; border: 1px solid #354867; border-radius: 12px; padding: 25px; box-shadow: 0 22px 65px #0002; }
+.system-map-heading { display: flex; align-items: center; gap: 11px; border-bottom: 1px solid #2d3b59; padding-bottom: 20px; }
+.pharmacy-cross { position: relative; display: block; width: 28px; height: 28px; flex-shrink: 0; }
+.pharmacy-cross::before, .pharmacy-cross::after { content: ''; position: absolute; border-radius: 3px; background: var(--lavender); }
+.pharmacy-cross::before { width: 10px; height: 28px; left: 9px; }
+.pharmacy-cross::after { width: 28px; height: 10px; top: 9px; }
+.system-map-heading strong { display: block; font: 650 18px/1.4 var(--display); letter-spacing: -.5px; }
+.system-map-heading div > span { display: block; color: #a8b9d5; font-size: 8px; letter-spacing: 1px; margin-top: 4px; }
+.system-map-label { margin-left: auto; color: #a8b9d5; font-size: 8px; letter-spacing: 1px; }
+.system-map-intro { color: #aebed7; font-size: 12px; margin: 19px 0 14px; }
+.system-areas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.system-area { background: #14213a; border: 1px solid #2a3d5d; border-radius: 7px; padding: 17px 14px; }
+.system-area svg { color: #b9c5ff; margin-bottom: 15px; }
+.system-area h4 { font-size: 12px; font-weight: 550; margin: 0 0 7px; }
+.system-area p { font-size: 10px; line-height: 1.6; color: #b0c0da; margin: 0; }
+.system-foundation { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; padding: 16px 8px; border: 1px solid #3b4d70; border-radius: 6px; margin-top: 14px; color: #d4dcff; font-size: 11px; }
+.system-map-caption { color: #91a4c4; text-align: center; font-size: 10px; margin: 13px 0 0; }
+.pharmacy-details { grid-column: 1 / -1; display: grid; grid-template-columns: 1.05fr 1fr; gap: 46px; padding-top: 27px; border-top: 1px solid #344564; }
+.pharmacy-details p { color: #c0cbe2; font-size: 13px; line-height: 1.8; margin-bottom: 0; }
+.pharmacy-details .pharmacy-scope { font-size: 12px; color: #a4b4d0; margin-top: 7px; }
+.pharmacy-details .project-tags { margin-top: 13px; }
+/* ==========================================================================
+   About section. The education card and the copy column share one top and bottom edge
+   (.about-panel stretches), and the card is left-aligned throughout.
+   ========================================================================== */
+.about-visual.education-panel {
+  aspect-ratio: auto;
+  min-height: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: clamp(26px, 3vw, 44px);
+  text-align: left;
+  overflow: visible; /* the glowing border sits on the edge and must not be clipped */
+  border: 1px solid #455778;
+  border-radius: 16px; /* same radius as the Pharxmaco card */
+  background: radial-gradient(520px 300px at 100% 0, #34428a33, transparent 65%), linear-gradient(160deg, #192741, #101a2c 70%);
+  box-shadow: inset 0 1px 0 #ffffff0d, 0 40px 90px -45px #000b;
+}
+.edu-head { display: flex; align-items: center; gap: 16px; }
+.education-panel .eyebrow { color: var(--lavender); font-size: 11px; letter-spacing: 1.4px; }
+.education-panel h3 { font: 500 clamp(26px, 2.6vw, 38px)/1.2 var(--display); letter-spacing: -1px; margin: 0; max-width: 18em; }
+.education-panel > p { font-size: 15px; color: #c6d1ea; line-height: 1.6; margin: 0; }
+.education-panel .project-tags { margin: 0; }
+.edu-progress { margin-top: auto; padding-top: 24px; border-top: 1px solid #344564; }
+.edu-progress-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 14px; font-size: 14px; color: #c6d1ea; }
+.edu-progress-meta strong { color: #e4eaff; font-weight: 600; }
+.edu-progress-end { color: #e4eaff; font-weight: 600; white-space: nowrap; }
+.edu-progress-end > span { color: #a4b4d0; font-weight: 400; }
+/* One segment per year of the degree: finished years filled, the current year outlined. */
+.edu-years { display: grid; grid-template-columns: repeat(var(--years, 4), 1fr); gap: 6px; }
+.edu-years > span { position: relative; height: 8px; border-radius: 999px; background: #22314f; }
+.edu-years > .is-done::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(90deg, #9fb0ff, var(--lavender)); transform-origin: left; }
+.edu-years > .is-current { box-shadow: inset 0 0 0 1px #bec8ffb3; }
+.availability-pill { display: flex; width: fit-content; max-width: 100%; align-items: center; gap: 10px; margin: 0 0 24px; padding: 7px 15px 7px 13px; border: 1px solid #3f6150; border-radius: 999px; background: #13241f80; color: #d3ebdb; font-size: 13px; line-height: 1.4; }
+.availability-pill i { width: 6px; height: 6px; flex-shrink: 0; border-radius: 50%; background: #b9d8c4; }
+.about-copy mark.hl { color: #e4eaff; background: linear-gradient(transparent 60%, #8e9eff47 60%); padding: 0 .12em; margin: 0 -.12em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.resume-cta { display: inline-flex; align-items: center; gap: 14px; min-height: 48px; margin-top: 12px; padding: 12px 16px 12px 24px; border: 1px solid #8295c2; border-radius: 999px; background: #14203bba; color: #e4eaff; font-size: 14px; font-weight: 550; line-height: 1.2; }
+.resume-format { padding: 4px 9px; border-radius: 999px; background: #ffffff14; font-size: 11px; font-weight: 600; letter-spacing: .06em; }
+.resume-cta:is(:hover, :focus-visible) .resume-format { background: #10182926; }
+/* Heading lines slide up out of a mask. Padding and negative margin keep descenders and italic overhang from being clipped. */
+.reveal-line { display: block; overflow: hidden; padding: 0 .1em .14em; margin: 0 -.1em -.14em; }
+.reveal-line-inner { display: block; }
+/* Avatar: only rendered when profile.photoSrc is set. */
+.edu-avatar { position: relative; width: 72px; height: 72px; flex: none; border-radius: 50%; box-shadow: 0 0 0 8px #bec8ff0d; }
+.edu-avatar::before { content: ""; position: absolute; inset: -4px; border-radius: 50%; background: conic-gradient(from 0deg, #bec8ff22, #dfe4ff, #bec8ff22 35%, #bec8ff55 70%, #bec8ff22); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px)); mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px)); }
+.edu-avatar img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+/* Toolkit: static, grouped by role. */
+.toolkit { display: grid; grid-template-columns: minmax(180px, 1fr) 4fr; gap: 24px 48px; align-items: start; border-bottom: 1px solid var(--line); padding: 44px 0; }
+.toolkit > .eyebrow { color: var(--portfolio-muted); font-size: 11px; padding-top: 6px; }
+.toolkit-groups { display: flex; flex-wrap: wrap; gap: 28px 56px; }
+.toolkit-group-title { margin: 0 0 12px; font-size: 13px; color: #9fb0d0; }
+.toolkit-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.toolkit-list li { display: inline-flex; align-items: center; gap: 9px; padding: 8px 15px 8px 12px; border: 1px solid #354564; border-radius: 999px; background: #13203a; color: #d3dcf2; font-size: 14px; line-height: 1.3; white-space: nowrap; }
+.toolkit-list li > svg { flex: none; width: 20px; height: 20px; color: var(--lavender); }
+.footer-contact-details { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 23px; color: var(--muted-foreground); font-size: 13px; line-height: 1.6; margin-top: -4px; margin-bottom: 16px; }
+.footer-contact-details > a, .footer-contact-details > span { display: inline-flex; gap: 8px; align-items: center; }
+.footer-contact-details a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.cinematic-footer-wrapper.has-profile-details { height: max(870px, 100svh); }
+.has-profile-details .cinematic-footer { min-height: 870px; }
+@media (max-width: 1100px) {
+  .pharmacy-project { gap: 30px; }
+  .pharmacy-details { gap: 30px; }
+  .pharmacy-system { padding: 20px; }
+  .system-map-label { display: none; }
+  .system-area { padding: 15px 11px; }
+  .system-area h4 { font-size: 11px; }
+  .pharmacy-summary h3 { font-size: 43px; }
+}
+@media (max-width: 900px) {
+  .about-panel { grid-template-columns: 1fr; }
+  .about-visual.education-panel { max-width: none; }
+  .pharmacy-project { grid-template-columns: 1fr; padding: 28px; }
+  .pharmacy-system { width: 100%; }
+  .pharmacy-details { grid-template-columns: 1fr 1fr; }
+  .system-area h4 { font-size: 14px; }
+  .system-area p { font-size: 12px; }
+  .system-map-label { display: block; }
+  .system-map-heading div > span { font-size: 9px; }
+}
+@media (max-width: 800px), (max-height: 870px) {
+  .cinematic-footer-wrapper.has-profile-details { height: auto; clip-path: none; }
+  .has-profile-details .cinematic-footer { position: relative; inset: auto; min-height: 0; height: auto; }
+}
+@media (max-width: 600px) {
+  .education-panel h3 { font-size: 26px; }
+  .edu-progress-meta { font-size: 13px; }
+  .toolkit-groups { gap: 22px 32px; }
+  .toolkit-list li { font-size: 13px; }
+  .resume-cta { font-size: 14px; }
+  .pharmacy-project { padding: 22px 18px; gap: 25px; }
+  .pharmacy-summary h3 { font-size: 39px; letter-spacing: -1.5px; }
+  .pharmacy-summary h3 > span { font-size: 14px; }
+  .pharmacy-project-title { font-size: 14px; line-height: 1.75; }
+  .pharmacy-facts { gap: 18px; }
+  .pharmacy-description { font-size: 13px; }
+  .pharmacy-system { padding: 17px 13px; }
+  .system-map-heading { gap: 9px; }
+  .system-map-heading strong { font-size: 17px; }
+  .system-map-heading div > span { font-size: 7px; letter-spacing: .6px; }
+  .system-map-label { display: none; }
+  .system-area { padding: 15px 11px; }
+  .system-area h4 { font-size: 11px; }
+  .system-area p { font-size: 10px; }
+  .system-foundation { font-size: 10px; gap: 8px; }
+  .pharmacy-details { grid-template-columns: 1fr; gap: 24px; padding-top: 22px; }
+  .toolkit { grid-template-columns: 1fr; padding: 36px 0; }
+  .toolkit > .eyebrow { padding-top: 0; }
+  .footer-contact-details { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-footer-wrapper.has-profile-details { height: auto; clip-path: none; }
+  .has-profile-details .cinematic-footer { position: relative; height: auto; min-height: 0; }
+}

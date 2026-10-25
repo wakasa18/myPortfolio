@@ -1,0 +1,189 @@
+/* Pharxmaco system map: a bento of modules wired to one spine that ends at the database.
+   Imported by components/ui/pharmacy-project.tsx. Colours reuse the existing navy / lavender palette. */
+
+.pharmacy-system { --pmap-line: #46598a; --pmap-lit: #9fb0ff; --pmap-gap: 14px; --pmap-spine: 36px; }
+
+.pmap-board {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) var(--pmap-spine) minmax(0, 1fr);
+  row-gap: var(--pmap-gap);
+}
+
+/* ---- Cards ---------------------------------------------------------------- */
+.pmap-card {
+  position: relative;
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  padding: 16px;
+  text-align: left;
+  color: inherit;
+  background: #14213a;
+  border: 1px solid #2a3d5d;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.pmap-card[data-side=right] { grid-column: 3; }
+.pmap-card[data-row="1"] { grid-row: 1; }
+.pmap-card[data-row="2"] { grid-row: 2; }
+.pmap-card:focus-visible { outline-offset: 3px; }
+.pmap-card[aria-expanded=true] { border-color: #7f93d6; background: #182845; box-shadow: 0 0 0 1px #7f93d62e, 0 20px 40px -26px #7f93d6aa; }
+
+/* Wire from the card edge to the spine, with a node where it joins. */
+.pmap-card::before, .pmap-card::after { content: ''; position: absolute; pointer-events: none; }
+.pmap-card::before { top: 50%; width: calc(var(--pmap-spine) / 2); height: 2px; margin-top: -1px; background: var(--pmap-line); }
+.pmap-card::after { top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: #1b2a4a; border: 1.5px solid var(--pmap-line); }
+.pmap-card[data-side=left]::before { left: 100%; }
+.pmap-card[data-side=left]::after { left: calc(100% + var(--pmap-spine) / 2 - 3.5px); }
+.pmap-card[data-side=right]::before { right: 100%; }
+.pmap-card[data-side=right]::after { right: calc(100% + var(--pmap-spine) / 2 - 3.5px); }
+
+.pmap-card-head { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.pmap-names { display: block; min-width: 0; }
+.pmap-title { display: block; font: 600 14px/1.35 var(--display); letter-spacing: -.2px; color: var(--ink); }
+.pmap-sub { display: block; margin-top: 3px; font-size: 12px; line-height: 1.45; color: #b0c0da; }
+
+.pmap-icon { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px; background: #223357; border: 1px solid #3a4f7c; color: #c7d0ff; }
+.pmap-icon svg { width: 22px; height: 22px; overflow: visible; }
+.pmap-icon svg :is(.ic-cart, .ic-hist) { transform-box: fill-box; transform-origin: center; }
+.pmap-icon svg .ic-top { transform-box: fill-box; transform-origin: center bottom; }
+.pmap-icon svg .ic-check { stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+/* ---- Mini previews (sample data, decorative) ------------------------------ */
+.pmap-preview { display: block; flex: 1; min-width: 0; padding: 11px 12px; border-radius: 7px; background: #0e182d; border: 1px solid #22334f; font-size: 11px; line-height: 1.4; color: #b9c6e2; }
+.pv { display: block; }
+.pv ul { list-style: none; margin: 0; padding: 0; }
+
+.pv-pos li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 10px; padding: 4px 0; border-bottom: 1px dashed #2a3d5d; }
+.pv-pos li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pv-pos em { font-style: normal; color: #8ea0c6; }
+.pv-pos b, .pv-total b { font-weight: 550; color: #e4eaff; font-variant-numeric: tabular-nums; }
+.pv-pos li b { min-width: 42px; text-align: right; }
+.pv-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 8px; font-size: 12px; }
+.pv-total b { font-size: 14px; color: var(--lavender); }
+
+.pv-access { display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start; }
+.pv-access span { padding: 4px 9px; border: 1px solid #34486d; border-radius: 999px; color: #b9c6e2; }
+.pv-access span.is-on { background: #2b3d70; border-color: #7f93d6; color: #eef2ff; }
+
+.pv-stock div { display: grid; grid-template-columns: 76px minmax(0, 1fr) 28px; gap: 10px; align-items: center; padding: 4px 0; }
+.pv-stock span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pv-stock i { display: block; height: 6px; border-radius: 3px; background: #1d2c49; overflow: hidden; }
+.pv-stock u { display: block; height: 100%; border-radius: 3px; background: #8d9fe8; transform-origin: left; }
+.pv-stock u.is-low { background: #e3b58a; }
+.pv-stock small { font-size: 10px; color: #e3b58a; }
+
+.pv-history div { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px; padding: 4px 0; border-bottom: 1px dashed #2a3d5d; }
+.pv-history div:last-child { border-bottom: 0; }
+.pv-history span { color: #8ea0c6; font-variant-numeric: tabular-nums; }
+.pv-history em { font-style: normal; }
+.pv-history b { font-weight: 550; color: #e4eaff; font-variant-numeric: tabular-nums; }
+.pv-history .is-refund em, .pv-history .is-refund b { color: #e3b58a; }
+
+/* ---- Spine and foundation ------------------------------------------------- */
+.pmap-spine { grid-column: 2; grid-row: 1 / 3; position: relative; justify-self: center; width: 2px; margin-bottom: calc(var(--pmap-gap) * -1); background: var(--pmap-line); transform-origin: top; }
+.pmap-spine::after { content: ''; position: absolute; left: 50%; bottom: -1px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: #1b2a4a; border: 2px solid var(--pmap-lit); }
+.pmap-dot { position: absolute; left: 50%; top: 0; width: 6px; height: 14px; margin-left: -3px; border-radius: 3px; background: linear-gradient(transparent, var(--pmap-lit)); opacity: 0; filter: drop-shadow(0 0 5px var(--pmap-lit)); }
+
+.pmap-foundation { grid-column: 1 / -1; grid-row: 3; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 14px; padding: 14px 12px; border: 1px solid #3b4d70; border-radius: 8px; background: #101c34; color: #d4dcff; font-size: 12px; }
+.pmap-foundation-label { color: #a8b9d5; }
+.pmap-stack { display: inline-flex; align-items: center; gap: 10px; }
+.pmap-stack b { display: inline-flex; align-items: center; gap: 6px; font-weight: 550; }
+.pmap-join { display: block; width: 22px; height: 2px; border-radius: 1px; background: var(--pmap-line); }
+
+/* ---- Detail panel ---------------------------------------------------------- */
+.pmap-detail { margin-top: 14px; padding: 16px; border-radius: 10px; background: #101c34; border: 1px solid #34486d; }
+.pmap-detail[hidden] { display: none; }
+.pmap-detail-body { display: flex; gap: 14px; align-items: flex-start; }
+.pmap-detail-body > div:last-child { flex: 1; min-width: 0; }
+.pmap-detail-summary { margin: 0 0 10px; font-size: 13px; line-height: 1.7; color: #d4dcff; }
+.pmap-detail ul { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
+.pmap-detail li { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; line-height: 1.6; color: #b9c6e2; }
+.pmap-detail li svg { flex-shrink: 0; margin-top: 4px; color: var(--pmap-lit); }
+.system-map-caption { margin-top: 14px; }
+
+/* ---- Screenshot in a browser frame ----------------------------------------- */
+.pmap-shot { grid-column: 1 / -1; margin: 6px auto 0; width: min(100%, 860px); perspective: 1500px; }
+.pmap-shot-frame { overflow: hidden; border-radius: 10px; border: 1px solid #455778; background: #0b1425; box-shadow: 0 40px 80px -40px #000c; transform: rotateX(5deg) rotateY(-7deg) rotateZ(.6deg); transform-origin: 60% 50%; transition: transform .6s var(--motion-ease, ease); }
+.pmap-shot-bar { display: flex; align-items: center; gap: 6px; padding: 10px 12px; background: #14213a; border-bottom: 1px solid #2a3d5d; }
+.pmap-shot-bar i { width: 9px; height: 9px; border-radius: 50%; background: #34486d; }
+.pmap-shot-bar span { margin-left: 12px; padding: 3px 12px; border-radius: 999px; background: #0e182d; color: #a8b9d5; font-size: 11px; }
+.pmap-shot img { display: block; width: 100%; height: auto; }
+.pmap-shot figcaption { margin-top: 16px; text-align: center; font-size: 12px; color: #a4b4d0; }
+@media (hover: hover) and (pointer: fine) { .pmap-shot:hover .pmap-shot-frame { transform: none; } }
+
+/* ---- Motion ---------------------------------------------------------------- */
+/* Hover and focus: each icon does one small thing that matches what the module does. */
+[data-ui-motion=playing] .pmap-card { transition: translate var(--motion-medium) var(--motion-ease), border-color var(--motion-medium), background-color var(--motion-medium), box-shadow var(--motion-medium); }
+@media (hover: hover) and (pointer: fine) {
+  [data-ui-motion=playing] .pmap-card:hover { translate: 0 -3px; border-color: #6b7fb8; background: #182845; }
+  [data-ui-motion=playing] .pmap-card:hover .ic-cart { animation: pmap-cart .7s var(--motion-ease); }
+  [data-ui-motion=playing] .pmap-card:hover .ic-top { animation: pmap-stack .65s var(--motion-ease); }
+  [data-ui-motion=playing] .pmap-card:hover .ic-check { animation: pmap-draw .6s var(--motion-ease); }
+  [data-ui-motion=playing] .pmap-card:hover .ic-hist { animation: pmap-rewind .8s var(--motion-ease); }
+}
+[data-ui-motion=playing] .pmap-card:focus-visible .ic-cart { animation: pmap-cart .7s var(--motion-ease); }
+[data-ui-motion=playing] .pmap-card:focus-visible .ic-top { animation: pmap-stack .65s var(--motion-ease); }
+[data-ui-motion=playing] .pmap-card:focus-visible .ic-check { animation: pmap-draw .6s var(--motion-ease); }
+[data-ui-motion=playing] .pmap-card:focus-visible .ic-hist { animation: pmap-rewind .8s var(--motion-ease); }
+@keyframes pmap-cart { 0% { transform: translateX(-5px) rotate(-5deg); } 55% { transform: translateX(3px) rotate(3deg); } 100% { transform: none; } }
+@keyframes pmap-stack { 0% { transform: translateY(0); } 40% { transform: translateY(-3.5px); } 70% { transform: translateY(0); } 85% { transform: translateY(-1px); } 100% { transform: translateY(0); } }
+@keyframes pmap-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes pmap-rewind { to { transform: rotate(-360deg); } }
+
+/* Opening a module: the detail rises in, like the other panels on the page. */
+[data-ui-motion=playing] .pmap-detail-body { animation: ui-panel-in 360ms var(--motion-ease) both; }
+
+/* Boot-up, once, when the map first scrolls into view: wires draw, nodes light in order. */
+[data-ui-motion=playing] .pharmacy-system .pmap-spine { transition: transform 900ms var(--motion-ease) 450ms; }
+[data-ui-motion=playing] .pharmacy-system .pmap-card::before { transition: transform 420ms var(--motion-ease); }
+[data-ui-motion=playing] .pharmacy-system[data-boot=pending] .pmap-spine { transform: scaleY(0); }
+[data-ui-motion=playing] .pharmacy-system[data-boot=pending] .pmap-card::before { transform: scaleX(0); }
+[data-ui-motion=playing] .pharmacy-system[data-boot=pending] .pmap-card[data-side=left]::before { transform-origin: left; }
+[data-ui-motion=playing] .pharmacy-system[data-boot=pending] .pmap-card[data-side=right]::before { transform-origin: right; }
+[data-ui-motion=playing] .pharmacy-system[data-boot=on] .pmap-card::before { transition-delay: calc(var(--step) * 140ms + 300ms); }
+[data-ui-motion=playing] .pharmacy-system[data-boot=pending] .pmap-foundation { opacity: .35; }
+[data-ui-motion=playing] .pharmacy-system .pmap-foundation { transition: opacity 600ms ease 1.2s; }
+[data-ui-motion=playing] .pharmacy-system[data-boot=on] .pmap-card { animation: pmap-boot 900ms var(--motion-ease) backwards; animation-delay: calc(var(--step) * 140ms + 200ms); }
+@keyframes pmap-boot { 35% { border-color: var(--pmap-lit); box-shadow: 0 0 0 1px #9fb0ff44, 0 0 28px -6px #9fb0ff88; } }
+
+/* Steady state: a light travels the spine, and the modules glow in the order a sale really runs
+   (sign in, sell, stock update, history). It only runs while the map is on screen. */
+[data-ui-motion=playing] .pharmacy-system[data-live=true][data-boot=on] .pmap-dot { animation: pmap-flow 3.2s linear 1.6s infinite; }
+[data-ui-motion=playing] .pharmacy-system[data-live=true][data-boot=on] .pmap-card { animation: pmap-boot 900ms var(--motion-ease) backwards, pmap-turn 8s linear infinite; animation-delay: calc(var(--step) * 140ms + 200ms), calc(var(--step) * 2s + 2s); }
+[data-ui-motion=playing] .pharmacy-system[data-live=true][data-boot=on] .pmap-card[aria-expanded=true] { animation: pmap-boot 900ms var(--motion-ease) backwards; animation-delay: calc(var(--step) * 140ms + 200ms); }
+[data-ui-motion=playing] .pharmacy-system[data-live=true][data-boot=on] .pmap-card::before { animation: pmap-wire 8s linear infinite; animation-delay: calc(var(--step) * 2s + 2s); }
+@keyframes pmap-flow { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: calc(100% - 14px); opacity: 0; } }
+@keyframes pmap-turn { 4%, 18% { border-color: #7f93d6; } }
+@keyframes pmap-wire { 4%, 18% { background: var(--pmap-lit); } }
+
+/* ---- Responsive ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .pmap-title { font-size: 15px; }
+  .pmap-sub, .pmap-preview { font-size: 12px; }
+  .pmap-shot-frame { transform: none; }
+}
+@media (max-width: 520px) {
+  .pharmacy-system { --pmap-spine: 22px; }
+  /* One column: the spine moves to the left edge and every card hangs off it. */
+  .pmap-board { grid-template-columns: var(--pmap-spine) minmax(0, 1fr); }
+  .pmap-card, .pmap-card[data-side=right] { grid-column: 2; }
+  .pmap-card:nth-of-type(1) { grid-row: 1; }
+  .pmap-card:nth-of-type(2) { grid-row: 2; }
+  .pmap-card:nth-of-type(3) { grid-row: 3; }
+  .pmap-card:nth-of-type(4) { grid-row: 4; }
+  .pmap-spine { grid-column: 1; grid-row: 1 / 5; }
+  .pmap-card[data-side]::before { left: auto; right: 100%; transform-origin: right; width: calc(var(--pmap-spine) / 2); }
+  .pmap-card[data-side]::after { left: auto; right: calc(100% + var(--pmap-spine) / 2 - 3.5px); }
+  .pmap-foundation { grid-row: 5; }
+  .pmap-board { row-gap: 12px; }
+  .pmap-detail-body { flex-direction: column; gap: 12px; }
+  .pv-stock div { grid-template-columns: 82px minmax(0, 1fr) 30px; }
+}
+@media (max-width: 360px) {
+  .pmap-card { padding: 13px; }
+  .pmap-icon { width: 36px; height: 36px; }
+}
