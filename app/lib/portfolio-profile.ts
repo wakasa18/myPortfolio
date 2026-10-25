@@ -28,5 +28,5 @@ export const pharmacyProject = {
   status: "Ongoing development",
   role: "Web developer · Team project",
   liveHref: "https://silver-fly-191014.hostingersite.com/",
-  technologies: ["PHP", "CodeIgniter 3", "MySQL", "HTML", "CSS", "Bootstrap", "JavaScript", "jQuery/AJAX"],
+  technologies: ["PHP", "CodeIgniter 4", "MySQL", "HTML", "CSS", "JavaScript", "jQuery/AJAX"],
 } as const;

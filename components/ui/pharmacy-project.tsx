@@ -120,7 +120,7 @@ export function PharmacyProject() {
         <span className="pmap-spine" aria-hidden="true"><i className="pmap-dot" /></span>
         <div className="pmap-foundation">
           <span className="pmap-foundation-label">Built on</span>
-          <span className="pmap-stack"><b>PHP / CodeIgniter 3</b><i className="pmap-join" aria-hidden="true" /><span className="sr-only"> with </span><b><Database size={14} strokeWidth={1.7} aria-hidden="true" />MySQL</b></span>
+          <span className="pmap-stack"><b>PHP / CodeIgniter 4</b><i className="pmap-join" aria-hidden="true" /><span className="sr-only"> with </span><b><Database size={14} strokeWidth={1.7} aria-hidden="true" />MySQL</b></span>
         </div>
       </div>
 

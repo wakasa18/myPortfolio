@@ -1,6 +1,6 @@
 export const horizonSections = [
   { title: "SEAN", eyebrow: "SEAN VILLANUEVA / WEB DEVELOPER", note: "ABOUT SEAN", lines: ["Junior Web Developer", "Bulacan, Philippines"] },
-  { title: "CODE", eyebrow: "FRONT END & BACK END", note: "DEVELOPMENT", lines: ["PHP, CodeIgniter 3 & MySQL", "HTML, CSS, Bootstrap, JavaScript & jQuery/AJAX"] },
+  { title: "CODE", eyebrow: "FRONT END & BACK END", note: "DEVELOPMENT", lines: ["PHP, CodeIgniter 4 & MySQL", "HTML, CSS, JavaScript & jQuery/AJAX"] },
   { title: "WORK", eyebrow: "ONGOING TEAM PROJECT / 2025–2026", note: "PHARXMACO", lines: ["Pharxmaco Drugstore", "Online point of sale & inventory system"] },
 ] as const;
 

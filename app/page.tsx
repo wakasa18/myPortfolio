@@ -75,7 +75,7 @@ export default function Home() {
     <div className="portfolio-content">
       <Starfield paused={stopMotion} />
       <div className="intro-strip wrap" data-scroll-reveal>
-        <p>PHP, CodeIgniter 3 & MySQL. <span>Front-end and back-end web development.</span></p>
+        <p>PHP, CodeIgniter 4 & MySQL. <span>Front-end and back-end web development.</span></p>
         <span className="intro-mark" aria-hidden="true">✳</span>
       </div>
 
@@ -118,7 +118,7 @@ export default function Home() {
             </h2>
             <span className="availability-pill" data-reveal-detail><i aria-hidden="true" />{profile.availability}</span>
             <ScrollFillText revealDetail active={!stopMotion} text={`I’m a fourth-year Information Systems student based in ${profile.location}, working toward a career as a junior web developer.`} />
-            <p data-reveal-detail>For our Pharxmaco Drugstore project, I work on both the front end and back end using PHP, CodeIgniter 3, MySQL, and browser technologies. I contribute to <mark className="hl">sales</mark> and <mark className="hl">inventory</mark> features, <mark className="hl">user access</mark>, database integration, <mark className="hl">debugging</mark>, and interface improvements.</p>
+            <p data-reveal-detail>For our Pharxmaco Drugstore project, I work on both the front end and back end using PHP, CodeIgniter 4, MySQL, and browser technologies. I contribute to <mark className="hl">sales</mark> and <mark className="hl">inventory</mark> features, <mark className="hl">user access</mark>, database integration, <mark className="hl">debugging</mark>, and interface improvements.</p>
             <p className="profile-skills" data-reveal-detail>Debugging helps me work through technical problems. Working with stock updates, transaction history, and refunds has also taught me to pay close attention to details.</p>
             <a className="resume-cta" href={profile.resumeHref} download data-reveal-detail><span>Download résumé</span><span className="resume-format">{resumeFormat}</span><ArrowDownToLine size={18} aria-hidden="true" /></a>
           </div>
