@@ -1,0 +1,57 @@
+/* ==========================================================================
+   Mobile polish. Loaded last (see layout.tsx), so it only needs to override, not fight, earlier files.
+   1. The asterisk is an inline SVG now. The old "✳" text character turned into iOS's green emoji box.
+   2. Touch targets, text sizing, and a few spots that were cramped or clipped on phones.
+   ========================================================================== */
+
+/* --- Logo / asterisk (all screen sizes) ------------------------------------ */
+.wordmark { line-height: 1; }
+.wordmark-star { display: inline-flex; align-items: center; justify-content: center; line-height: 0; margin-top: .1em; }
+.wordmark-star svg { display: block; width: .8em; height: .8em; }
+.intro-mark { display: block; flex: none; width: .8em; height: .8em; }
+
+/* iOS enlarges text in landscape; phones also add a grey flash on tap. */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
+a, button, summary, [role="button"] { touch-action: manipulation; }
+
+@media (max-width: 600px) {
+  /* Header: 44px minimum touch target, and a menu that scrolls instead of running off short screens. */
+  .menu-toggle { min-height: 44px; min-width: 88px; padding-inline: 18px; }
+  .navigation { max-height: calc(100svh - var(--header-h) - 20px); overflow-y: auto; overscroll-behavior: contain; }
+  .navigation a { min-height: 48px; display: flex; align-items: center; }
+
+  /* Intro strip: it was squeezed into 270px with 1.9 line spacing. Let it use the width the star leaves free. */
+  .intro-strip { min-height: 0; padding-block: 26px; gap: 20px; align-items: center; }
+  .intro-strip p { flex: 1; min-width: 0; max-width: none; font-size: 15px; line-height: 1.6; }
+  .intro-strip p > span { margin-top: 4px; }
+  .intro-mark { width: 26px; height: 26px; }
+
+  /* Section headings scale with the screen, so narrow phones (320 to 360px) never clip them. */
+  .section-heading h2 { font-size: clamp(30px, 9.4vw, 38px); }
+  .section-heading > p { line-height: 1.7; }
+
+  /* Project card: the status line wraps cleanly and the long text gets comfortable line length. */
+  .pharmacy-kicker { gap: 8px 16px; }
+  .pharmacy-project-title, .pharmacy-description, .pharmacy-details p { overflow-wrap: anywhere; hyphens: auto; }
+  .pharmacy-facts { gap: 16px 24px; }
+  .pharmacy-summary .text-link { min-height: 44px; }
+
+  /* Chips and buttons that were under 44px tall. */
+  .toolkit-list li { min-height: 40px; }
+  .resume-cta, .footer-glass-pill { min-height: 48px; }
+  .availability-pill { max-width: 100%; }
+}
+
+/* Very small phones (iPhone SE, 320 to 360px). */
+@media (max-width: 360px) {
+  .wrap { width: calc(100% - 28px); }
+  .wordmark { font-size: 25px; }
+  .pharmacy-project { padding: 18px 14px; }
+  .pharmacy-summary h3 { font-size: 34px; }
+  .toolkit-groups { gap: 20px 24px; }
+}
+
+/* Phones on their side: keep the menu and hero content inside the short viewport. */
+@media (max-height: 480px) and (orientation: landscape) {
+  .navigation { max-height: calc(100svh - var(--header-h) - 8px); }
+}

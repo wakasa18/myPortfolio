@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./profile-update.css";
 import "./premium-polish.css";
+import "./mobile-polish.css";
+import "./header-cta.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sean-villanueva-portfolio.capstones2026.chatgpt.site"),

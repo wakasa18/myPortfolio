@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { ArrowDownToLine, ArrowUpRight } from "lucide-react";
+import { ArrowDownToLine } from "lucide-react";
 import { Component as HorizonHero } from "@/components/ui/horizon-hero-section";
 import { CinematicFooter } from "@/components/ui/motion-footer";
 import { PharmacyProject } from "@/components/ui/pharmacy-project";
@@ -16,6 +16,11 @@ import useParallax from "./use-parallax";
 import useScrollMotion from "./use-scroll-motion";
 
 const resumeFormat = profile.resumeHref.split(".").pop()?.toUpperCase() ?? "FILE";
+
+/* Drawn as SVG on purpose: the "✳" character is not in the display font, so iOS swaps in its colour emoji (a green box). */
+function Asterisk({ className }: { className?: string }) {
+  return <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true" focusable="false"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" /></svg>;
+}
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -57,17 +62,14 @@ export default function Home() {
         headerRef.current?.querySelector<HTMLButtonElement>(".menu-toggle")?.focus();
       }
     }}>
-      <a href="#top" className="wordmark" aria-label="Sean Villanueva, home">sean<span className="wordmark-star">✳</span></a>
+      <a href="#top" className="wordmark" aria-label="Sean Villanueva, home">sean<span className="wordmark-star"><Asterisk /></span></a>
       <nav ref={navRef} className={menuOpen ? "navigation is-open" : "navigation"} aria-label="Main navigation" id="main-navigation">
         <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
         <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
         <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
         <a href={profile.resumeHref} download onClick={() => setMenuOpen(false)}>Résumé</a>
       </nav>
-      <a href={`mailto:${profile.email}`} className="header-contact">
-        <span>Email me</span>
-        <span className="header-contact-icon" aria-hidden="true"><ArrowUpRight size={16} strokeWidth={1.8} /></span>
-      </a>
+      <a href={`mailto:${profile.email}`} className="header-contact"><i className="header-contact-dot" aria-hidden="true" /><span className="header-contact-label">Email me</span><span className="header-contact-mark" aria-hidden="true"><Asterisk /></span></a>
       <button type="button" className="menu-toggle" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? "Close −" : "Menu +"}</button>
       <span className="topbar-progress" aria-hidden="true" />
     </header>
@@ -77,13 +79,13 @@ export default function Home() {
       <Starfield paused={stopMotion} />
       <div className="intro-strip wrap" data-scroll-reveal>
         <p>PHP, CodeIgniter 4 & MySQL. <span>Front-end and back-end web development.</span></p>
-        <span className="intro-mark" aria-hidden="true">✳</span>
+        <Asterisk className="intro-mark" />
       </div>
 
       <section id="work" className="work-section wrap section-space">
         <div className="section-heading">
           <div data-scroll-reveal><span className="eyebrow section-eyebrow">MY PROJECT</span><h2>Pharxmaco <span className="serif-word">Drugstore.</span></h2></div>
-          <p data-scroll-reveal data-reveal-delay="90">My front-end and back-end contributions<br />to our ongoing pharmacy system.</p>
+          <p data-scroll-reveal data-reveal-delay="90">My front-end and back-end contributions{" "}<br />to our ongoing pharmacy system.</p>
         </div>
         <PharmacyProject />
       </section>

@@ -1,0 +1,93 @@
+/* ==========================================================================
+   Header call to action: "Email me".
+   Built from the page's own pieces so it reads as part of the same night theme:
+   - the green availability dot (same colour and pulse as "Open to junior web developer roles"),
+   - the lavender fill sweep used by the hero and résumé buttons,
+   - the eight-spoke asterisk from the logo, which spins on hover like the logo does.
+   `.site-header a.header-contact` is deliberately a little more specific than the older
+   .header-contact rules in globals / premium-polish / ui-motion, so those no longer need editing.
+   ========================================================================== */
+
+.site-header a.header-contact {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 44px;
+  padding: 5px 5px 5px 17px;
+  border: 1px solid #4a5d86;
+  border-radius: 999px;
+  background: #101a2e99;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #e4eaff;
+  font: 600 14px/1 var(--body);
+  letter-spacing: .01em;
+  white-space: nowrap;
+  transition: color .3s, border-color .3s, translate var(--motion-medium, 320ms) var(--motion-ease, ease), scale var(--motion-fast, 180ms) var(--motion-ease, ease);
+}
+
+/* Lavender fill that slides in from the left (same motion as .horizon-cta and .resume-cta). */
+.site-header a.header-contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--lavender);
+  translate: -101% 0;
+  transition: translate .45s cubic-bezier(.2, .7, .2, 1);
+}
+
+.header-contact-dot {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: #b9d8c4;
+  box-shadow: 0 0 0 0 #b9d8c455;
+  transition: background-color .3s;
+}
+[data-ui-motion=playing] .header-contact-dot { animation: status-pulse 2.4s ease-out infinite; }
+
+.header-contact-mark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid #3a4c70;
+  background: #1a2744;
+  color: var(--lavender);
+  transition: background-color .3s, border-color .3s;
+}
+.header-contact-mark svg {
+  display: block;
+  width: 15px;
+  height: 15px;
+  transition: rotate .7s var(--motion-ease, ease);
+}
+
+.site-header a.header-contact:is(:hover, :focus-visible) {
+  color: #101829;
+  border-color: var(--lavender);
+  background: #101a2e99;
+}
+.site-header a.header-contact:is(:hover, :focus-visible)::before { translate: 0 0; }
+.site-header a.header-contact:is(:hover, :focus-visible) .header-contact-dot { background: #1f7a4d; animation: none; }
+.site-header a.header-contact:is(:hover, :focus-visible) .header-contact-mark { background: #101829; border-color: #101829; }
+.site-header a.header-contact:is(:hover, :focus-visible) .header-contact-mark svg { rotate: 180deg; }
+.site-header a.header-contact:focus-visible { outline: 2px solid var(--lavender); outline-offset: 3px; }
+.site-header a.header-contact:active { scale: .97; }
+
+/* The mobile header keeps its Menu button; "Contact" is in that menu. */
+@media (max-width: 600px) {
+  .site-header a.header-contact { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header a.header-contact, .site-header a.header-contact::before, .header-contact-mark svg { transition: none; }
+  .header-contact-dot { animation: none; }
+}
