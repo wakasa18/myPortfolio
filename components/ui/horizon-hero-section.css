@@ -25,7 +25,7 @@
 .horizon-scene-menu a{display:flex;align-items:center;gap:13px;padding:14px 10px;font-size:11px;letter-spacing:1.2px;border-radius:4px}
 .horizon-scene-menu a:hover{background:#ffffff0d}
 .horizon-scene-menu a span:first-child{font-size:8px;color:#7c8eaf}
-.horizon-scene-menu a span:last-child{margin-left:auto}
+.horizon-scene-menu a>svg{margin-left:auto;flex-shrink:0}
 .horizon-panels{grid-area:1 / 1;min-width:0;position:relative;z-index:2;pointer-events:none}
 .horizon-panel{position:relative;height:var(--horizon-height);min-height:520px;display:flex;align-items:center;justify-content:center;scroll-margin-top:0;text-align:center;padding:90px 100px 115px}
 .horizon-panel-content{width:100%;max-width:1400px}
@@ -37,7 +37,7 @@
 .horizon-subtitle p{margin:0}
 .horizon-cta{display:inline-flex;align-items:center;justify-content:space-between;gap:36px;margin-top:32px;padding:13px 18px;border:1px solid #afbcdf50;border-radius:3px;background:#131c2f55;font-size:11px;letter-spacing:.3px;pointer-events:auto;transition:background .2s,border-color .2s}
 .horizon-cta:hover{background:#c6c9ff22;border-color:#c6c9ff}
-.horizon-cta span{font-size:19px}
+.horizon-cta>svg{display:block;flex-shrink:0}
 .horizon-scene-note{position:absolute;bottom:105px;right:46px;color:#7c89a4;font-size:8px;letter-spacing:1.6px}
 .horizon-bottom{position:absolute;z-index:5;left:46px;right:46px;bottom:34px;display:flex;justify-content:space-between;gap:25px;align-items:center}
 .horizon-scroll-progress{display:flex;align-items:center;gap:20px}
@@ -48,7 +48,7 @@
 .horizon-section-counter>span:last-child{color:#7886a0}
 .horizon-motion-button{display:flex;align-items:center;gap:9px;border:0;background:transparent;color:#b4bfd5;font-size:10px;padding:10px 0;min-height:40px}
 .horizon-motion-button:hover{color:#fff}
-.horizon-motion-button>span{font-size:13px}
+.horizon-motion-button>svg{display:block;flex-shrink:0}
 .horizon-hero :focus-visible{outline-color:#c6c9ff}
 @media(min-width:1800px){.horizon-title{font-size:240px}}
 @media(max-width:800px){.horizon-panel{padding-inline:65px}.horizon-title{font-size:13.5vw}.horizon-meta{left:25px;right:25px;font-size:7px;letter-spacing:1.3px}.horizon-side-menu{left:22px}.horizon-bottom{left:25px;right:25px}.horizon-scene-note{right:25px}.horizon-subtitle{font-size:12px}.horizon-scroll-progress{gap:12px}.horizon-progress-track{width:90px}}

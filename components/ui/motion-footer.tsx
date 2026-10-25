@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ArrowUp, ArrowUpRight, Check, Copy, FileText, Heart, Mail, MapPin, Pause, Phone, Play, type LucideIcon } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Check, Copy, FileText, Heart, Mail, MapPin, Pause, Phone, Play, Sparkle, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { revealFooterForKeyboard } from "@/app/lib/ui-accessibility";
 import "./motion-footer.css";
@@ -178,7 +178,7 @@ export function CinematicFooter({ className, id = "contact", name = "Sean Villan
       <div className="footer-aurora" aria-hidden="true" />
       <div className="footer-bg-grid" aria-hidden="true" />
       <div className="footer-giant-bg-text" aria-hidden="true">{name.split(" ")[0].toUpperCase()}</div>
-      <div className="footer-marquee" aria-hidden="true"><div className="footer-marquee-track">{[0, 1].map(copy => <div className="footer-marquee-group" key={copy}>{specialties.map(item => <React.Fragment key={item}><span>{item}</span><span className="footer-marquee-star">✦</span></React.Fragment>)}</div>)}</div></div>
+      <div className="footer-marquee" aria-hidden="true"><div className="footer-marquee-track">{[0, 1].map(copy => <div className="footer-marquee-group" key={copy}>{specialties.map(item => <React.Fragment key={item}><span>{item}</span><Sparkle className="footer-marquee-star" size={18} fill="currentColor" strokeWidth={0} aria-hidden="true" focusable="false" /></React.Fragment>)}</div>)}</div></div>
 
       <div className="footer-center">
         <div className="footer-headline">

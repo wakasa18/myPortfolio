@@ -40,7 +40,7 @@
   [data-ui-motion=playing] :is(.filters button, .horizon-cta, .resume-cta, .menu-toggle):hover { translate: 0 -2px; }
   [data-ui-motion=playing] .dialog-close:hover { rotate: 90deg; background: #253658; }
   [data-ui-motion=playing] .header-contact:hover { translate: 0 -2px; }
-  [data-ui-motion=playing] .horizon-cta:hover > span { translate: 3px -3px; }
+  [data-ui-motion=playing] .horizon-cta:hover > svg { translate: 3px -3px; }
   [data-ui-motion=playing] .toolkit-list li:hover { translate: 0 -3px; border-color: #6b7fb8; background-color: #182845; }
   [data-ui-motion=playing] .toolkit-list li:hover > svg { rotate: -8deg; scale: 1.1; }
   [data-ui-motion=playing] .resume-cta:hover > svg { translate: 0 2px; }
@@ -48,7 +48,7 @@
 [data-ui-motion=playing] :is(.filters button, .menu-toggle, .horizon-menu-button, .horizon-cta, .resume-cta, .dialog-close):active { scale: .96; translate: 0 0; }
 [data-ui-motion=playing] .project-card:active { scale: .99; translate: 0 0; }
 [data-ui-motion=playing] .dialog-close { transition: rotate var(--motion-medium) var(--motion-ease), background-color var(--motion-fast), scale var(--motion-fast); }
-[data-ui-motion=playing] .horizon-cta > span { transition: translate var(--motion-medium) var(--motion-ease); }
+[data-ui-motion=playing] .horizon-cta > svg { transition: translate var(--motion-medium) var(--motion-ease); }
 [data-ui-motion=playing] .toolkit-list li { transition: translate var(--motion-medium) var(--motion-ease), border-color var(--motion-medium), background-color var(--motion-medium); }
 [data-ui-motion=playing] .toolkit-list li > svg, [data-ui-motion=playing] .resume-cta > svg { transition: translate var(--motion-medium) var(--motion-ease), rotate var(--motion-medium) var(--motion-ease), scale var(--motion-medium) var(--motion-ease); }
 

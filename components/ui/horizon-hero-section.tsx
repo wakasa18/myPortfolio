@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
+import { ArrowDown, ArrowUpRight, Pause, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { dismissWhenOutside } from "@/app/lib/ui-accessibility";
 import { getHorizonSection, horizonSections } from "./horizon-model";
@@ -139,12 +140,12 @@ export function HorizonHeroSection({
         <button type="button" className="horizon-menu-button" aria-label={menuOpen ? "Close scene navigation" : "Open scene navigation"} aria-expanded={menuOpen} aria-controls={`${instanceId}-menu`} onClick={() => setMenuOpen(!menuOpen)}><span /><span /><span /></button>
         <span className="horizon-vertical-text" aria-hidden="true">PORTFOLIO</span>
         <nav id={`${instanceId}-menu`} className="horizon-scene-menu" aria-label="Portfolio sections" hidden={!menuOpen}>
-          {horizonSections.map((section, index) => <a key={section.title} href={`#${instanceId}-scene-${index}`} onClick={() => setMenuOpen(false)}><span>0{index + 1}</span>{section.title}<span aria-hidden="true">↗</span></a>)}
+          {horizonSections.map((section, index) => <a key={section.title} href={`#${instanceId}-scene-${index}`} onClick={() => setMenuOpen(false)}><span>0{index + 1}</span>{section.title}<ArrowUpRight size={14} aria-hidden="true" focusable="false" /></a>)}
         </nav>
       </div>
       <div className="horizon-bottom">
         <div className="horizon-scroll-progress"><span className="horizon-scroll-label">SCROLL TO EXPLORE</span><div ref={progressRef} className="horizon-progress-track" role="progressbar" aria-label="Journey scroll progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={0}><div ref={fillRef} className="horizon-progress-fill" /></div><span className="horizon-section-counter"><span ref={counterRef}>01</span><span> / 03</span></span></div>
-        <button type="button" className="horizon-motion-button" onClick={toggleMotion} disabled={reducedMotion} aria-pressed={stopMotion} aria-label={reducedMotion ? "Animation disabled by your reduced motion preference" : stopMotion ? "Play animation" : "Pause animation"}><span aria-hidden="true">{stopMotion ? "▷" : "Ⅱ"}</span>{stopMotion ? "Motion paused" : "Pause motion"}</button>
+        <button type="button" className="horizon-motion-button" onClick={toggleMotion} disabled={reducedMotion} aria-pressed={stopMotion} aria-label={reducedMotion ? "Animation disabled by your reduced motion preference" : stopMotion ? "Play animation" : "Pause animation"}>{stopMotion ? <Play size={14} aria-hidden="true" focusable="false" /> : <Pause size={14} aria-hidden="true" focusable="false" />}{stopMotion ? "Motion paused" : "Pause motion"}</button>
       </div>
     </div>
     <div className="horizon-panels">
@@ -155,8 +156,8 @@ export function HorizonHeroSection({
             <p className="horizon-eyebrow">{index === 0 ? eyebrow : section.eyebrow}</p>
             <div className="horizon-title-mask"><Heading id={`${instanceId}-title-${index}`} className="horizon-title" aria-label={section.title}>{section.title.split("").map((char, i, all) => <span className={i >= Math.ceil(all.length / 2) ? "horizon-title-char is-outline" : "horizon-title-char"} key={i} aria-hidden="true">{char}</span>)}</Heading></div>
             <div className="horizon-subtitle">{(index === 0 && introLines ? introLines : section.lines).map(line => <p className="horizon-subtitle-line" key={line}>{line}</p>)}</div>
-            {index === 0 && <a className="horizon-cta" href={ctaHref}>{ctaLabel}<span aria-hidden="true">↗</span></a>}
-            {index === 2 && <a className="horizon-cta" href={ctaHref}>View Pharxmaco project<span aria-hidden="true">↓</span></a>}
+            {index === 0 && <a className="horizon-cta" href={ctaHref}>{ctaLabel}<ArrowUpRight size={19} aria-hidden="true" focusable="false" /></a>}
+            {index === 2 && <a className="horizon-cta" href={ctaHref}>View Pharxmaco project<ArrowDown size={19} aria-hidden="true" focusable="false" /></a>}
           </div>
           <span className="horizon-scene-note" aria-hidden="true">0{index + 1} — {section.note}</span>
         </section>;
