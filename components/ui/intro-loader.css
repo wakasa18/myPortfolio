@@ -1,34 +1,49 @@
 /* Intro sequence. Colours, fonts and easing come from the rest of the site:
-   night navy, lavender accent, Manrope greeting, and the asterisk from the logo. */
+   night navy, lavender accent, Manrope wordmark, serif-italic accent words, and the asterisk from the logo.
+
+   Ideas borrowed from other portfolios (all re-built from scratch here):
+   - a greeting that cycles through languages, with an accent mark beside it
+   - a counter that moves in chunky steps instead of sliding
+   - a cover that exits with a curved bottom edge, here styled as a planet's horizon to match the hero */
 
 html.is-intro, html.is-intro body { overflow: hidden; }
 
 .intro {
   --ease: cubic-bezier(.2, .7, .2, 1);
+  --pop: cubic-bezier(.16, 1, .3, 1);
   --curtain: cubic-bezier(.77, 0, .18, 1);
+  --bulge: 16vh;
   position: fixed;
-  inset: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: calc(var(--bulge) * -1); /* extends below the screen so the curved edge only shows once the cover starts to lift */
   z-index: 200;
-  min-height: 100dvh;
   overflow: hidden;
-  padding: max(22px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(22px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+  padding: max(22px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) calc(var(--bulge) + max(22px, env(safe-area-inset-bottom))) max(24px, env(safe-area-inset-left));
+  border-radius: 0 0 50% 50% / 0 0 var(--bulge) var(--bulge);
   background: var(--paper, #0b1120);
   color: var(--ink, #eef2ff);
   font-family: var(--body, Arial, sans-serif);
   cursor: pointer;
-  /* a lavender hairline on the lower edge, so the curtain lifts like a horizon line */
-  box-shadow: 0 1px 0 var(--lavender, #bec8ff), 0 24px 70px -12px #bec8ff55;
+  /* a lavender rim along that curved edge, like light on the limb of a planet */
+  box-shadow: 0 1px 0 var(--lavender, #bec8ff), 0 24px 70px -12px #bec8ff66;
   will-change: transform;
 }
-.intro[data-state="leaving"] { translate: 0 calc(-100% - 140px); transition: translate 950ms var(--curtain) 220ms; }
+.intro[data-state="leaving"] {
+  translate: 0 calc(-100% - 140px);
+  border-bottom-left-radius: 50% 4vh;
+  border-bottom-right-radius: 50% 4vh;
+  transition: translate 1000ms var(--curtain) 220ms, border-radius 1000ms var(--curtain) 220ms;
+}
 
 /* --- Sky ------------------------------------------------------------------- */
 .intro-dots, .intro-glow { position: absolute; inset: 0; pointer-events: none; }
 .intro-dots {
   background-image: radial-gradient(#b9c3e91f .8px, transparent .8px);
   background-size: 24px 24px;
-  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 15%, transparent 72%);
-  mask-image: radial-gradient(ellipse at 50% 50%, #000 15%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 42%, #000 15%, transparent 72%);
+  mask-image: radial-gradient(ellipse at 50% 42%, #000 15%, transparent 72%);
 }
 .intro-dots::after {
   content: "";
@@ -39,43 +54,57 @@ html.is-intro, html.is-intro body { overflow: hidden; }
   opacity: .5;
 }
 .intro:not([data-state="init"]) .intro-dots::after { animation: intro-twinkle 3.4s ease-in-out infinite alternate; }
-.intro-glow { background: radial-gradient(60vmax 40vmax at 50% 52%, #34428a40, transparent 65%); opacity: 0; }
+.intro-glow { background: radial-gradient(60vmax 40vmax at 50% 46%, #34428a40, transparent 65%); opacity: 0; }
 .intro:not([data-state="init"]) .intro-glow { animation: intro-fade 1.6s ease-out .1s both; }
 
+/* a thin frame around the screen, like a viewfinder */
+.intro-frame { position: absolute; inset: 12px 12px calc(var(--bulge) + 12px); border: 1px solid #1d2a48; border-radius: 16px; pointer-events: none; opacity: 0; }
+.intro:not([data-state="init"]) .intro-frame { animation: intro-fade 1s ease .1s both; }
+
 /* --- Layout -------------------------------------------------------------------- */
-.intro-ui {
-  position: relative;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: calc(100dvh - 44px);
-  max-width: 1280px;
-  margin: 0 auto;
-}
+.intro-ui { position: relative; display: grid; grid-template-rows: auto 1fr auto; height: 100%; max-width: 1280px; margin: 0 auto; padding: 8px 14px 0; }
 .intro[data-state="leaving"] .intro-ui { opacity: 0; translate: 0 -18px; transition: opacity 380ms ease, translate 520ms var(--ease); }
 
-.intro-top { display: flex; justify-content: space-between; gap: 16px; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: #aebad7; }
+.intro-top { display: flex; justify-content: space-between; gap: 16px; white-space: nowrap; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: #aebad7; opacity: 0; }
 .intro:not([data-state="init"]) .intro-top { animation: intro-fade .8s ease .15s both; }
-.intro-top { opacity: 0; }
 
-.intro-center { place-self: center; display: grid; justify-items: center; text-align: center; }
+@media (max-width: 520px) { .intro-top { font-size: 9px; letter-spacing: .2em; } }
+
+/* the greeting and the wordmark share one spot; the greeting leaves as the wordmark arrives */
+.intro-center { place-self: center; display: grid; justify-items: center; align-items: center; text-align: center; width: 100%; }
+.intro-center > * { grid-area: 1 / 1; }
+
+/* --- Greeting ---------------------------------------------------------------- */
+.intro-greet { margin: 0; display: inline-flex; align-items: center; gap: .32em; font-size: clamp(44px, 11vw, 104px); line-height: 1; opacity: 0; translate: 0 0; transition: opacity .3s ease, translate .6s var(--ease); }
+.intro[data-state="greet"] .intro-greet { opacity: 1; }
+.intro[data-state="name"] .intro-greet, .intro[data-state="leaving"] .intro-greet { opacity: 0; translate: 0 -16px; }
+.intro-greet-mark { width: .42em; height: .42em; flex: none; color: var(--lavender, #bec8ff); animation: intro-spin 1.8s linear infinite; }
+.intro-greet-clip { display: inline-block; overflow: hidden; padding: .12em .04em .18em; margin: -.12em -.04em -.18em; }
+.intro-greet-word { display: inline-block; font-family: var(--serif, Georgia, serif); font-style: italic; font-weight: 400; letter-spacing: -.02em; color: #fff; animation: intro-greet-in 360ms var(--pop) both; }
+.intro-greet-word:lang(ja), .intro-greet-word:lang(ko) { font-family: var(--body, Arial, sans-serif); font-style: normal; font-weight: 500; letter-spacing: 0; font-size: .86em; }
+.intro-greet-word:lang(fil) { color: var(--lavender, #bec8ff); }
 
 /* --- Wordmark ---------------------------------------------------------------- */
+.intro-name { display: grid; justify-items: center; gap: clamp(14px, 2.6vw, 28px); }
 .intro-lockup { display: inline-flex; align-items: center; font: 800 clamp(78px, 22vw, 200px)/1 var(--display, Arial, sans-serif); letter-spacing: -.065em; color: #fff; }
 .intro-word { display: inline-flex; }
 /* each letter rises out of its own mask, the same motion as the hero title */
 .intro-clip { display: inline-block; overflow: hidden; padding: .08em .02em .12em; margin: -.08em -.02em -.12em; }
 .intro-char { display: inline-block; translate: 0 115%; }
-.intro:not([data-state="init"]) .intro-char { animation: intro-rise 950ms var(--ease) calc(var(--i) * 75ms + 120ms) both; }
+.intro:is([data-state="name"], [data-state="leaving"]) .intro-char { animation: intro-rise 900ms var(--ease) calc(var(--i) * 75ms + 80ms) both; }
 
 .intro-star { width: .7em; height: .7em; margin-left: .08em; color: var(--lavender, #bec8ff); overflow: visible; }
 .intro-star path { stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; }
-.intro:not([data-state="init"]) .intro-star path { animation: intro-draw 750ms var(--ease) calc(520ms + var(--k) * 110ms) both; }
-.intro:not([data-state="init"]) .intro-star { animation: intro-turn 1.9s cubic-bezier(.25, .7, .2, 1) .5s both; }
+.intro:is([data-state="name"], [data-state="leaving"]) .intro-star path { animation: intro-draw 700ms var(--ease) calc(380ms + var(--k) * 100ms) both; }
+.intro:is([data-state="name"], [data-state="leaving"]) .intro-star { animation: intro-turn 1.7s cubic-bezier(.25, .7, .2, 1) .3s both; }
+
+.intro-role { margin: 0; font-size: clamp(15px, 2.4vw, 21px); line-height: 1.4; color: #b2bed6; opacity: 0; }
+.intro:is([data-state="name"], [data-state="leaving"]) .intro-role { animation: intro-lift .9s var(--ease) .75s both; }
+.intro-role em { font-family: var(--serif, Georgia, serif); font-style: italic; font-size: 1.16em; color: var(--lavender, #bec8ff); }
 
 /* --- Counter, progress, skip ------------------------------------------------------- */
-.intro-bottom { display: grid; gap: 14px; }
+.intro-bottom { display: grid; gap: 14px; opacity: 0; }
 .intro:not([data-state="init"]) .intro-bottom { animation: intro-fade .8s ease .25s both; }
-.intro-bottom { opacity: 0; }
 .intro-bar { position: relative; height: 1px; overflow: hidden; background: #2d3b59; }
 .intro-bar i { position: absolute; inset: 0; background: var(--lavender, #bec8ff); transform: scaleX(var(--p, 0)); transform-origin: left; }
 .intro-meta { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
@@ -98,10 +127,13 @@ html.is-intro, html.is-intro body { overflow: hidden; }
 .intro-skip:focus-visible { outline: 2px solid var(--lavender, #bec8ff); outline-offset: 3px; }
 
 /* --- Keyframes --------------------------------------------------------------------- */
+@keyframes intro-greet-in { from { translate: 0 105%; } to { translate: 0 0; } }
+@keyframes intro-spin { to { rotate: 360deg; } }
 @keyframes intro-rise { from { translate: 0 115%; } to { translate: 0 0; } }
 @keyframes intro-draw { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 1; } }
 @keyframes intro-turn { from { rotate: -135deg; } to { rotate: 0deg; } }
 @keyframes intro-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes intro-lift { from { opacity: 0; translate: 0 14px; } to { opacity: 1; translate: 0 0; } }
 @keyframes intro-twinkle { from { opacity: .22; } to { opacity: .7; } }
 
 /* Reduced motion: no intro at all (the component also skips its timers). */
