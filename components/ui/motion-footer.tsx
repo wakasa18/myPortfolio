@@ -4,6 +4,7 @@ import * as React from "react";
 import { ArrowUp, ArrowUpRight, Check, Copy, FileText, Heart, Mail, MapPin, Pause, Phone, Play, Sparkle, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { revealFooterForKeyboard } from "@/app/lib/ui-accessibility";
+import { getGmailComposeHref } from "@/app/lib/contact-links";
 import "./motion-footer.css";
 
 export type MagneticButtonProps =
@@ -195,13 +196,14 @@ export function CinematicFooter({ className, id = "contact", name = "Sean Villan
         </div>
         <p className="footer-description">{description}</p>
         <div className="footer-primary-links">
-          <MagneticButton as="a" href={`mailto:${email}`} className="footer-primary">Let’s make it happen <ArrowUpRight size={21} aria-hidden="true" /></MagneticButton>
+          <MagneticButton as="a" href={getGmailComposeHref(email)} target="_blank" rel="noopener noreferrer" className="footer-primary">Email me in Gmail <ArrowUpRight size={21} aria-hidden="true" /><span className="sr-only"> (opens in a new tab)</span></MagneticButton>
           <MagneticButton as="a" href={workHref}>Explore my work <ArrowUpRight size={19} aria-hidden="true" /></MagneticButton>
         </div>
-        <div className="footer-email-row"><a href={`mailto:${email}`}>{email}</a><button type="button" onClick={copyEmail} aria-label="Copy email address" title="Copy email address">{copied ? <Check size={18} aria-hidden="true" /> : <Copy size={18} aria-hidden="true" />}</button></div>
+        <div className="footer-email-row"><a className="footer-email-link" href={getGmailComposeHref(email)} target="_blank" rel="noopener noreferrer" title="Compose an email in Gmail">{email}<span className="sr-only"> (opens Gmail in a new tab)</span></a><button type="button" onClick={copyEmail} aria-label="Copy email address" title="Copy email address">{copied ? <Check size={18} aria-hidden="true" /> : <Copy size={18} aria-hidden="true" />}</button></div>
         <p className="footer-copy-status" role="status">{copied ? "Email copied. Talk soon!" : copyError ? "Please select and copy the email address above." : ""}</p>
         {(phone || location) && <div className="footer-contact-details">{phone && <a href={phoneHref ?? `tel:${phone}`}><Phone size={14} aria-hidden="true" />{phone}</a>}{location && <span><MapPin size={14} aria-hidden="true" />{location}</span>}</div>}
         <nav className="footer-secondary-links" aria-label="Footer navigation">
+          <MagneticButton as="a" href={`mailto:${email}`}>Use email app</MagneticButton>
           <MagneticButton as="a" href={aboutHref}>About me</MagneticButton>
           {resumeHref && <MagneticButton as="a" href={resumeHref} download>Download résumé</MagneticButton>}
           <MagneticButton onClick={toggleMotion} disabled={reducedMotion} aria-pressed={stopMotion} aria-label={reducedMotion ? "Animation disabled by your reduced motion preference" : stopMotion ? "Resume site motion" : "Pause site motion"}>{stopMotion ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}{stopMotion ? "Motion paused" : "Pause motion"}</MagneticButton>

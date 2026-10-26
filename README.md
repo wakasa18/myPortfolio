@@ -59,7 +59,7 @@ The current document sources are the three `TNR_12.docx` files supplied from Dow
 
 The site contains only Sean's confirmed information and real project. The fictional project collection, category filters, project dialogs, code illustration, and component demo pages have been removed. The education panel contains his actual program, school, section, and current year of study.
 
-The project links to https://silver-fly-191014.hostingersite.com/, the Pharxmaco staff sign-in page supplied by Sean. This is the pharmacy project's live URL, separate from the personal portfolio's address. Email actions open the visitor's email client, the phone link opens a dialer, and document links download the supplied Word files. Publication remains on hold at Sean's request.
+The project links to https://silver-fly-191014.hostingersite.com/, the Pharxmaco staff sign-in page supplied by Sean. This is the pharmacy project's live URL, separate from the personal portfolio's address. Primary email actions open Gmail compose in a new tab with Sean's address filled in; visitors may need to sign in to Gmail. The footer also offers a native email-app link and a copy-address action. The phone link opens a dialer, and document links download the supplied Word files. Publication remains on hold at Sean's request.
 
 Typography uses Manrope and DM Sans from Google Fonts with local system fallbacks. No external images are required.
 

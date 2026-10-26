@@ -10,6 +10,7 @@ import { Starfield } from "@/components/ui/starfield";
 import { Toolkit } from "@/components/ui/toolkit";
 import { dismissWhenOutside } from "./lib/ui-accessibility";
 import { profile } from "./lib/portfolio-profile";
+import { getGmailComposeHref } from "./lib/contact-links";
 import { startScrollSpy } from "./lib/scroll-spy";
 import { startSpotlight } from "./lib/spotlight";
 import useParallax from "./use-parallax";
@@ -69,7 +70,7 @@ export default function Home() {
         <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
         <a href={profile.resumeHref} download onClick={() => setMenuOpen(false)}>Résumé</a>
       </nav>
-      <a href={`mailto:${profile.email}`} className="header-contact"><i className="header-contact-dot" aria-hidden="true" /><span className="header-contact-label">Email me</span><span className="header-contact-mark" aria-hidden="true"><Asterisk /></span></a>
+      <a href={getGmailComposeHref(profile.email)} target="_blank" rel="noopener noreferrer" title="Compose an email in Gmail" className="header-contact"><i className="header-contact-dot" aria-hidden="true" /><span className="header-contact-label">Email me</span><span className="sr-only"> via Gmail (opens in a new tab)</span><span className="header-contact-mark" aria-hidden="true"><Asterisk /></span></a>
       <button type="button" className="menu-toggle" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? "Close −" : "Menu +"}</button>
       <span className="topbar-progress" aria-hidden="true" />
     </header>

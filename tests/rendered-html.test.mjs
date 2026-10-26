@@ -49,6 +49,24 @@ test("only the real pharmacy project is shown with its live link and confirmed p
   }
 });
 
+test("primary email actions open Gmail compose with the correct recipient and retain an email-app alternative", async () => {
+  const html = await (await render()).text();
+  for (const className of ["header-contact", "footer-primary", "footer-email-link"]) {
+    const anchor = html.match(new RegExp(`<a\\b(?=[^>]*class="[^"]*\\b${className}\\b)[^>]*>`))?.[0];
+    assert.ok(anchor, `${className} link is rendered`);
+    const href = anchor.match(/href="([^"]+)"/)?.[1].replaceAll("&amp;", "&");
+    const url = new URL(href);
+    assert.equal(url.origin, "https://mail.google.com");
+    assert.equal(url.pathname, "/mail/");
+    assert.equal(url.searchParams.get("view"), "cm");
+    assert.equal(url.searchParams.get("to"), "villanuevasean0918@gmail.com");
+    assert.match(anchor, /target="_blank"/);
+    assert.match(anchor, /rel="noopener noreferrer"/);
+  }
+  assert.match(html, /href="mailto:villanuevasean0918@gmail.com"/);
+  assert.match(html, /Use email app/);
+});
+
 test("unknown routes return 404 and the production icon exists", async () => {
   assert.equal((await render("/not-a-page")).status, 404);
   await access(new URL("../dist/client/icon.png", import.meta.url));
