@@ -84,11 +84,11 @@ export default function Home() {
       </div>
 
       <section id="work" className="work-section wrap section-space">
-        <div className="section-heading">
-          <div data-scroll-reveal><span className="eyebrow section-eyebrow">MY PROJECT</span><h2>Pharxmaco <span className="serif-word">Drugstore.</span></h2></div>
-          <p data-scroll-reveal data-reveal-delay="90">My front-end and back-end contributions{" "}<br />to our ongoing pharmacy system.</p>
+        <div className="section-heading work-heading">
+          <h2 data-scroll-reveal>Selected <span className="serif-word">work</span></h2>
+          <p data-scroll-reveal data-reveal-delay="90">My front-end and back-end contributions to our ongoing pharmacy system.</p>
         </div>
-        <PharmacyProject />
+        <PharmacyProject paused={stopMotion} />
       </section>
 
       <section id="about" className="about-section wrap section-space">

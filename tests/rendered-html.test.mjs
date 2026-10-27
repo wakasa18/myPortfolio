@@ -67,6 +67,23 @@ test("primary email actions open Gmail compose with the correct recipient and re
   assert.match(html, /Use email app/);
 });
 
+test("project walkthrough retains the visible cashier login and labels every preview as illustrative", async () => {
+  const html = await (await render()).text();
+  assert.match(html, /aria-label="Pharxmaco project walkthrough"/);
+  for (const chapter of ["pos", "inventory", "history"]) {
+    assert.match(html, new RegExp(`aria-controls="work-preview-${chapter}"`));
+    assert.match(html, new RegExp(`id="work-preview-${chapter}"`));
+  }
+  const login = html.match(/<div class="work-cashier-login">([\s\S]*?)<\/dl><\/div>/)?.[1];
+  assert.ok(login, "cashier details render directly in the project summary");
+  assert.match(login, /Cashier login/);
+  assert.match(login, /<dt>Username<\/dt><dd><code>cashier<\/code>/);
+  assert.match(login, /<dt>Password<\/dt><dd><code>cashier123<\/code>/);
+  assert.doesNotMatch(login, /hidden|<details/);
+  assert.equal((html.match(/Illustrative preview · Sample data/g) || []).length, 3);
+  assert.doesNotMatch(html, /Pharmacy system map/);
+});
+
 test("unknown routes return 404 and the production icon exists", async () => {
   assert.equal((await render("/not-a-page")).status, 404);
   await access(new URL("../dist/client/icon.png", import.meta.url));

@@ -40,8 +40,10 @@ The real project, section headings, education, and about content use one-time sc
 
 - `app/page.tsx`: personal introduction, actual project, education, about text, and contact sections.
 - `app/lib/portfolio-profile.ts`: confirmed contact details, education, document links, and the Pharxmaco team project's 2025–2026 timeline from the latest supplied documents.
-- `components/ui/pharmacy-project.tsx`: featured Pharxmaco project, contribution overview, technologies, and project-brief download.
-- `app/profile-update.css`: responsive styles for the featured project, profile details, and contact additions.
+- `components/ui/pharmacy-project.tsx`: Pharxmaco walkthrough, chapter navigation, contribution overview, visible cashier login, and project links.
+- `components/ui/pharmacy-preview.tsx`: three non-interactive HTML interface illustrations using sample data.
+- `app/work-showcase.css`: responsive Work section with a sticky desktop walkthrough and stacked mobile previews.
+- `app/profile-update.css`: profile details and contact additions.
 - `public/downloads/`: the latest user-supplied resume and project portfolio, linked as editable Word downloads.
 - `app/globals.css`: palette, typography, layouts, breakpoints, and motion.
 - `components/ui/horizon-hero-section.tsx`: reusable hero, exported as both `HorizonHeroSection` and `Component`.
@@ -53,7 +55,7 @@ The real project, section headings, education, and about content use one-time sc
 - `app/layout.tsx`: search and social metadata.
 - `public/icon.png`: site icon.
 
-Pharxmaco is Sean's ongoing **team project**, with front-end and back-end contributions described in the supplied resume and portfolio. Its project title includes sales forecasting; the site limits Sean's personal contribution to the features he confirmed. The featured visual is a labeled project map, not a screenshot or a live application. The latest supplied documents date the project **2025–2026**.
+Pharxmaco is Sean's ongoing **team project**, with front-end and back-end contributions described in the supplied resume and portfolio. Its project title includes sales forecasting; the site limits Sean's personal contribution to the features he confirmed. The Work section illustrates POS, inventory, and transaction history with clearly labeled sample data. These HTML previews are not actual application screenshots and cannot perform transactions. On a tall desktop, scrolling advances the preview while the summary stays visible; chapter buttons also allow direct selection. Mobile stacks all three previews, and reduced motion removes the pinned scroll sequence. The cashier username `cashier` and password `cashier123` remain visible beside the live project link. The latest supplied documents date the project **2025–2026**.
 
 The current document sources are the three `TNR_12.docx` files supplied from Downloads on October 26, 2026. The website's resume and project-brief downloads are exact copies of those versions. All three documents, including the application letter, are also kept in `outputs/en3b-prefinals/`; see its `START_HERE.md` for the source filenames. The About section uses Sean Warren M. Villanueva's full name and the resume's 2023–present education dates, SQL/CRUD experience, teamwork, and willingness to learn.
 

@@ -4,6 +4,7 @@ import "./profile-update.css";
 import "./premium-polish.css";
 import "./mobile-polish.css";
 import "./header-cta.css";
+import "./work-showcase.css";
 import { IntroLoader } from "@/components/ui/intro-loader";
 
 export const metadata: Metadata = {
