@@ -30,15 +30,23 @@ React 19, strict TypeScript, Tailwind CSS 4, and scoped CSS. Vinext provides Nex
 
 The animated hero uses three personal sections: Sean, Code, and Work. They introduce Sean, his confirmed technologies, and his ongoing Pharxmaco project. Its GPU scene is loaded after the page HTML, caps resolution and star density, skips bloom on touch/low-core devices, and reduces quality if sustained slow frames are detected. The scene stops rendering while paused, offscreen, or in a hidden tab. A CSS sky remains when WebGL is unavailable. Pause and reduced-motion preferences disable the animated camera and the rest of the portfolio's parallax.
 
-Scroll parallax adds depth to the hero, project previews, about artwork, and contact decoration. It uses passive scroll events and one scheduled transform update, with cached layout measurements, smaller offsets on touch devices, and no continuous idle loop or scroll hijacking.
+Scroll parallax adds depth to the hero, project previews, and contact decoration. It uses passive scroll events and one scheduled transform update, with cached layout measurements, smaller offsets on touch devices, and no continuous idle loop or scroll hijacking.
 
 The real project, section headings, education, and about content use one-time scroll entrances. The sticky topbar hides on downward scroll and returns on upward scroll, with a page progress line. Menu-open, keyboard-focus, pause, and reduced-motion states keep navigation visible. `app/lib/scroll-motion.ts` schedules at most one header update per scroll frame and uses finite Web Animations for entrances; `app/use-scroll-motion.ts` handles cleanup. Content stays visible if JavaScript or motion is unavailable.
+
+About pairs a large two-line introduction with a compact horizontal education timeline. The existing profile supplies the degree, school, academic period, current year, and section. A short introduction leads to the résumé download; the original contribution and working-style details continue beneath the toolkit. The role types in once, and the education line draws over 1500ms with timed markers and a current-year count. Biography highlights, the résumé action, and toolkit chips have reveal feedback. Orbital accents and the current-year marker repeat while motion is enabled. The seven toolkit logos remain readable labels grouped as Backend, Database, and Frontend. Narrow screens stack the biography, actions, and toolkit groups. Pause and reduced motion keep all information visible.
+
+The illustrative pharmacy previews replay sample sales, inventory updates, and transaction records. Their scripted sequence advances only for the active, visible chapter; pausing or reducing motion restores the static illustration. Chapter progress follows scrolling in the pinned desktop walkthrough. These previews do not perform real transactions.
 
 `app/ui-motion.css` provides matching interaction feedback: gentle card lifts, staggered tag movement, button presses, filter selection, navigation underlines, mobile/scene menu entrances, project-dialog reveals, and copy confirmation. These finite CSS effects share the scroll easing and respect pause/reduced-motion settings. Individual `translate`/`scale` properties keep hover feedback separate from scroll and magnetic transforms.
 
 ## Personalize
 
-- `app/page.tsx`: personal introduction, actual project, education, about text, and contact sections.
+- `app/page.tsx`: page composition, navigation, and shared motion controls.
+- `components/ui/about-section.tsx`: introduction, education timeline, résumé link, and confirmed contribution details.
+- `app/about-editorial.css`: About layout, finite timeline motion, and responsive toolkit treatment.
+- `app/lib/about-motion.ts`: education-marker timing and the current-year count, with observer and timer cleanup.
+- `components/ui/toolkit.tsx`: seven existing tool logos and accessible category lists.
 - `app/lib/portfolio-profile.ts`: confirmed contact details, education, document links, and the Pharxmaco team project's 2025–2026 timeline from the latest supplied documents.
 - `components/ui/pharmacy-project.tsx`: Pharxmaco walkthrough, chapter navigation, contribution overview, visible cashier login, and project links.
 - `components/ui/pharmacy-preview.tsx`: three non-interactive HTML interface illustrations using sample data.
@@ -59,7 +67,7 @@ Pharxmaco is Sean's ongoing **team project**, with front-end and back-end contri
 
 The current document sources are the three `TNR_12.docx` files supplied from Downloads on October 26, 2026. The website's resume and project-brief downloads are exact copies of those versions. All three documents, including the application letter, are also kept in `outputs/en3b-prefinals/`; see its `START_HERE.md` for the source filenames. The About section uses Sean Warren M. Villanueva's full name and the resume's 2023–present education dates, SQL/CRUD experience, teamwork, and willingness to learn.
 
-The site contains only Sean's confirmed information and real project. The fictional project collection, category filters, project dialogs, code illustration, and component demo pages have been removed. The education panel contains his actual program, school, section, and current year of study.
+The site contains only Sean's confirmed information and real project. The fictional project collection, category filters, project dialogs, code illustration, and component demo pages have been removed. The education timeline contains his actual program, school, section, and current year of study.
 
 The project links to https://silver-fly-191014.hostingersite.com/, the Pharxmaco staff sign-in page supplied by Sean. This is the pharmacy project's live URL, separate from the personal portfolio's address. Primary email actions open Gmail compose in a new tab with Sean's address filled in; visitors may need to sign in to Gmail. The footer also offers a native email-app link and a copy-address action. The phone link opens a dialer, and document links download the supplied Word files. Publication remains on hold at Sean's request.
 

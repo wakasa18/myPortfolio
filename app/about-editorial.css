@@ -1,0 +1,225 @@
+/* The About section inherits the portfolio's existing type, colour and motion controls. */
+.about-editorial.wrap { max-width: 1328px; position: relative; isolation: isolate; padding-top: 110px; padding-bottom: 40px; }
+.about-orbital-lines { position: absolute; width: 350px; height: 320px; top: 0; right: min(0px, calc((1328px - 100vw) / 2)); overflow: hidden; pointer-events: none; opacity: .45; z-index: -1; }
+.about-orbital-lines > span { position: absolute; width: 500px; height: 500px; left: 60px; top: -238px; border: 1px solid #455778; border-radius: 50%; }
+.about-orbital-lines > span + span { width: 596px; height: 596px; left: 12px; top: -286px; border-style: dotted; }
+.about-section-label { font: 600 13px/18px var(--body); letter-spacing: .22em; text-transform: uppercase; color: var(--lavender); margin: 0; }
+.about-introduction { margin-bottom: 44px; }
+.about-introduction h2 { margin: 0; color: var(--ink); font: 650 clamp(58px, 6.25vw, 96px)/1.02 var(--display); letter-spacing: -.04em; }
+.about-introduction .about-role { color: var(--lavender); font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.035em; }
+.about-education > h3 { margin-bottom: 20px; }
+/* The rail is a dim track with a brighter line drawn over it, so the line has somewhere to travel. */
+.education-path { position: relative; display: grid; grid-template-columns: minmax(0, 44.4%) minmax(0, 1fr); gap: 32px; margin: 0; padding-top: 18px; background: linear-gradient(#2d3b59, #2d3b59) 0 0 / 100% 1px no-repeat; }
+.education-path::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, #7686d8, #aab6ff); transform-origin: left; }
+.education-study, .education-fact { position: relative; min-width: 0; }
+.education-study::before, .education-fact::before { content: ""; position: absolute; box-sizing: border-box; top: -24px; left: 0; width: 13px; height: 13px; border-radius: 50%; border: 2px solid #aab6ff; background: var(--paper); z-index: 1; box-shadow: 0 0 0 4px #bec8ff12, 0 0 14px #bec8ff3d; }
+/* The start of the path and the current year are filled; the rest are open. */
+.education-study::before, .education-fact.is-current::before { background: var(--lavender); }
+.education-fact dd { font-variant-numeric: tabular-nums; }
+.education-study h4, .education-study p, .education-facts dt, .education-facts dd { margin: 0; }
+.education-study h4 { font: 550 clamp(26px, 2.08vw, 32px)/1.12 var(--display); color: var(--ink); letter-spacing: -.035em; }
+.education-study p { margin-top: 8px; font: 400 20px/1.5 var(--body); color: #c1cceb; }
+.education-facts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(90px, .4fr); gap: 32px; margin: 0; padding: 0; }
+.education-fact { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+.education-fact dt { order: 2; color: var(--lavender); font: 500 10px/1.5 var(--body); letter-spacing: .16em; text-transform: uppercase; }
+.education-fact dd { order: 1; font: 500 20px/1.4 var(--body); color: var(--ink); white-space: nowrap; }
+.about-biography { display: grid; grid-template-columns: minmax(0, 750px) minmax(0, 1fr); gap: 64px; align-items: start; margin-top: 28px; }
+.about-bio-text p { margin: 0; max-width: 68ch; color: #d7e0f6; font: 400 23px/1.45 var(--body); }
+.about-bio-text p + p { margin-top: 18px; }
+.about-bio-actions { padding-top: 7px; }
+.about-editorial .about-resume { display: flex; justify-content: center; gap: 18px; width: fit-content; min-width: 347px; min-height: 58px; margin: 0 0 28px; padding: 13px 24px; background: #99a6f8; color: #101829; border: 0; font-size: 18px; font-weight: 650; }
+.about-resume .resume-format { font-size: 13px; background: #10182912; }
+.about-resume > svg { flex: none; box-sizing: content-box; height: 28px; padding-left: 14px; margin-left: -6px; border-left: 1px solid #737fca; }
+.about-editorial .availability-pill { margin: 0; padding: 13px 19px; font-size: 15px; min-height: 48px; background: #10201f80; border-color: #749d88; color: #d6efdf; white-space: nowrap; }
+.about-editorial .availability-pill i { width: 7px; height: 7px; }
+.about-editorial .toolkit { display: block; padding: 0; margin-top: 52px; border: 0; }
+.about-editorial .toolkit-heading { display: flex; align-items: center; gap: 18px; margin: 0 0 22px; font: 600 14px/1.5 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--lavender); }
+.about-editorial .toolkit-heading::after { content: ""; height: 1px; background: var(--line); flex: 1; }
+.about-editorial .toolkit-groups { display: grid; grid-template-columns: 1.2fr .65fr 2.2fr; gap: 36px; }
+.about-editorial .toolkit-group { min-width: 0; }
+.about-editorial .toolkit-group + .toolkit-group { border-left: 1px solid var(--line); padding-left: 36px; }
+.about-editorial .toolkit-group-title { color: #c1cceb; font-size: 17px; font-weight: 400; margin: 0 0 12px; }
+.about-editorial .toolkit-list { gap: 10px; }
+.about-editorial .toolkit-list li { padding: 10px 20px; min-height: 54px; gap: 12px; font-size: 18px; color: #edf1ff; background: #101b31; border-color: #455778; }
+.about-editorial .toolkit-list li > svg { width: 30px; height: 30px; }
+.about-editorial .toolkit-list li:first-child > svg { width: 36px; }
+.about-details { display: grid; grid-template-columns: 1.3fr 1fr; gap: 72px; border-top: 1px solid var(--line); margin-top: 56px; padding-top: 32px; }
+.about-details h3 { font: 500 20px/1.4 var(--display); margin: 0 0 12px; }
+.about-details p { color: #c1cceb; font-size: 15px; line-height: 1.8; margin: 0; max-width: 68ch; }
+.about-study-focus { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 0; margin: 18px 0 0; list-style: none; color: var(--lavender); font-size: 13px; }
+@media (hover:hover) and (pointer:fine) {
+  .about-editorial .about-resume:hover { background: #d5dcff; }
+  [data-ui-motion=playing] .about-editorial .toolkit-list li:hover { background: #192741; border-color: #a3b4ed; }
+}
+@media (max-width: 1250px) {
+  .about-desktop-break { display: none; }
+  .about-biography { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 40px; }
+  .about-bio-text p { font-size: 20px; }
+  .about-editorial .about-resume { min-width: 0; width: 100%; font-size: 16px; gap: 12px; }
+  .about-editorial .availability-pill { white-space: normal; font-size: 13px; }
+  .education-path, .education-facts { gap: 24px; }
+  .education-study p { font-size: 16px; }
+  .education-fact dd { font-size: 17px; }
+  .about-editorial .toolkit-groups { gap: 24px; }
+  .about-editorial .toolkit-group + .toolkit-group { padding-left: 24px; }
+  .about-editorial .toolkit-list li { font-size: 14px; gap: 8px; padding-inline: 12px; }
+  .about-editorial .toolkit-list li > svg { width: 22px; height: 22px; }
+}
+@media (max-width: 1000px) {
+  .about-editorial.wrap { padding-top: 64px; }
+  .about-introduction { margin-bottom: 38px; }
+  .about-introduction h2 { font-size: clamp(52px, 8.4vw, 80px); }
+  .education-path { display: block; padding-top: 0; }
+  .education-path { background: none; }
+  .education-path::before, .education-path::after, .education-study::before, .education-study::after { display: none; }
+  .education-facts { position: relative; grid-template-columns: max-content max-content max-content; justify-content: space-between; column-gap: 12px; margin-top: 28px; padding-top: 16px; background: linear-gradient(#2d3b59, #2d3b59) 0 0 / 100% 1px no-repeat; }
+  .education-facts::before { content: ""; position: absolute; inset: 0 0 auto; height: 1px; background: linear-gradient(90deg, #7686d8, #aab6ff); transform-origin: left; }
+  .education-facts::after { content: ""; position: absolute; inset: -1px 0 auto; height: 3px; pointer-events: none; opacity: 0; background: linear-gradient(90deg, transparent, #e9edff) 0 0 / 160px 100% no-repeat; filter: blur(.6px); }
+  .education-fact::before, .education-fact::after { top: -21px; width: 11px; height: 11px; }
+  .education-study h4 { font-size: 32px; }
+  .education-study p { max-width: 60ch; }
+  .about-biography { gap: 32px; margin-top: 34px; }
+  .about-bio-text p { font-size: 18px; }
+  .about-editorial .about-resume { font-size: 14px; padding-inline: 16px; }
+  .about-editorial .toolkit-groups { display: flex; flex-direction: column; gap: 0; }
+  .about-editorial .toolkit-group, .about-editorial .toolkit-group + .toolkit-group { display: grid; grid-template-columns: 130px minmax(0, 1fr); align-items: center; gap: 20px; padding: 18px 0; border-left: 0; border-bottom: 1px solid var(--line); }
+  .about-editorial .toolkit-group:first-child { padding-top: 0; }
+  .about-editorial .toolkit-group-title { margin: 0; }
+  .about-editorial .toolkit-list li { font-size: 15px; }
+  .about-details { gap: 36px; }
+}
+@media (max-width: 600px) {
+  .about-editorial.wrap { width: calc(100% - 36px); padding-top: 52px; padding-bottom: 16px; }
+  .about-introduction h2 { font-size: clamp(39px, 11vw, 64px); line-height: 1.08; }
+  .about-section-label, .about-editorial .toolkit-heading { font-size: 10px; letter-spacing: .16em; }
+  .about-introduction { margin-bottom: 34px; }
+  .about-education > h3 { margin-bottom: 16px; }
+  .education-study h4 { font-size: clamp(24px, 6.6vw, 32px); }
+  .education-study p { font-size: 15px; margin-top: 12px; }
+  .education-facts { column-gap: 8px; margin-top: 26px; }
+  .education-fact dd { font-size: 14px; }
+  .education-fact dt { font-size: 9px; letter-spacing: .06em; }
+  .education-fact { gap: 6px; }
+  .about-biography { grid-template-columns: 1fr; gap: 24px; margin-top: 30px; }
+  .about-bio-text p { font-size: 17px; line-height: 1.65; }
+  .about-bio-text p + p { margin-top: 16px; }
+  .about-bio-actions { padding: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+  .about-editorial .about-resume { width: auto; margin: 0; min-height: 52px; padding-inline: 22px; font-size: 16px; gap: 16px; }
+  .about-editorial .availability-pill { font-size: 12px; min-height: 42px; padding: 10px 13px; }
+  .about-editorial .toolkit { margin-top: 38px; }
+  .about-editorial .toolkit-heading { gap: 12px; }
+  .about-editorial .toolkit-group, .about-editorial .toolkit-group + .toolkit-group { display: block; padding-block: 20px; }
+  .about-editorial .toolkit-group-title { font-size: 15px; margin-bottom: 12px; }
+  .about-editorial .toolkit-list { gap: 10px; }
+  .about-editorial .toolkit-list li { font-size: 14px; min-height: 44px; }
+  .about-details { grid-template-columns: 1fr; gap: 28px; margin-top: 38px; padding-top: 28px; }
+  .about-orbital-lines { width: 300px; height: 300px; opacity: .25; right: -18px; }
+}
+/* ==========================================================================
+   Motion. Every rule is gated on [data-ui-motion=playing], so paused and reduced-motion visitors
+   (and anyone without JavaScript) see the finished page. Entrances start from [data-revealed=true],
+   which the shared scroll-reveal controller sets once. All of it is finite except the quiet orbit
+   and the current-year pulse, which only use compositor properties.
+   ========================================================================== */
+.about-editorial {
+  --edu-draw: 1500ms;                         /* mirrored in app/lib/about-motion.ts */
+  --edu-ease: cubic-bezier(.55, .05, .25, 1); /* mirrored in app/lib/about-motion.ts */
+  --edu-start: 200ms;
+  --role-start: 650ms;
+  --role-step: 55ms;
+}
+
+/* --- 1. Heading: "Web developer." types in, then a glint ripples across it --------------------------- */
+.role-word { display: inline-block; white-space: nowrap; }
+.role-char { position: relative; }
+.role-char::after { content: ""; position: absolute; right: -.04em; top: .24em; bottom: .12em; width: .05em; border-radius: 1px; background: var(--lavender); opacity: 0; pointer-events: none; }
+@media (scripting: enabled) {
+  [data-ui-motion=playing] .about-introduction:not([data-revealed=true]) .role-char { opacity: 0; }
+}
+/* The caret trails whichever letter was typed last, then blinks a few times after the final full stop. */
+[data-ui-motion=playing] .about-introduction[data-revealed=true] .role-char::after {
+  animation: role-caret-hold var(--role-step) linear calc(var(--role-start) + var(--i) * var(--role-step));
+}
+[data-ui-motion=playing] .about-introduction[data-revealed=true] .role-char.is-last::after {
+  animation: role-caret-blink 640ms linear calc(var(--role-start) + var(--i) * var(--role-step)) 5;
+}
+/* After the last letter lands, a glint of light ripples across the word, letter by letter. */
+[data-ui-motion=playing] .about-introduction[data-revealed=true] .role-char {
+  animation:
+    role-char-in 1ms linear calc(var(--role-start) + var(--i) * var(--role-step)) backwards,
+    role-glint 700ms ease-out calc(var(--role-start) + (var(--n) + var(--i)) * 45ms + 150ms);
+}
+@keyframes role-char-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes role-caret-hold { from, to { opacity: 1; } }
+@keyframes role-caret-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+@keyframes role-glint { 40% { color: #fff; text-shadow: 0 0 22px #bec8ffb0; } }
+
+/* --- 2. Education timeline: spark travels the rail, dots light up as it passes, text follows ----------- */
+.education-fact:nth-child(1) { --d: 900ms; } /* fallbacks until about-motion.ts measures the real positions */
+.education-fact:nth-child(2) { --d: 1060ms; }
+.education-fact:nth-child(3) { --d: 1300ms; }
+.education-path::after { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 3px; pointer-events: none; opacity: 0; background: linear-gradient(90deg, transparent, #e9edff) 0 0 / 160px 100% no-repeat; filter: blur(.6px); }
+.education-study::after, .education-fact::after { content: ""; position: absolute; box-sizing: border-box; top: -24px; left: 0; width: 13px; height: 13px; border-radius: 50%; border: 1px solid var(--lavender); opacity: 0; pointer-events: none; }
+
+[data-ui-motion=playing] .about-education[data-revealed=true] :is(.education-path, .education-facts)::before {
+  animation: about-education-draw var(--edu-draw) var(--edu-ease) var(--edu-start) both;
+}
+[data-ui-motion=playing] .about-education[data-revealed=true] :is(.education-path, .education-facts)::after {
+  animation: about-spark-run var(--edu-draw) var(--edu-ease) var(--edu-start) backwards, about-spark-fade var(--edu-draw) linear var(--edu-start) backwards;
+}
+[data-ui-motion=playing] .about-education[data-revealed=true] :is(.education-study, .education-fact)::before {
+  animation: about-node-on .65s cubic-bezier(.3, 1.5, .5, 1) calc(var(--edu-start) + var(--d, 0ms)) backwards;
+}
+[data-ui-motion=playing] .about-education[data-revealed=true] :is(.education-study, .education-fact)::after {
+  animation: about-node-ring 2.6s ease-out calc(var(--edu-start) + var(--d, 0ms));
+}
+/* "You are here": the current year keeps pulsing quietly. */
+[data-ui-motion=playing] .about-education[data-revealed=true] .education-fact.is-current::after { animation-iteration-count: infinite; }
+[data-ui-motion=playing] .about-education[data-revealed=true] :is(.education-study, .education-fact) > * {
+  animation: about-rise .8s var(--motion-ease) calc(var(--edu-start) + var(--d, 0ms) + 60ms) backwards;
+}
+[data-ui-motion=playing] .about-education[data-revealed=true] :is(.education-study > p, .education-fact > dt) { animation-delay: calc(var(--edu-start) + var(--d, 0ms) + 180ms); }
+
+@keyframes about-education-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+/* The spark's head rides the line's leading edge: it moves with the same easing, 160px tail behind it. */
+@keyframes about-spark-run { from { background-position: -160px 0; } to { background-position: 100% 0; } }
+@keyframes about-spark-fade { 0% { opacity: 0; } 6% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes about-node-on { 0% { scale: .2; opacity: 0; } 55% { scale: 1.5; opacity: 1; } 100% { scale: 1; opacity: 1; } }
+@keyframes about-node-ring { 0% { scale: 1; opacity: .75; } 45%, 100% { scale: 3.2; opacity: 0; } }
+@keyframes about-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+/* --- 3. Biography: key phrases get a marker, one after another --------------------------------------------- */
+.about-bio-text mark { color: #f2f5ff; padding: 0 .08em; margin: 0 -.08em; background: linear-gradient(#8e9eff52, #8e9eff52) 0 94% / 100% .36em no-repeat; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+[data-ui-motion=playing] .about-bio-text mark { transition: background-size 900ms var(--motion-ease) calc(650ms + var(--k, 0) * 170ms); }
+@media (scripting: enabled) {
+  [data-ui-motion=playing] .about-biography:not([data-revealed=true]) .about-bio-text mark { background-size: 0% .36em; }
+}
+
+/* --- 4. Résumé button: one shine across it, then the arrow nudges twice ----------------------------------------- */
+.about-resume::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(105deg, transparent 38%, #ffffff8c 50%, transparent 62%); translate: -110% 0; }
+[data-ui-motion=playing] .about-biography[data-revealed=true] .about-resume::after { animation: about-shine 1.2s var(--motion-ease) 1.5s; }
+[data-ui-motion=playing] .about-biography[data-revealed=true] .about-resume > svg { animation: about-nudge 1s var(--motion-ease) 2.3s 2; }
+@keyframes about-shine { from { translate: -110% 0; } to { translate: 110% 0; } }
+@keyframes about-nudge { 40% { translate: 0 4px; } 70% { translate: 0 -1px; } }
+
+/* --- 5. Toolkit: the rule draws across, chips pop in (shared controller), and each chip catches the light --- */
+[data-ui-motion=playing] .about-editorial .toolkit-heading::after { transform-origin: left; }
+[data-ui-motion=playing] .about-editorial .toolkit[data-revealed=true] .toolkit-heading::after { animation: about-education-draw 1200ms var(--edu-ease) 150ms backwards; }
+
+/* --- 6. Orbit: a small planet travels each ring in the corner; they start inside the visible arc ------------- */
+.about-orbital-lines > span::after { content: ""; position: absolute; top: -3px; left: 50%; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: #c9d2ff; box-shadow: 0 0 10px 2px #bec8ff88; }
+.about-orbital-lines > span + span::after { top: -2px; width: 4px; height: 4px; margin-left: -2px; background: #8fa0ee; box-shadow: 0 0 8px 1px #8fa0ee77; }
+[data-ui-motion=playing] .about-editorial:has(.about-introduction[data-revealed=true]) .about-orbital-lines > span { animation: about-orbit 50s linear -24s infinite; }
+[data-ui-motion=playing] .about-editorial:has(.about-introduction[data-revealed=true]) .about-orbital-lines > span + span { animation: about-orbit 110s linear -30s infinite reverse; }
+@keyframes about-orbit { to { rotate: 360deg; } }
+
+/* --- 7. Pointer: dots swell under the cursor ---------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  [data-ui-motion=playing] :is(.education-study, .education-fact)::before { transition: scale .35s var(--motion-ease), background-color .25s, box-shadow .35s; }
+  [data-ui-motion=playing] .education-fact:hover::before { scale: 1.45; background-color: var(--lavender); box-shadow: 0 0 0 5px #bec8ff22, 0 0 20px #bec8ff80; }
+}
+
+.about-editorial[data-paused=true] *, .about-editorial[data-paused=true] *::before, .about-editorial[data-paused=true] *::after { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .about-editorial *, .about-editorial *::before, .about-editorial *::after { animation: none !important; transition: none !important; }
+}

@@ -89,6 +89,25 @@ test("unknown routes return 404 and the production icon exists", async () => {
   await access(new URL("../dist/client/icon.png", import.meta.url));
 });
 
+test("About keeps education, all toolkit groups, original contribution details and the resume download", async () => {
+  const html = await (await render()).text();
+  const about = html.slice(html.indexOf('id="about"'), html.indexOf('id="contact"'));
+  assert.ok(about.includes('id="about-title"'));
+  for (const detail of ["Immaculate Conception I-College of Arts and Technology", "2023–Present", "BSIS 4-1", "Current year", "SQL queries and CRUD operations", "stock updates", "refunds", "collaborate with my project team"]) {
+    assert.ok(about.includes(detail), `${detail} stays available in About`);
+  }
+  assert.match(about, /href="\/downloads\/Sean_Villanueva_Resume.docx" download/);
+  for (const category of ["backend", "database", "frontend"]) {
+    assert.match(about, new RegExp(`aria-labelledby="toolkit-${category}"`));
+  }
+  const toolkit = about.match(/<section class="toolkit"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(toolkit);
+  for (const tool of ["PHP", "CodeIgniter 4", "MySQL", "HTML", "CSS", "JavaScript", "jQuery/AJAX"]) {
+    assert.ok(toolkit.includes(tool), `${tool} remains in the toolkit`);
+  }
+  assert.doesNotMatch(about, /class="[^"]*education-panel|serif-sweep|Graduated/);
+});
+
 test("removed demo routes no longer expose example pages", async () => {
   assert.equal((await render("/horizon-demo")).status, 404);
   assert.equal((await render("/footer-demo")).status, 404);

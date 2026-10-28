@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { ArrowDownToLine } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Component as HorizonHero } from "@/components/ui/horizon-hero-section";
 import { CinematicFooter } from "@/components/ui/motion-footer";
 import { PharmacyProject } from "@/components/ui/pharmacy-project";
-import { ScrollFillText } from "@/components/ui/scroll-fill-text";
+import { AboutSection } from "@/components/ui/about-section";
 import { Starfield } from "@/components/ui/starfield";
-import { Toolkit } from "@/components/ui/toolkit";
 import { dismissWhenOutside } from "./lib/ui-accessibility";
 import { profile } from "./lib/portfolio-profile";
 import { getGmailComposeHref } from "./lib/contact-links";
@@ -15,8 +13,6 @@ import { startScrollSpy } from "./lib/scroll-spy";
 import { startSpotlight } from "./lib/spotlight";
 import useParallax from "./use-parallax";
 import useScrollMotion from "./use-scroll-motion";
-
-const resumeFormat = profile.resumeHref.split(".").pop()?.toUpperCase() ?? "FILE";
 
 /* Drawn as SVG on purpose: the "✳" character is not in the display font, so iOS swaps in its colour emoji (a green box). */
 function Asterisk({ className }: { className?: string }) {
@@ -91,44 +87,7 @@ export default function Home() {
         <PharmacyProject paused={stopMotion} />
       </section>
 
-      <section id="about" className="about-section wrap section-space">
-        <div className="about-panel">
-          <div className="about-visual education-panel" data-scroll-reveal data-spotlight data-tilt>
-            <div className="edu-head">
-              {profile.photoSrc && <span className="edu-avatar"><img src={profile.photoSrc} alt={`Portrait of ${profile.name}`} width={72} height={72} /></span>}
-              <span className="eyebrow">EDUCATION</span>
-            </div>
-            <h3>{profile.degree}</h3>
-            <p className="edu-school">{profile.school}</p>
-            <div className="project-tags edu-tags" aria-label="Section and focus">
-              <span>{profile.section}</span>
-              {profile.studyFocus.map(topic => <span key={topic}>{topic}</span>)}
-            </div>
-            <div className="edu-progress">
-              <div className="edu-progress-meta">
-                <strong>Year {profile.yearOfStudy} of {profile.programYears}</strong>
-                <span>{profile.educationPeriod}</span>
-              </div>
-              <div className="edu-years" aria-hidden="true" style={{ "--years": profile.programYears } as CSSProperties}>
-                {Array.from({ length: profile.programYears }, (_, index) => <span key={index} className={index < profile.yearOfStudy - 1 ? "is-done" : index === profile.yearOfStudy - 1 ? "is-current" : undefined} style={{ "--i": index } as CSSProperties} />)}
-              </div>
-            </div>
-          </div>
-          <div className="about-copy" data-scroll-reveal data-reveal-stagger data-reveal-delay="100">
-            <span className="eyebrow section-eyebrow" data-reveal-detail>ABOUT ME</span>
-            <h2 data-reveal-detail="lines">
-              <span className="reveal-line"><span className="reveal-line-inner">Hi, I’m Sean.{" "}</span></span>
-              <span className="reveal-line"><span className="reveal-line-inner"><span className="serif-word serif-sweep">Web developer.</span></span></span>
-            </h2>
-            <span className="availability-pill" data-reveal-detail><i aria-hidden="true" />{profile.availability}</span>
-            <ScrollFillText revealDetail active={!stopMotion} text={`I’m ${profile.fullName}, a fourth-year Information Systems student based in ${profile.location}, working toward a career as a junior web developer.`} />
-            <p data-reveal-detail>For our Pharxmaco Drugstore project, I work on both the front end and back end using PHP, CodeIgniter 4, MySQL, and browser technologies. I contribute to <mark className="hl">sales</mark> and <mark className="hl">inventory</mark> features, <mark className="hl">user access</mark>, database integration, <mark className="hl">debugging</mark>, and interface improvements. My technical work includes SQL queries and CRUD operations.</p>
-            <p className="profile-skills" data-reveal-detail>Debugging helps me work through technical problems. Working with stock updates, transaction history, and refunds has also taught me to pay close attention to details. I collaborate with my project team and am willing to learn new technologies and improve my skills.</p>
-            <a className="resume-cta" href={profile.resumeHref} download data-reveal-detail><span>Download résumé</span><span className="resume-format">{resumeFormat}</span><ArrowDownToLine size={18} aria-hidden="true" /></a>
-          </div>
-        </div>
-        <Toolkit />
-      </section>
+      <AboutSection paused={stopMotion} />
 
       <CinematicFooter email={profile.email} phone={profile.phone} phoneHref={profile.phoneHref} location={profile.location} resumeHref={profile.resumeHref} description={`Based in ${profile.location}. Open to junior web development opportunities.`} paused={paused} onPausedChange={setPaused} />
     </div>

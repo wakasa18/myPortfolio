@@ -26,17 +26,17 @@ function Logo({ name }: { name: Logo }): ReactElement {
   return <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false"><path d={logos[name]} /></svg>;
 }
 
-/** Each chip carries data-reveal-detail="pop": scroll-motion.ts staggers them in about 40ms apart. */
+/** Logos stay readable; the shared motion controller pops each chip in once, and the chips catch the pointer's moonlight on hover. */
 export function Toolkit() {
-  return <div className="toolkit" data-scroll-reveal data-reveal-stagger>
-    <span className="eyebrow" data-reveal-detail>MY DEVELOPMENT TOOLKIT</span>
+  return <section className="toolkit" aria-labelledby="toolkit-title" data-scroll-reveal data-reveal-stagger>
+    <h3 className="toolkit-heading" id="toolkit-title" data-reveal-detail>My development toolkit</h3>
     <div className="toolkit-groups">
       {groups.map(group => <div className="toolkit-group" key={group.id}>
-        <p className="toolkit-group-title" id={`toolkit-${group.id}`}>{group.title}</p>
+        <p className="toolkit-group-title" id={`toolkit-${group.id}`} data-reveal-detail>{group.title}</p>
         <ul className="toolkit-list" aria-labelledby={`toolkit-${group.id}`}>
-          {group.tools.map(tool => <li key={tool.name} data-reveal-detail="pop"><Logo name={tool.logo} /><span>{tool.name}</span></li>)}
+          {group.tools.map(tool => <li key={tool.name} data-reveal-detail="pop" data-spotlight><Logo name={tool.logo} /><span>{tool.name}</span></li>)}
         </ul>
       </div>)}
     </div>
-  </div>;
+  </section>;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import { ArrowDownToLine, ArrowUpRight, ChevronDown } from "lucide-react";
 import { pharmacyProject, profile } from "@/app/lib/portfolio-profile";
 import { PharmacyPreview, projectChapters } from "./pharmacy-preview";
@@ -17,6 +17,7 @@ function useMediaQuery(query: string) {
 export function PharmacyProject({ paused = false }: { paused?: boolean }) {
   const [active, setActive] = useState(0);
   const [fits, setFits] = useState(true);
+  const [inView, setInView] = useState(false);
   const tourRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const stacked = useMediaQuery("(max-width: 1000px)");
@@ -25,6 +26,15 @@ export function PharmacyProject({ paused = false }: { paused?: boolean }) {
   const stopMotion = paused || reduced;
   // Pausing removes animation without collapsing the scroll track under the visitor.
   const pinned = tallDesktop && fits && !reduced;
+
+  // The preview demo only plays while the active screen is actually on screen.
+  useEffect(() => {
+    const section = document.getElementById(`work-preview-${projectChapters[active].id}`);
+    if (!section) return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.3 });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [active]);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -46,6 +56,7 @@ export function PharmacyProject({ paused = false }: { paused?: boolean }) {
       const distance = tour.offsetHeight - stage.offsetHeight;
       const top = Number.parseFloat(getComputedStyle(stage).top) || 0;
       const progress = Math.max(0, Math.min(1, (top - tour.getBoundingClientRect().top) / Math.max(1, distance)));
+      tour.style.setProperty("--tour-progress", progress.toFixed(4));
       setActive(previous => {
         const next = Math.min(2, Math.floor(progress * 3));
         return previous === next ? previous : next;
@@ -96,7 +107,7 @@ export function PharmacyProject({ paused = false }: { paused?: boolean }) {
     <div className="work-tour" ref={tourRef} data-pinned={pinned}>
       <div className="work-stage" ref={stageRef}>
         <nav className="work-chapter-nav" aria-label="Pharxmaco project walkthrough">
-          {projectChapters.map((chapter, index) => <button key={chapter.id} type="button" aria-pressed={active === index} aria-controls={`work-preview-${chapter.id}`} onClick={() => selectChapter(index)}>
+          {projectChapters.map((chapter, index) => <button key={chapter.id} type="button" style={{ "--i": index } as CSSProperties} aria-pressed={active === index} aria-controls={`work-preview-${chapter.id}`} onClick={() => selectChapter(index)}>
             <span className="work-chapter-number" aria-hidden="true">0{index + 1}</span><span>{chapter.title}</span>
           </button>)}
         </nav>
@@ -122,14 +133,14 @@ export function PharmacyProject({ paused = false }: { paused?: boolean }) {
             {projectChapters.map((chapter, index) => <section key={chapter.id} id={`work-preview-${chapter.id}`} className="work-preview-chapter" data-active={active === index} aria-labelledby={`work-chapter-${chapter.id}`}>
               <h4 className="work-mobile-chapter" id={`work-chapter-${chapter.id}`}><span aria-hidden="true">0{index + 1}</span>{chapter.title}</h4>
               <figure className="work-preview-figure">
-                <PharmacyPreview chapter={chapter.id} />
+                <PharmacyPreview chapter={chapter.id} active={active === index} still={stopMotion} hold={!inView} />
                 <figcaption><span>Illustrative preview · Sample data</span><span className="work-preview-count" aria-hidden="true">0{index + 1} / 03</span></figcaption>
               </figure>
               <div className="work-chapter-caption"><span>{chapter.caption}</span><p>{chapter.description}</p></div>
             </section>)}
           </div>
         </div>
-        <p className="work-scroll-cue" aria-hidden="true"><ChevronDown size={15} />{active < 2 ? `0${active + 2} ${projectChapters[active + 1].title}` : "End of project walkthrough"}</p>
+        <p className="work-scroll-cue" aria-hidden="true"><ChevronDown size={15} /><span key={active}>{active < 2 ? `0${active + 2} ${projectChapters[active + 1].title}` : "End of project walkthrough"}</span></p>
       </div>
     </div>
     <div className="work-project-notes">

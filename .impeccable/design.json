@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-26T11:24:16.900Z",
+  "generatedAt": "2026-10-27T07:18:17.872Z",
   "title": "Design System: Sean Villanueva Portfolio",
   "extensions": {
     "colorMeta": {
@@ -148,14 +148,14 @@
         "role": "neutral",
         "displayName": "Toolkit navy",
         "tonalRamp": [
-          "oklch(15% 0.0530 262.99)",
-          "oklch(27% 0.0530 262.99)",
-          "oklch(38% 0.0530 262.99)",
-          "oklch(50% 0.0530 262.99)",
-          "oklch(61% 0.0530 262.99)",
-          "oklch(73% 0.0530 262.99)",
-          "oklch(84% 0.0530 262.99)",
-          "oklch(95% 0.0530 262.99)"
+          "oklch(15% 0.0460 263.07)",
+          "oklch(27% 0.0460 263.07)",
+          "oklch(38% 0.0460 263.07)",
+          "oklch(50% 0.0460 263.07)",
+          "oklch(61% 0.0460 263.07)",
+          "oklch(73% 0.0460 263.07)",
+          "oklch(84% 0.0460 263.07)",
+          "oklch(95% 0.0460 263.07)"
         ]
       },
       "preview-surface": {
@@ -283,6 +283,20 @@
           "oklch(84% 0.1510 278.95)",
           "oklch(95% 0.1510 278.95)"
         ]
+      },
+      "resume-fill": {
+        "role": "primary",
+        "displayName": "Résumé lavender",
+        "tonalRamp": [
+          "oklch(15% 0.1191 276.24)",
+          "oklch(27% 0.1191 276.24)",
+          "oklch(38% 0.1191 276.24)",
+          "oklch(50% 0.1191 276.24)",
+          "oklch(61% 0.1191 276.24)",
+          "oklch(73% 0.1191 276.24)",
+          "oklch(84% 0.1191 276.24)",
+          "oklch(95% 0.1191 276.24)"
+        ]
       }
     },
     "typographyMeta": {
@@ -292,7 +306,7 @@
       },
       "headline": {
         "displayName": "Section headline",
-        "purpose": "Inherited section headings; responsive sizes remain in CSS."
+        "purpose": "Inherited section headings; component-specific responsive sizes remain in CSS."
       },
       "title": {
         "displayName": "Project title",
@@ -313,14 +327,21 @@
       "code": {
         "displayName": "Cashier credentials",
         "purpose": "Selectable plain-text credentials; grows on mobile."
+      },
+      "about-display": {
+        "displayName": "About greeting",
+        "purpose": "The two-line introduction: Manrope greeting and lavender italic Georgia role; sizes reduce at 1000px and 600px."
+      },
+      "about-biography": {
+        "displayName": "About biography",
+        "purpose": "The larger opening profile paragraphs, bounded at 68ch and reduced through 1250px, 1000px, and 600px."
+      },
+      "education-title": {
+        "displayName": "Degree title",
+        "purpose": "The two-line degree name above its school, distinct from the three academic fact values and labels."
       }
     },
     "shadows": [
-      {
-        "name": "education-card",
-        "value": "inset 0 1px 0 #ffffff0d, 0 40px 90px -45px #000b",
-        "purpose": "Subtle inner light and diffuse depth for the inherited education surface."
-      },
       {
         "name": "preview-selected-navigation",
         "value": "inset 2px 0 var(--lavender)",
@@ -346,7 +367,7 @@
       {
         "name": "lavender-fill-sweep",
         "value": "450ms cubic-bezier(.2, .7, .2, 1)",
-        "purpose": "Header and résumé fill reveal."
+        "purpose": "Header and résumé hover/focus fill reveal; the About résumé starts with a solid local lavender fill."
       },
       {
         "name": "work-screen-enter",
@@ -357,6 +378,21 @@
         "name": "work-chapter-rule",
         "value": "500ms cubic-bezier(.16, 1, .3, 1)",
         "purpose": "Selected chapter rule expands from the left."
+      },
+      {
+        "name": "about-heading-reveal",
+        "value": "780ms cubic-bezier(.2,.7,.2,1), 90ms line stagger",
+        "purpose": "The greeting lines slide once from 110% through their masks. Shared reveal cleanup cancels active animations on keyboard focus, pause, or hidden document."
+      },
+      {
+        "name": "about-education-draw",
+        "value": "1500ms cubic-bezier(.55,.05,.25,1), 200ms delay, 1 iteration",
+        "purpose": "The active desktop education rule or compact fact-row rule draws once from the left, with measured marker delays and a current-year count. Disabled for paused or reduced motion."
+      },
+      {
+        "name": "inherited-availability-pulse",
+        "value": "2.4s ease-out infinite",
+        "purpose": "Existing availability-dot status pulse while motion is playing; inherited pause/reduced-motion overrides stop it. The About current-year marker and orbital accents also repeat under their own motion rules."
       }
     ],
     "breakpoints": [
@@ -373,8 +409,8 @@
         "value": "800px"
       },
       {
-        "name": "about-stack-max",
-        "value": "900px"
+        "name": "about-facts-and-toolkit-rows-max",
+        "value": "1000px"
       },
       {
         "name": "work-stack-max",
@@ -399,6 +435,10 @@
       {
         "name": "preview-stock-min",
         "value": "1500px"
+      },
+      {
+        "name": "about-compact-max",
+        "value": "1250px"
       }
     ]
   },
@@ -415,9 +455,9 @@
       "name": "Résumé download",
       "kind": "button",
       "refersTo": "resume-download",
-      "description": "The inherited outlined download pill with a compact file-format tag.",
-      "html": "<a class=\"ds-resume\" href=\"#about\"><span>Download résumé</span><span class=\"ds-resume-format\">DOCX</span><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" aria-hidden=\"true\"><path d=\"M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4\"/></svg></a>",
-      "css": ".ds-resume{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;gap:14px;min-height:48px;padding:12px 16px 12px 24px;border:1px solid #8295c2;border-radius:999px;background:#14203bba;color:#e4eaff;font:550 14px/1.2 var(--body,'DM Sans',Arial,sans-serif);text-decoration:none;transition:color 180ms,border-color 180ms,scale 180ms}.ds-resume::before{content:'';position:absolute;inset:0;z-index:-1;background:var(--lavender,#bec8ff);translate:-101% 0;transition:translate .45s cubic-bezier(.2,.7,.2,1)}.ds-resume-format{padding:4px 9px;border-radius:999px;background:#ffffff14;font-size:11px;font-weight:600;letter-spacing:.06em}.ds-resume:is(:hover,:focus-visible){color:var(--navy,#101829);border-color:var(--lavender,#bec8ff)}.ds-resume:is(:hover,:focus-visible)::before{translate:0 0}.ds-resume:is(:hover,:focus-visible) .ds-resume-format{background:#10182926}.ds-resume:focus-visible{outline:3px solid #8288ef;outline-offset:6px}.ds-resume:active{scale:.96}@media(prefers-reduced-motion:reduce){.ds-resume,.ds-resume::before{transition:none}}"
+      "description": "The About primary résumé link with solid lavender resting fill, DOCX tag, and a divider before the download icon.",
+      "html": "<a class=\"ds-resume\" href=\"#about\"><span>Download résumé</span><span class=\"ds-resume-format\">DOCX</span><svg viewBox=\"0 0 24 24\" width=\"21\" height=\"21\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4\"/></svg></a>",
+      "css": ".ds-resume{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:18px;width:fit-content;min-width:347px;min-height:58px;padding:13px 24px;border:0;border-radius:999px;background:#99a6f8;color:#101829;font:650 18px/1.2 var(--body,'DM Sans',Arial,sans-serif);text-decoration:none;transition:background-color 180ms,color 180ms,translate 320ms cubic-bezier(.2,.7,.2,1),scale 180ms}.ds-resume::before{content:'';position:absolute;inset:0;z-index:-1;background:var(--lavender,#bec8ff);translate:-101% 0;transition:translate .45s cubic-bezier(.2,.7,.2,1)}.ds-resume-format{padding:4px 9px;border-radius:999px;background:#10182912;font-size:13px;font-weight:600;letter-spacing:.06em}.ds-resume>svg{flex:none;box-sizing:content-box;height:28px;padding-left:14px;margin-left:-6px;border-left:1px solid #737fca;transition:translate 320ms cubic-bezier(.2,.7,.2,1)}.ds-resume:is(:hover,:focus-visible)::before{translate:0 0}.ds-resume:is(:hover,:focus-visible) .ds-resume-format{background:#10182926}.ds-resume:focus-visible{outline:3px solid #8288ef;outline-offset:6px}.ds-resume:active{scale:.96;translate:0 0}@media(hover:hover) and (pointer:fine){.ds-resume:hover{background:#d5dcff;translate:0 -2px}.ds-resume:hover>svg{translate:0 2px}}@media(max-width:1250px){.ds-resume{box-sizing:border-box;min-width:0;width:100%;font-size:16px;gap:12px}}@media(max-width:1000px){.ds-resume{font-size:14px;padding-inline:16px}}@media(max-width:600px){.ds-resume{width:auto;min-height:52px;padding-inline:22px;font-size:16px;gap:16px}}@media(prefers-reduced-motion:reduce){.ds-resume,.ds-resume::before,.ds-resume>svg{transition:none;translate:none;scale:none}}"
     },
     {
       "name": "Main navigation",
@@ -430,17 +470,17 @@
       "name": "Toolkit chip",
       "kind": "chip",
       "refersTo": "toolkit-chip",
-      "description": "A static skill label with the inherited navy fill, cool outline, and pill shape.",
-      "html": "<span class=\"ds-toolkit-chip\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" aria-hidden=\"true\"><path d=\"m8 5-7 7 7 7m8-14 7 7-7 7m-3-16-2 18\"/></svg>PHP</span>",
-      "css": ".ds-toolkit-chip{display:inline-flex;align-items:center;gap:9px;padding:8px 15px 8px 12px;border:1px solid #354564;border-radius:999px;background:#13203a;color:#d3dcf2;font:400 14px/1.3 var(--body,'DM Sans',Arial,sans-serif);white-space:nowrap;transition:translate 320ms cubic-bezier(.2,.7,.2,1),border-color 320ms,background-color 320ms}.ds-toolkit-chip svg{flex:none;color:var(--lavender,#bec8ff)}@media(hover:hover) and (pointer:fine){.ds-toolkit-chip:hover{translate:0 -3px;border-color:#6b7fb8;background:#182845}}@media(prefers-reduced-motion:reduce){.ds-toolkit-chip{transition:none;translate:none}}"
+      "description": "A static About skill pill with lavender SVG mark, dark navy fill, cool outline, and subtle motion-enabled hover.",
+      "html": "<span class=\"ds-toolkit-chip\"><svg viewBox=\"0 0 24 24\" width=\"30\" height=\"30\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z\"/></svg>HTML</span>",
+      "css": ".ds-toolkit-chip{display:inline-flex;align-items:center;gap:12px;min-height:54px;box-sizing:border-box;padding:10px 20px;border:1px solid #455778;border-radius:999px;background:#101b31;color:#edf1ff;font:400 18px/1.3 var(--body,'DM Sans',Arial,sans-serif);white-space:nowrap;transition:translate 320ms cubic-bezier(.2,.7,.2,1),border-color 320ms,background-color 320ms}.ds-toolkit-chip>svg{flex:none;width:30px;height:30px;color:var(--lavender,#bec8ff);transition:rotate 320ms cubic-bezier(.2,.7,.2,1),scale 320ms cubic-bezier(.2,.7,.2,1)}@media(hover:hover) and (pointer:fine){.ds-toolkit-chip:hover{translate:0 -3px;border-color:#a3b4ed;background:#192741}.ds-toolkit-chip:hover>svg{rotate:-8deg;scale:1.1}}@media(max-width:1250px){.ds-toolkit-chip{font-size:14px;gap:8px;padding-inline:12px}.ds-toolkit-chip>svg{width:22px;height:22px}}@media(max-width:1000px){.ds-toolkit-chip{font-size:15px}}@media(max-width:600px){.ds-toolkit-chip{font-size:14px;min-height:44px}}@media(prefers-reduced-motion:reduce){.ds-toolkit-chip,.ds-toolkit-chip>svg{transition:none;translate:none;rotate:none;scale:none}}"
     },
     {
-      "name": "Education card",
-      "kind": "card",
-      "refersTo": "education-card",
-      "description": "The inherited education surface with a restrained gradient, border, and segmented progress.",
-      "html": "<article class=\"ds-education\"><span class=\"ds-education-label\">EDUCATION</span><h3>Bachelor of Science in Information Systems</h3><div class=\"ds-education-progress\"><strong>Year 4 of 4</strong><span>Degree progress</span></div><div class=\"ds-education-years\" aria-hidden=\"true\"><i></i><i></i><i></i><i></i></div></article>",
-      "css": ".ds-education{max-width:560px;padding:clamp(26px,3vw,44px);border:1px solid #455778;border-radius:16px;background:radial-gradient(520px 300px at 100% 0,#34428a33,transparent 65%),linear-gradient(160deg,#192741,#101a2c 70%);box-shadow:inset 0 1px 0 #ffffff0d,0 40px 90px -45px #000b;color:var(--ink,#eef2ff);font-family:var(--body,'DM Sans',Arial,sans-serif)}.ds-education-label{font-size:11px;letter-spacing:1.4px;color:var(--lavender,#bec8ff)}.ds-education h3{font:500 clamp(26px,2.6vw,38px)/1.2 var(--display,'Manrope',Arial,sans-serif);letter-spacing:-1px;margin:20px 0 24px}.ds-education-progress{display:flex;justify-content:space-between;gap:16px;padding-top:24px;margin-bottom:14px;border-top:1px solid #344564;font-size:14px;color:#c6d1ea}.ds-education-progress strong{color:#e4eaff;font-weight:600}.ds-education-years{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.ds-education-years i{height:8px;border-radius:999px;background:linear-gradient(90deg,#9fb0ff,var(--lavender,#bec8ff))}.ds-education-years i:last-child{background:#22314f;box-shadow:inset 0 0 0 1px #bec8ffb3}"
+      "name": "Education timeline",
+      "kind": "custom",
+      "refersTo": "education-timeline",
+      "description": "An open ruled degree and three academic facts; at 1000px the degree moves above the content-sized fact row.",
+      "html": "<section class=\"ds-education\" aria-labelledby=\"ds-education-title\"><h3 id=\"ds-education-title\">Education</h3><div class=\"ds-education-path\"><div class=\"ds-education-study\"><h4>Bachelor of Science<br>in Information Systems</h4><p>Immaculate Conception I-College of Arts and Technology</p></div><dl class=\"ds-education-facts\"><div class=\"ds-education-fact\"><dt>Academic period</dt><dd>2023–Present</dd></div><div class=\"ds-education-fact\"><dt>Current year</dt><dd>Year 4 of 4</dd></div><div class=\"ds-education-fact\"><dt>Section</dt><dd>BSIS 4-1</dd></div></dl></div></section>",
+      "css": ".ds-education{color:var(--ink,#eef2ff);font-family:var(--body,'DM Sans',Arial,sans-serif)}.ds-education>h3{font:600 13px/18px var(--body,'DM Sans',Arial,sans-serif);letter-spacing:.22em;text-transform:uppercase;color:var(--lavender,#bec8ff);margin:0 0 20px}.ds-education-path{position:relative;display:grid;grid-template-columns:minmax(0,44.4%) minmax(0,1fr);gap:32px;padding-top:18px}.ds-education-path::before{content:'';position:absolute;inset:0 0 auto;height:1px;background:#8290cd}.ds-education-study,.ds-education-fact{position:relative;min-width:0}.ds-education-study::before,.ds-education-fact::before{content:'';position:absolute;top:-24px;left:0;box-sizing:border-box;width:13px;height:13px;border-radius:50%;border:2px solid #aab6ff;background:var(--paper,#0b1120)}.ds-education-study::before{background:var(--lavender,#bec8ff)}.ds-education-study h4,.ds-education-study p,.ds-education-facts dt,.ds-education-facts dd{margin:0}.ds-education-study h4{font:550 clamp(26px,2.08vw,32px)/1.12 var(--display,'Manrope',Arial,sans-serif);letter-spacing:-.035em}.ds-education-study p{margin-top:8px;font:400 20px/1.5 var(--body,'DM Sans',Arial,sans-serif);color:#c1cceb}.ds-education-facts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(90px,.4fr);gap:32px;margin:0;padding:0}.ds-education-fact{display:flex;flex-direction:column;align-items:flex-start;gap:5px}.ds-education-fact dt{order:2;color:var(--lavender,#bec8ff);font:500 10px/1.5 var(--body,'DM Sans',Arial,sans-serif);letter-spacing:.16em;text-transform:uppercase}.ds-education-fact dd{order:1;font:500 20px/1.4 var(--body,'DM Sans',Arial,sans-serif);white-space:nowrap}@media(max-width:1250px){.ds-education-path,.ds-education-facts{gap:24px}.ds-education-study p{font-size:16px}.ds-education-fact dd{font-size:17px}}@media(max-width:1000px){.ds-education-path{display:block;padding-top:0}.ds-education-path::before,.ds-education-study::before{display:none}.ds-education-facts{position:relative;grid-template-columns:max-content max-content max-content;justify-content:space-between;column-gap:12px;margin-top:28px;padding-top:16px}.ds-education-facts::before{content:'';position:absolute;inset:0 0 auto;height:1px;background:#8290cd}.ds-education-fact::before{top:-21px;width:11px;height:11px}.ds-education-study h4{font-size:32px}.ds-education-study p{max-width:60ch}}@media(max-width:600px){.ds-education>h3{font-size:10px;letter-spacing:.16em;margin-bottom:16px}.ds-education-study h4{font-size:clamp(24px,6.6vw,32px)}.ds-education-study p{font-size:15px;margin-top:12px}.ds-education-facts{column-gap:8px;margin-top:26px}.ds-education-fact dd{font-size:14px}.ds-education-fact dt{font-size:9px;letter-spacing:.06em}.ds-education-fact{gap:6px}}"
     },
     {
       "name": "Work chapter controls",
@@ -465,11 +505,18 @@
       "description": "Static HTML illustration with a search-like outline and sample stock rows; it is not a real app screenshot or input.",
       "html": "<figure class=\"ds-preview-figure\"><div class=\"ds-preview\" role=\"img\" aria-label=\"Illustrative inventory interface using sample data, not an actual application screenshot.\"><div class=\"ds-preview-body\" aria-hidden=\"true\"><div class=\"ds-preview-search\"><svg viewBox=\"0 0 24 24\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"><circle cx=\"10\" cy=\"10\" r=\"6\"/><path d=\"m15 15 6 6\"/></svg><span>Search medicine, brand or barcode</span></div><div class=\"ds-preview-heading\"><span>Stock management</span><h5>Inventory</h5></div><table class=\"ds-preview-table\"><thead><tr><th>Product</th><th>In stock</th><th>Status</th></tr></thead><tbody><tr><td>Paracetamol<small>500 mg</small></td><td>120 units</td><td class=\"ds-positive\">In stock</td></tr><tr><td>Salbutamol<small>100 mcg</small></td><td>8 units</td><td class=\"ds-caution\">Low stock</td></tr></tbody></table></div></div><figcaption>Illustrative preview · Sample data</figcaption></figure>",
       "css": ".ds-preview-figure{margin:0;max-width:640px;font-family:var(--body,'DM Sans',Arial,sans-serif)}.ds-preview{color:#e7edff;background:#0f192c;border:1px solid #536a98;border-radius:14px;overflow:hidden;font-size:11px;line-height:1.45;font-variant-numeric:tabular-nums}.ds-preview-body{min-height:550px;padding:30px 42px 24px}.ds-preview-search{display:flex;align-items:center;gap:9px;padding:10px 12px;max-width:455px;border:1px solid #40577d;border-radius:7px;color:#c2cfeb;font-size:12px}.ds-preview-heading{margin:20px 0 14px}.ds-preview-heading>span{color:#bdcbe4;font-size:10px}.ds-preview-heading h5{font:500 25px/1.3 var(--display,'Manrope',Arial,sans-serif);margin:5px 0 0;letter-spacing:-.025em}.ds-preview-table{width:100%;border-collapse:collapse;text-align:left;white-space:nowrap;font-size:11px}.ds-preview-table th{color:#b9cae7;font-weight:400;padding:11px 10px;border-block:1px solid #30466b}.ds-preview-table td{padding:7px 10px;border-bottom:1px solid #273b5e}.ds-preview-table th:first-child,.ds-preview-table td:first-child{padding-left:0}.ds-preview-table small{display:inline;margin-left:4px;font-size:9px;color:#c0cde4}.ds-positive{color:#b7ddcf;font-size:9px}.ds-caution{color:#efd1a8;font-size:9px}.ds-preview-figure figcaption{margin-top:12px;color:#afbfdb;font-size:11px;line-height:1.6}@media(max-width:600px){.ds-preview-body{min-height:0;padding:18px 14px}.ds-preview-search{padding:10px 8px;font-size:9px;gap:5px}.ds-preview-heading h5{font-size:21px}.ds-preview-table{font-size:10px}.ds-preview-table th,.ds-preview-table td{padding-inline:8px}.ds-preview-table small{display:block;margin-left:0}}"
+    },
+    {
+      "name": "About introduction",
+      "kind": "custom",
+      "description": "The large direct greeting with a second lavender italic role line; no decorative eyebrow.",
+      "html": "<h2 class=\"ds-about-introduction\"><span>Hi, I’m Sean.</span><span class=\"ds-about-role\">Web developer.</span></h2>",
+      "css": ".ds-about-introduction{margin:0;color:var(--ink,#eef2ff);font:650 clamp(58px,6.25vw,96px)/1.02 var(--display,'Manrope',Arial,sans-serif);letter-spacing:-.04em}.ds-about-introduction>span{display:block}.ds-about-introduction .ds-about-role{color:var(--lavender,#bec8ff);font-family:var(--serif,Georgia,'Times New Roman',serif);font-style:italic;font-weight:400;letter-spacing:-.035em}@media(max-width:1000px){.ds-about-introduction{font-size:clamp(52px,8.4vw,80px)}}@media(max-width:600px){.ds-about-introduction{font-size:clamp(39px,11vw,64px);line-height:1.08}}"
     }
   ],
   "narrative": {
     "northStar": "Cinematic navy portfolio",
-    "overview": "The portfolio uses a continuous midnight navy setting with lavender light, large sans-serif headings, and occasional italic serif words. The existing hero, intro, About, navigation, starfield, and footer establish this identity; the Work walkthrough extends it.\n\nBroad section spacing surrounds more compact evidence and interface detail. Hiring teams are the primary audience and instructors the secondary audience, so project status, individual contribution, actions, and clearly labeled illustrative previews remain readable within the cinematic setting.",
+    "overview": "The portfolio uses a continuous midnight navy setting with lavender light, large sans-serif headings, and occasional italic serif words. The existing hero, intro, navigation, starfield, and footer establish this identity; the editorial About introduction and Work walkthrough extend it.\n\nBroad section spacing surrounds more compact evidence and interface detail. Hiring teams are the primary audience and instructors the secondary audience, so project status, individual contribution, actions, and clearly labeled illustrative previews remain readable within the cinematic setting.",
     "keyCharacteristics": [
       "Midnight navy surfaces with lavender emphasis.",
       "Manrope headings, DM Sans body text, and Georgia italic accents.",
